@@ -8,7 +8,7 @@
 
   Example of how to use Emacs, Org mode and Clojure to generate a bash script.
 
-* Methodology
+* The stuff
 ** The setup
 
    Our environment is primary based on Heroku and AWS. Heroku is hosting our Clojure /
