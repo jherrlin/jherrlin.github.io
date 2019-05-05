@@ -1,0 +1,501 @@
+#+TITLE: Cisco Configuration
+#+AUTHOR: John Herrlin
+#+EMAIL: jherrlin@gmail.com
+#+DATE: <2017-01-26 Thu>
+#+STARTUP: content
+
+The configuration of the Cisco ASA and Catalyst is done
+over serial RS232 connections to the devices.
+
+The configuration is done from Emacs Org-mode with a discipline
+called [[https://www.youtube.com/watch?v=dljNabciEGg&t=887s]["Literate DevOps"]].
+The benefit that we get from this is that we can push
+the configuration easy and in a documenting fashion.
+We never have to enter a command manually on the devices.
+
+The configuration is defined in org tables and we then run
+a bash script that pushes the left column of the
+config to the device. The bash is executed via Org-babel.
+
+Here is an example of a table:
+
+#+BEGIN_SRC org
+  #+NAME: table-name
+  | Command                              | Description         |
+  |--------------------------------------+---------------------|
+  | interface fa0/48                     | Select interface 48 |
+  | switchport mode trunk                | Set mode as 'trunk' |
+  | switchport Trunk encapsulation dot1q | Set encapsultation  |
+  | exit                                 | Go back             |
+#+END_SRC
+
+Here is and example of the bash script that will execute the *Command* column rows:
+
+#+BEGIN_SRC org
+  ,#+BEGIN_SRC sh :var CMDS=table-name[1:*,0] :results drawer
+    stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+    for i in "${CMDS[@]}"
+    do
+    echo -e -n "$i\r" > /dev/ttyUSB0
+    done
+  ,#+END_SRC
+#+END_SRC
+
+Look closely on the =table-name= that is both in the table and the =#+BEGIN_SRC= of the script.
+What is happening here? Well, we have a table of commands and a description for each command.
+We set a variable =table-name= that is an argument to the script.
+As we dont wanna push the descriptions to the devices, and not
+the first two lines. We tell the script
+to only look in the first column on the 2 row, this is done with =[1:*,0]=.
+We then iterate over all of the rows in that column and executes them in order.
+
+
+* Cisco ASA 5510
+** Find serial tty and attach 'echo'
+
+Find where the USB is mounted. If your devices is not mounted
+on */dev/ttyUSB0* you need to change this in the bash scripts.
+
+#+BEGIN_SRC sh
+dmesg | grep tty
+dmesg | egrep --color 'serial|ttyS'
+stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+#+END_SRC
+
+
+** Reset the ASA
+*** Reset from =rommon=
+
+Rommon is a special boot mode.
+
+Boot up and whatch the serial output.
+Press <ESC> and you will enter =rommon=.
+
+To reset the ASA:
+
+#+BEGIN_SRC sh
+  echo -e -n 'confreg 0x41\r'  > /dev/ttyUSB0
+  echo -e -n 'confreg\r'  > /dev/ttyUSB0
+  boot # Will boot into normal mode
+#+END_SRC
+
+*** Reset from normal boot
+
+Resets the ASA to factory settings.
+
+You need to be in =config f= mode to do this.
+
+#+BEGIN_SRC sh
+echo -e -n "config factory-default\r" > /dev/ttyUSB0
+sleep 3
+echo -e -n "wr mem\r" > /dev/ttyUSB0
+#+END_SRC
+
+
+** Basic configuration
+*** Login
+
+Make sure that the ASA have booted correctly.
+
+#+BEGIN_SRC sh
+  stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+  echo -e -n 'enable\r'  > /dev/ttyUSB0
+  echo -e -n 'cisco\r'  > /dev/ttyUSB0  # Password, may be nothing
+  echo -e -n 'conf t\r'  > /dev/ttyUSB0
+#+END_SRC
+
+
+*** Configure interfaces with VLANs
+     <<ciscoasabasicconfvlan>>
+
+#+NAME: vlan-interface-conf-asa
+| Command                            | Description                      |
+|------------------------------------+----------------------------------|
+| interface Ethernet0/0              | Select interface LNK SPD 0       |
+| nameif external                    | Set a variable on that interface |
+| ip add dhcp                        | Assign DHCP to 'external'        |
+| no shut                            | Dont shut down 'external'        |
+| exit                               | Go back                          |
+|                                    |                                  |
+| interface Ethernet0/1              | Select interface LNK SPD 1       |
+| no shut                            | Dont shut down                   |
+|                                    |                                  |
+| interface Ethernet0/1.10           | VLAN 10 / internal               |
+| vlan 10                            | Set VLAN 10                      |
+| nameif internal                    | Name the interface               |
+| security-level 100                 | Set security level               |
+| ip address 10.0.1.1  255.255.255.0 | Assign static ip                 |
+| no shut                            | Dont shut down                   |
+| exit                               | Go back                          |
+|                                    |                                  |
+| interface Ethernet0/1.20           | VLAN 20 / dmz                    |
+| vlan 20                            | Set VLAN 20                      |
+| nameif dmz                         | Name the interface               |
+| security-level 100                 | Set security level               |
+| ip address 10.0.2.1  255.255.255.0 | Assign static ip                 |
+| no shut                            | Dont shut down                   |
+| exit                               | Go back                          |
+|                                    |                                  |
+| interface Ethernet0/1.30           | VLAN 30 / restricted             |
+| vlan 30                            | Set VLAN 30                      |
+| nameif restricted                  | Name the interface               |
+| security-level 100                 | Set security level               |
+| ip address 10.0.3.1  255.255.255.0 | Assign static ip                 |
+| no shut                            | Dont shut down                   |
+| exit                               | Go back                          |
+
+#+BEGIN_SRC sh :var CMDS=vlan-interface-conf-asa[1:*,0] :results drawer :exports none
+  stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+  for i in "${CMDS[@]}"
+  do
+      echo -e -n "$i\r" > /dev/ttyUSB0
+  done
+  echo -e -n "wr mem\r" > /dev/ttyUSB0
+#+END_SRC
+
+
+*** DHCP
+
+    Configure DHCP and DNS with Googles DNS.
+
+    #+NAME: dhcp-options
+    | Command                                         | Description                              |
+    |-------------------------------------------------+------------------------------------------|
+    | dhcpd address 10.0.1.100-10.0.1.120 internal    | Set a specific DHCP range on 'internal'  |
+    | dhcpd option 3 ip 10.0.1.1 interface internal   | Define a default gateway for 'internals' |
+    | dhcpd dns 8.8.8.8 8.8.4.4                       |                                          |
+    | dhcpd enable internal                           | Enable                                   |
+    |                                                 |                                          |
+    | dhcpd address 10.0.3.100-10.0.3.120 restricted  | Set a specific DHCP range on 'internal'  |
+    | dhcpd option 3 ip 10.0.3.1 interface restricted | Define a default gateway for 'internals' |
+    | dhcpd dns 8.8.8.8 8.8.4.4                       |                                          |
+    | dhcpd enable restricted                         | Enable                                   |
+
+
+    #+BEGIN_SRC sh :var CMDS=dhcp-options[1:*,0] :results drawer :exports none
+      stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+      for i in "${CMDS[@]}"
+      do
+          echo -e -n "$i\r" > /dev/ttyUSB0
+      done
+      echo -e -n "wr mem\r" > /dev/ttyUSB0
+    #+END_SRC
+
+
+*** NAT
+
+    Configure NAT for both internal networks.
+    Set up NAT and ACLs for services.
+
+    #+NAME: set-nat-for-internal-to-external
+    #+ATTR_LaTeX: :table align=|l|l|l|
+    | Command                                                                                    | Description                    |
+    |--------------------------------------------------------------------------------------------+--------------------------------|
+    | object network internal-subnet                                                             | Create network object          |
+    | subnet 10.0.1.0 255.255.255.0                                                              | Set subnet                     |
+    | nat (internal,external) dynamic interface                                                  | Nat 'internal', 'external'     |
+    | exit                                                                                       | Go back                        |
+    |                                                                                            |                                |
+    | object network dmz-subnet                                                                  | Create network object          |
+    | subnet 10.0.2.0 255.255.255.0                                                              | Set subnet                     |
+    | nat (dmz,external) dynamic interface                                                       | Nat 'dmz', 'external'          |
+    | exit                                                                                       | Go back                        |
+    |                                                                                            |                                |
+    | object network restricted-subnet                                                           | Create network object          |
+    | subnet 10.0.3.0 255.255.255.0                                                              | Set subnet                     |
+    | nat (restricted,external) dynamic interface                                                | Nat 'restricted', 'external'   |
+    | exit                                                                                       | Go back                        |
+    |                                                                                            |                                |
+    | same-security-traffic permit inter-interface                                               |                                |
+    | route external 0.0.0.0 0.0.0.0 194.47.103.1                                                | Fix the routing                |
+    |                                                                                            |                                |
+    | object network dmz-http-server                                                             |                                |
+    | host 10.0.2.10                                                                             |                                |
+    | nat (dmz,external) static interface service tcp www www                                    |                                |
+    | exit                                                                                       | Go back                        |
+    |                                                                                            |                                |
+    | access-list external_acl extended permit tcp host 155.4.14.29 object dmz-http-server eq 80   | Allow only access from Eduroam |
+    | access-group external_acl in interface external                                            |                                |
+    |                                                                                            |                                |
+    | access-list HTTP-ONLY extended deny tcp 10.0.3.0 255.255.255.0 any eq 80                   |                                |
+    | access-group HTTP-ONLY in interface external                                                                                       |                                |
+
+    Any host can access the dmz http server
+    =access-list external_acl extended permit tcp any object dmz-http-server eq 80=
+
+    #+BEGIN_SRC sh :var CMDS=set-nat-for-internal-to-external[1:*,0] :results drawer :exports none
+      stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+      for i in "${CMDS[@]}"
+      do
+          echo -e -n "$i\r" > /dev/ttyUSB0
+      done
+      echo -e -n "wr mem\r" > /dev/ttyUSB0
+    #+END_SRC
+
+
+*** VPN
+
+I am not sure if this part is really working.
+
+#+NAME: set-vpn-cisco-asa
+| Command                                                                             | Description |
+|-------------------------------------------------------------------------------------+-------------|
+| object network VPN                                                                  |             |
+| host 10.0.1.10                                                                      |             |
+| object service L2TP                                                                 |             |
+| service udp source eq 1701 destination eq 1701                                      |             |
+| object service NATT                                                                 |             |
+| service udp source eq 4500 destination eq 4500                                      |             |
+| object-group service DM_INLINE_SERVICE_1                                            |             |
+| service-object esp                                                                  |             |
+| service-object object L2TP                                                          |             |
+| service-object object NATT                                                          |             |
+| service-object udp destination eq isakmp                                            |             |
+| access-list vpn_acl extended permit object-group DM_INLINE_SERVICE_1 any object VPN |             |
+|                                                                                     |             |
+| nat (internal,external) source static VPN interface service NATT NATT               |             |
+| nat (internal,external) source static VPN interface service L2TP L2TP               |             |
+|                                                                                     |             |
+| object network VPN                                                                  |             |
+| nat (internal,external) static interface service udp isakmp isakmp                  |             |
+|                                                                                     |             |
+| access-group vpn_acl in interface external                                          |             |
+
+
+#+BEGIN_SRC sh :var CMDS=set-vpn-cisco-asa[1:*,0] :results drawer :exports none
+  stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+  for i in "${CMDS[@]}"
+  do
+      echo -e -n "$i\r" > /dev/ttyUSB0
+  done
+  echo -e -n "wr mem\r" > /dev/ttyUSB0
+#+END_SRC
+
+
+*** Packet forwarding
+
+#+BEGIN_SRC sh
+    stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+    array=(
+        "class-map icmp-class"
+        "match default-inspection-traffic"
+        "exit"
+        "policy-map icmp_policy"
+        "class icmp-class"
+        "inspect icmp"
+        "exit"
+        "service-policy icmp_policy interface external"
+        "service-policy icmp_policy interface internal"
+    )
+    for i in "${array[@]}"
+    do
+        echo -e -n "$i\r" > /dev/ttyUSB0
+    done
+    echo -e -n "wr mem\r" > /dev/ttyUSB0
+#+END_SRC
+
+
+** Show IP assigned to interfaces
+
+   Show IP and related configurations.
+
+   #+NAME: show-ip-details
+   | Command                         | Description       |
+   |---------------------------------+-------------------|
+   | show ip                         | Show IP           |
+   |                                 |                   |
+   | show interface ip brief         | Show more details |
+   |                                 |                   |
+   | show access list                |                   |
+   |                                 |                   |
+   | show running-config access-list |                   |
+   |                                 |                   |
+   | sh dhcpd binding                | Show DHCP Leases  |
+   |                                 |                   |
+   | ping 8.8.8.8                    | Healt test        |
+
+
+   #+BEGIN_SRC sh :var CMDS=show-ip-details[1:*,0] :results drawer :exports none
+     stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+     for i in "${CMDS[@]}"
+     do
+         echo -e -n "$i\r" > /dev/ttyUSB0
+     done
+   #+END_SRC
+
+
+* Cisco Catalyst 3500 Switch
+
+** Set trunk port and configure ports
+
+  Make sure you are in =conf t= mode.
+
+  #+NAME: set-trunk-port-on-switch
+  | Command                              | Description         |
+  |--------------------------------------+---------------------|
+  | interface fa0/48                     | Select interface 48 |
+  | switchport mode trunk                | Set mode as 'trunk' |
+  | switchport Trunk encapsulation dot1q | Set encapsultation  |
+  | exit                                 | Go back             |
+  |                                      |                     |
+  |                                      | VLAN 10             |
+  | interface vlan 10                    |                     |
+  | no shut                              |                     |
+  | interface fa0/1                      |                     |
+  | switchport access vlan 10            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 10                    |                     |
+  | no shut                              |                     |
+  | interface fa0/3                      |                     |
+  | switchport access vlan 10            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 10                    |                     |
+  | no shut                              |                     |
+  | interface fa0/5                      |                     |
+  | switchport access vlan 10            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 10                    |                     |
+  | no shut                              |                     |
+  | interface fa0/7                      |                     |
+  | switchport access vlan 10            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 10                    |                     |
+  | no shut                              |                     |
+  | interface fa0/9                      |                     |
+  | switchport access vlan 10            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 10                    |                     |
+  | no shut                              |                     |
+  | interface fa0/11                     |                     |
+  | switchport access vlan 10            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 10                    |                     |
+  | no shut                              |                     |
+  | interface fa0/13                     |                     |
+  | switchport access vlan 10            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 10                    |                     |
+  | no shut                              |                     |
+  | interface fa0/15                     |                     |
+  | switchport access vlan 10            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  |                                      | VLAN 20             |
+  | interface vlan 20                    |                     |
+  | no shut                              |                     |
+  | interface fa0/17                     |                     |
+  | switchport access vlan 20            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 20                    |                     |
+  | no shut                              |                     |
+  | interface fa0/19                     |                     |
+  | switchport access vlan 20            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 20                    |                     |
+  | no shut                              |                     |
+  | interface fa0/21                     |                     |
+  | switchport access vlan 20            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 20                    |                     |
+  | no shut                              |                     |
+  | interface fa0/23                     |                     |
+  | switchport access vlan 20            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 20                    |                     |
+  | no shut                              |                     |
+  | interface fa0/25                     |                     |
+  | switchport access vlan 20            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 20                    |                     |
+  | no shut                              |                     |
+  | interface fa0/27                     |                     |
+  | switchport access vlan 20            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 20                    |                     |
+  | no shut                              |                     |
+  | interface fa0/29                     |                     |
+  | switchport access vlan 20            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 20                    |                     |
+  | no shut                              |                     |
+  | interface fa0/31                     |                     |
+  | switchport access vlan 20            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  |                                      |                     |
+  |                                      | VLAN 30             |
+  | interface vlan 30                    |                     |
+  | no shut                              |                     |
+  | interface fa0/33                     |                     |
+  | switchport access vlan 30            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 30                    |                     |
+  | no shut                              |                     |
+  | interface fa0/35                     |                     |
+  | switchport access vlan 30            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 30                    |                     |
+  | no shut                              |                     |
+  | interface fa0/37                     |                     |
+  | switchport access vlan 30            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 30                    |                     |
+  | no shut                              |                     |
+  | interface fa0/39                     |                     |
+  | switchport access vlan 30            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 30                    |                     |
+  | no shut                              |                     |
+  | interface fa0/41                     |                     |
+  | switchport access vlan 30            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 30                    |                     |
+  | no shut                              |                     |
+  | interface fa0/43                     |                     |
+  | switchport access vlan 30            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 30                    |                     |
+  | no shut                              |                     |
+  | interface fa0/45                     |                     |
+  | switchport access vlan 30            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  | interface vlan 30                    |                     |
+  | no shut                              |                     |
+  | interface fa0/47                     |                     |
+  | switchport access vlan 30            |                     |
+  | exit                                 |                     |
+  |                                      |                     |
+  |                                      | Spanning            |
+  | no spanning-tree vlan 10             |                     |
+  | no spanning-tree vlan 20             |                     |
+  | no spanning-tree vlan 30             |                     |
+
+
+  #+BEGIN_SRC sh :var CMDS=set-trunk-port-on-switch[1:*,0] :results drawer :exports none
+    stty -F /dev/ttyUSB0 9600 raw -echo -echoe -echok -echoctl -echoke
+    for i in "${CMDS[@]}"
+    do
+    echo -e -n "$i\r" > /dev/ttyUSB0
+    done
+  #+END_SRC
