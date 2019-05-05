@@ -1,0 +1,300 @@
+#+AUTHOR: John Herrlin
+#+EMAIL: jherrlin@gmail.com
+#+TITLE: How I use Emacs org-mode to generate bash scripts
+#+DATE: <2019-05-05 Sun>
+
+
+* Abstract
+
+  Example of how to use Emacs, Org mode and Clojure to generate a bash script.
+
+* Methodology
+** The setup
+
+   Our environment is primary based on Heroku and AWS. Heroku is hosting our Clojure /
+   ClojureScript apps and AWS EC2 instances hosts our MongoDBs. We have 2 DB servers, one
+   for production and one for staging. The database name is the same as the Heroku app
+   name. So the Heroku app =customer1-prod= have a database with the name
+   =customer1-prod=. Each customer have 2 Heroku apps, one for staging and one for
+   production. The stage app is used for our manual testing with the customers data before
+   we depoy to production. The production app is the app the customer is using.
+
+
+** The problem
+
+   We are a small company with just 3 customer at the moment, but we are growing and
+   more customers are joining in a rapid speed. I wanna have a simple way of copying the
+   production database to the staging database. This way we can test changes on the
+   state app before we put new code to production.
+
+** The solution
+*** Org mode tables
+
+    First of I am using GNU/Linux. I dont wanna install much extra fluff to be able to
+    handle this. I think a bash script could be nice! But I dont want to manually write
+    and later maintain it. The risk of typos, mixing up stuff or forgetting things is to
+    big (I am too much of a dumbass and needs a [[https://medium.com/@tasshin/implementing-a-second-brain-in-emacs-and-org-mode-ef0e44fb7ca5][second brain]]).
+
+    I am using Emacs and Org mode for my day to day tasks and I wanted to solve this
+    problem with this tools. At work we use Clojure and I am pretty familiar with it. By
+    combining features of Org mode and Clojure I could maybe figure something out.
+
+    Below is a [[https://orgmode.org/manual/Tables.html][Org mode table]] with the customers and the address to the respective
+    database.
+
+    Make a note about the =#+NAME: heroku-apps= in top of the table, this is important and
+    I will explain later.
+
+    #+BEGIN_SRC org
+      ,#+NAME: heroku-apps
+      | Heroku app name | AWS MongoDB host                                     |
+      |-----------------+------------------------------------------------------|
+      | customer1-stage | lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com |
+      | customer1-prod  | jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com |
+      | customer2-stage | lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com |
+      | customer2-prod  | jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com |
+      | customer3-stage | lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com |
+      | customer3-prod  | jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com |
+    #+END_SRC
+
+    First of all I want to structure the table into something more easy to use in
+    Clojureland.
+
+*** Org mode source code blocks and babel
+
+    Org mode have a feature called [[https://orgmode.org/worg/org-contrib/babel/][babel]]. It allows you to write code within =#+begin_src=
+    blocks and execute them. By combinging Org mode tables and babel you can have the
+    table as an input variable to the babel code. In the table we named it =heroku-apps=
+    and in the code block below we have a heading with =:var ORGTABLE=heroku-apps=. This
+    makes the table available in the snippet as the variable =ORGTABLE=.
+
+    This is how clojure will represent the Org mode table. The =#+RESULTS:= part is the
+    output after execution of the snippet.
+
+    #+BEGIN_SRC org
+      ,#+BEGIN_SRC clojure :var ORGTABLE=heroku-apps :results output code
+            (clojure.pprint/pprint ORGTABLE)
+      ,#+END_SRC
+
+      ,#+RESULTS:
+      ,#+begin_src clojure
+          (("customer1-stage"
+            "lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com")
+           ("customer1-prod"
+            "jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com")
+           ("customer2-stage"
+            "lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com")
+           ("customer2-prod"
+            "jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com")
+           ("customer3-stage"
+            "lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com")
+           ("customer3-prod"
+            "jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com"))
+      ,#+end_src
+    #+END_SRC
+
+
+    The datastructure is a list with lists inside. I want to have it a little more
+    structured to be able to work with it. The snippet bellow makes it easier for me to
+    reason about it. The datastructure is a [[https://clojuredocs.org/clojure.core/hash-map][hash-map]] with hash-maps for each customer. In
+    Clojure this will be very easy to work with.
+
+    #+BEGIN_SRC org
+      ,#+BEGIN_SRC clojure :var ORGTABLE=heroku-apps :results output code
+            (clojure.pprint/pprint
+             (->> ORGTABLE
+                  (reduce (fn [new-hashmap [app-name db-host]]
+                            (let [[_ customer env] (re-matches #"^(.+)-(.+)$" app-name)]
+                              (update new-hashmap customer merge {(keyword (str "app-name-" env)) app-name
+                                                                  (keyword (str "db-host-" env)) db-host})))
+                          {})))
+      ,#+END_SRC
+
+      ,#+RESULTS:
+      ,#+begin_src clojure
+        {"customer1"
+         {:app-name-stage "customer1-stage",
+          :db-host-stage  "lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com",
+          :app-name-prod  "customer1-prod",
+          :db-host-prod   "jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com"},
+         "customer2"
+         {:app-name-stage "customer2-stage",
+          :db-host-stage  "lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com",
+          :app-name-prod  "customer2-prod",
+          :db-host-prod   "jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com"},
+         "customer3"
+         {:app-name-stage "customer3-stage",
+          :db-host-stage  "lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com",
+          :app-name-prod  "customer3-prod",
+          :db-host-prod   "jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com"}}
+      ,#+end_src
+    #+END_SRC
+
+
+*** Generate a bash script
+
+    Now when I have the Org mode table in a good datastructure it's time to generate the
+    bash script. A [[https://clojuredocs.org/clojure.core/reduce][reduce]] can be helpful to go through the hash-map and genereate a
+    string. The snippet bellow goes through the hash-map. For every customer it generates
+    a =mongodump=, =mongorestore= command and then removes folder produced by =mongodump=.
+
+
+    #+BEGIN_SRC org
+      ,#+BEGIN_SRC clojure :var ORGTABLE=heroku-apps :results output code
+        (do
+          (println
+           (reduce (fn [new-string [customer h]]
+                     (let [fill (clojure.string/join "" (repeat 25 "-"))
+                           fills (str "echo \"" fill (clojure.string/upper-case customer) fill "\"\n")]
+                       (str new-string
+                            fills
+                            "mongodump --gzip --host " (:db-host-prod h) " --db " (:app-name-prod h) " --ssl --out /tmp/db-dumps/ \n"
+                            "mongorestore --drop --gzip --host " (:db-host-stage h) " --db " (:app-name-stage h) " --ssl /tmp/db-dumps/" (:app-name-prod h) "\n"
+                            "rm -rf /tmp/" (:app-name-prod h) "\n"
+                            fills
+                            "\n"
+                            ))
+                     )
+                   (str "#!/usr/bin/env bash\n\n"
+                        "# This script will copy the production databases to the stage databases\n"
+                        "# Generated: " (.format (java.text.SimpleDateFormat. "yyy-dd-MM HH:mm:ss") (java.util.Date.)) "\n\n\n")
+                   (->> ORGTABLE
+                        (reduce (fn [new-hashmap [app-name db-host]]
+                                  (let [[_ customer env] (re-matches #"^(.+)-(.+)$" app-name)]
+                                    (update new-hashmap customer merge {(keyword (str "app-name-" env)) app-name
+                                                                        (keyword (str "db-host-" env)) db-host})))
+                                {}))))
+          'exit)
+      ,#+END_SRC
+
+      ,#+RESULTS:
+      ,#+begin_src clojure
+            #!/usr/bin/env bash
+
+            # This script will copy the production databases to the stage databases
+            # Generated: 2019-05-05 12:59:48
+
+
+            echo "-------------------------CUSTOMER1-------------------------"
+            mongodump --gzip --host jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com --db customer1-prod --ssl --out /tmp/db-dumps/
+            mongorestore --drop --gzip --host lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com --db customer1-stage --ssl /tmp/db-dumps/customer1-prod
+            rm -rf /tmp/customer1-prod
+            echo "-------------------------CUSTOMER1-------------------------"
+
+            echo "-------------------------CUSTOMER2-------------------------"
+            mongodump --gzip --host jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com --db customer2-prod --ssl --out /tmp/db-dumps/
+            mongorestore --drop --gzip --host lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com --db customer2-stage --ssl /tmp/db-dumps/customer2-prod
+            rm -rf /tmp/customer2-prod
+            echo "-------------------------CUSTOMER2-------------------------"
+
+            echo "-------------------------CUSTOMER3-------------------------"
+            mongodump --gzip --host jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com --db customer3-prod --ssl --out /tmp/db-dumps/
+            mongorestore --drop --gzip --host lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com --db customer3-stage --ssl /tmp/db-dumps/customer3-prod
+            rm -rf /tmp/customer3-prod
+            echo "-------------------------CUSTOMER3-------------------------"
+
+
+            exit
+      ,#+end_src
+    #+END_SRC
+
+
+* Discussion
+
+  When we get new customers on board I can simply update the Org mode table and run
+  =org-babel-execute-buffer= and it will produce a new script for me. I dont need to
+  copy-paste and search-replace anymore!
+
+  Org mode have some other features like [[https://orgmode.org/manual/Extracting-source-code.html][tangle]] and [[https://www.emacswiki.org/emacs/TrampMode][tramp]] that can be useful in
+  combination with the stuff mentioned in this post.
+
+  When I started using Org mode I found this post which was an eye opener
+  http://www.howardism.org/Technical/Emacs/literate-devops.html
+
+
+* Noexport                                                         :noexport:
+
+  #+NAME: heroku-apps
+  | Heroku app name | AWS MongoDB host                                     |
+  |-----------------+------------------------------------------------------|
+  | customer1-stage | lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com |
+  | customer1-prod  | jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com |
+  | customer2-stage | lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com |
+  | customer2-prod  | jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com |
+  | customer3-stage | lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com |
+  | customer3-prod  | jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com |
+  | customer4-stage | lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com |
+  | customer4-prod  | jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com |
+  | customer5-stage | lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com |
+  | customer5-prod  | jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com |
+
+
+
+  #+BEGIN_SRC clojure :var ORGTABLE=heroku-apps :results output code
+  (do
+    (println
+     (reduce (fn [new-string [customer h]]
+               (let [fill (clojure.string/join "" (repeat 25 "-"))
+                     fills (str "echo \"" fill (clojure.string/upper-case customer) fill "\"\n")]
+                 (str new-string
+                      fills
+                      "mongodump --gzip --host " (:db-host-prod h) " --db " (:app-name-prod h) " --ssl --out /tmp/db-dumps/ \n"
+                      "mongorestore --drop --gzip --host " (:db-host-stage h) " --db " (:app-name-stage h) " --ssl /tmp/db-dumps/" (:app-name-prod h) "\n"
+                      "rm -rf /tmp/" (:app-name-prod h) "\n"
+                      fills
+                      "\n"
+                      ))
+               )
+             (str "#!/usr/bin/env bash\n\n"
+                  "# This script will copy the production databases to the stage databases\n"
+                  "# Generated: " (.format (java.text.SimpleDateFormat. "yyy-dd-MM HH:mm:ss") (java.util.Date.)) "\n\n\n")
+             (->> ORGTABLE
+                  (reduce (fn [new-hashmap [app-name db-host]]
+                            (let [[_ customer env] (re-matches #"^(.+)-(.+)$" app-name)]
+                              (update new-hashmap customer merge {(keyword (str "app-name-" env)) app-name
+                                                                  (keyword (str "db-host-" env)) db-host})))
+                          {}))))
+    'exit)
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_src clojure
+  #!/usr/bin/env bash
+
+  # This script will copy the production databases to the stage databases
+  # Generated: 2019-05-05 14:23:32
+
+
+  echo "-------------------------CUSTOMER1-------------------------"
+  mongodump --gzip --host jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com --db customer1-prod --ssl --out /tmp/db-dumps/
+  mongorestore --drop --gzip --host lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com --db customer1-stage --ssl /tmp/db-dumps/customer1-prod
+  rm -rf /tmp/customer1-prod
+  echo "-------------------------CUSTOMER1-------------------------"
+
+  echo "-------------------------CUSTOMER2-------------------------"
+  mongodump --gzip --host jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com --db customer2-prod --ssl --out /tmp/db-dumps/
+  mongorestore --drop --gzip --host lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com --db customer2-stage --ssl /tmp/db-dumps/customer2-prod
+  rm -rf /tmp/customer2-prod
+  echo "-------------------------CUSTOMER2-------------------------"
+
+  echo "-------------------------CUSTOMER3-------------------------"
+  mongodump --gzip --host jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com --db customer3-prod --ssl --out /tmp/db-dumps/
+  mongorestore --drop --gzip --host lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com --db customer3-stage --ssl /tmp/db-dumps/customer3-prod
+  rm -rf /tmp/customer3-prod
+  echo "-------------------------CUSTOMER3-------------------------"
+
+  echo "-------------------------CUSTOMER4-------------------------"
+  mongodump --gzip --host jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com --db customer4-prod --ssl --out /tmp/db-dumps/
+  mongorestore --drop --gzip --host lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com --db customer4-stage --ssl /tmp/db-dumps/customer4-prod
+  rm -rf /tmp/customer4-prod
+  echo "-------------------------CUSTOMER4-------------------------"
+
+  echo "-------------------------CUSTOMER5-------------------------"
+  mongodump --gzip --host jnlwdavhxhmmhtemxcwf.eu-west-1.compute.amazonaws.com --db customer5-prod --ssl --out /tmp/db-dumps/
+  mongorestore --drop --gzip --host lyvyprpzxhpcmgmnccou.eu-west-1.compute.amazonaws.com --db customer5-stage --ssl /tmp/db-dumps/customer5-prod
+  rm -rf /tmp/customer5-prod
+  echo "-------------------------CUSTOMER5-------------------------"
+
+
+  exit
+  #+end_src
