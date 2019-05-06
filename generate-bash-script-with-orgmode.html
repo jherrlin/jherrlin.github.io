@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-05-05 Sun 14:49 -->
+<!-- 2019-05-06 Mon 08:06 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>How I use Emacs org-mode to generate bash scripts</title>
@@ -247,28 +247,28 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6b8cd27">1. Abstract</a></li>
-<li><a href="#org85596ad">2. The stuff</a>
+<li><a href="#org443bc2f">1. Abstract</a></li>
+<li><a href="#orgb5be5e3">2. Main</a>
 <ul>
-<li><a href="#orgb99af3d">2.1. The setup</a></li>
-<li><a href="#org187b1ef">2.2. The problem</a></li>
-<li><a href="#orgaaa14cf">2.3. The solution</a>
+<li><a href="#orgfe584fe">2.1. The setup</a></li>
+<li><a href="#org51964d1">2.2. The problem</a></li>
+<li><a href="#org89887f8">2.3. The solution</a>
 <ul>
-<li><a href="#org509e112">2.3.1. Org mode tables</a></li>
-<li><a href="#org20690a4">2.3.2. Org mode source code blocks and babel</a></li>
-<li><a href="#orgd19fee4">2.3.3. Generate a bash script</a></li>
+<li><a href="#org7b7341c">2.3.1. Org mode tables</a></li>
+<li><a href="#org17830a0">2.3.2. Org mode source code blocks and babel</a></li>
+<li><a href="#orga3a7215">2.3.3. Generate a bash script</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgbcc007d">3. Discussion</a></li>
+<li><a href="#org5c88533">3. Discussion</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org6b8cd27" class="outline-2">
-<h2 id="org6b8cd27"><span class="section-number-2">1</span> Abstract</h2>
+<div id="outline-container-org443bc2f" class="outline-2">
+<h2 id="org443bc2f"><span class="section-number-2">1</span> Abstract</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Example of how to use Emacs, Org mode and Clojure to generate a bash script.
@@ -276,12 +276,12 @@ Example of how to use Emacs, Org mode and Clojure to generate a bash script.
 </div>
 </div>
 
-<div id="outline-container-org85596ad" class="outline-2">
-<h2 id="org85596ad"><span class="section-number-2">2</span> The stuff</h2>
+<div id="outline-container-orgb5be5e3" class="outline-2">
+<h2 id="orgb5be5e3"><span class="section-number-2">2</span> Main</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgb99af3d" class="outline-3">
-<h3 id="orgb99af3d"><span class="section-number-3">2.1</span> The setup</h3>
+<div id="outline-container-orgfe584fe" class="outline-3">
+<h3 id="orgfe584fe"><span class="section-number-3">2.1</span> The setup</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Our environment is primary based on Heroku and AWS. Heroku is hosting our Clojure /
@@ -296,24 +296,24 @@ we depoy to production. The production app is the app the customer is using.
 </div>
 
 
-<div id="outline-container-org187b1ef" class="outline-3">
-<h3 id="org187b1ef"><span class="section-number-3">2.2</span> The problem</h3>
+<div id="outline-container-org51964d1" class="outline-3">
+<h3 id="org51964d1"><span class="section-number-3">2.2</span> The problem</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
-We are a small company with just 3 customer at the moment, but we are growing and
-more customers are joining in a rapid speed. I wanna have a simple way of copying the
-production database to the staging database. This way we can test changes on the
-state app before we put new code to production.
+We are a small company with just 3 customer at the moment, but we are growing and more
+customers will join soon. I wanna have a simple way of copying the production database
+to the staging database. This way we can test changes on the state app before we put
+new code to production.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgaaa14cf" class="outline-3">
-<h3 id="orgaaa14cf"><span class="section-number-3">2.3</span> The solution</h3>
+<div id="outline-container-org89887f8" class="outline-3">
+<h3 id="org89887f8"><span class="section-number-3">2.3</span> The solution</h3>
 <div class="outline-text-3" id="text-2-3">
 </div>
-<div id="outline-container-org509e112" class="outline-4">
-<h4 id="org509e112"><span class="section-number-4">2.3.1</span> Org mode tables</h4>
+<div id="outline-container-org7b7341c" class="outline-4">
+<h4 id="org7b7341c"><span class="section-number-4">2.3.1</span> Org mode tables</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 First of I am using GNU/Linux. I dont wanna install much extra fluff to be able to
@@ -358,8 +358,8 @@ Clojureland.
 </div>
 </div>
 
-<div id="outline-container-org20690a4" class="outline-4">
-<h4 id="org20690a4"><span class="section-number-4">2.3.2</span> Org mode source code blocks and babel</h4>
+<div id="outline-container-org17830a0" class="outline-4">
+<h4 id="org17830a0"><span class="section-number-4">2.3.2</span> Org mode source code blocks and babel</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <p>
 Org mode have a feature called <a href="https://orgmode.org/worg/org-contrib/babel/">babel</a>. It allows you to write code within <code>#+begin_src</code>
@@ -440,8 +440,8 @@ Clojure this will be very easy to work with.
 </div>
 
 
-<div id="outline-container-orgd19fee4" class="outline-4">
-<h4 id="orgd19fee4"><span class="section-number-4">2.3.3</span> Generate a bash script</h4>
+<div id="outline-container-orga3a7215" class="outline-4">
+<h4 id="orga3a7215"><span class="section-number-4">2.3.3</span> Generate a bash script</h4>
 <div class="outline-text-4" id="text-2-3-3">
 <p>
 Now when I have the Org mode table in a good datastructure it&rsquo;s time to generate the
@@ -516,8 +516,8 @@ a <code>mongodump</code>, <code>mongorestore</code> command and then removes fol
 </div>
 
 
-<div id="outline-container-orgbcc007d" class="outline-2">
-<h2 id="orgbcc007d"><span class="section-number-2">3</span> Discussion</h2>
+<div id="outline-container-org5c88533" class="outline-2">
+<h2 id="org5c88533"><span class="section-number-2">3</span> Discussion</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 When we get new customers on board I can simply update the Org mode table and run
@@ -540,7 +540,7 @@ When I started using Org mode I found this post which was an eye opener
 <div id="postamble" class="status">
 <p class="date">Date: 2019-05-05 Sun 00:00</p>
 <p class="author">Author: John Herrlin</p>
-<p class="date">Created: 2019-05-05 Sun 14:49</p>
+<p class="date">Created: 2019-05-06 Mon 08:06</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

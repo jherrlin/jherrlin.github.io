@@ -8,7 +8,7 @@
 
   Example of how to use Emacs, Org mode and Clojure to generate a bash script.
 
-* The stuff
+* Main
 ** The setup
 
    Our environment is primary based on Heroku and AWS. Heroku is hosting our Clojure /
@@ -22,10 +22,10 @@
 
 ** The problem
 
-   We are a small company with just 3 customer at the moment, but we are growing and
-   more customers are joining in a rapid speed. I wanna have a simple way of copying the
-   production database to the staging database. This way we can test changes on the
-   state app before we put new code to production.
+   We are a small company with just 3 customer at the moment, but we are growing and more
+   customers will join soon. I wanna have a simple way of copying the production database
+   to the staging database. This way we can test changes on the state app before we put
+   new code to production.
 
 ** The solution
 *** Org mode tables
