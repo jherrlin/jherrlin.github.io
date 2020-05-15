@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>clojure on John Herrlin</title>
+    <link>https://jherrlin.github.io/categories/clojure/</link>
+    <description>Recent content in clojure on John Herrlin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 May 2020 08:28:11 +0200</lastBuildDate>
+    
+	<atom:link href="https://jherrlin.github.io/categories/clojure/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Audit trail Datomic entity</title>
+      <link>https://jherrlin.github.io/posts/datomic-audit-trails/</link>
+      <pubDate>Fri, 15 May 2020 08:28:11 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/datomic-audit-trails/</guid>
+      <description>TL;DR   Audit trail Datomic transactions that is related to an entity. Look at transaction meta data, diffs and the entity from different angles. Intro   This document is my own learning notes and designed to be used in Emacs org mode with help from org-babel, CIDER and Clojure CLI. This gives me live interaction abilities with the document and the source code blocks. I am on a learning path, if I have got something wrong please give me feedback via twitter.</description>
+    </item>
+    
+  </channel>
+</rss>
