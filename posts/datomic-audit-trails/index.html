@@ -71,23 +71,21 @@
 </li>
 <li><a href="#headline-4">Prerequisite</a>
 </li>
-<li><a href="#headline-5">Connect to in memory database.</a>
+<li><a href="#headline-5">In memory database.</a>
 </li>
 <li><a href="#headline-6">Schema</a>
 </li>
-<li><a href="#headline-7">Transact the schema</a>
+<li><a href="#headline-7">Transactions</a>
 </li>
-<li><a href="#headline-8">Person transactions</a>
+<li><a href="#headline-8">Quick look at Kalle</a>
 </li>
-<li><a href="#headline-9">Have a quick look at Kalle</a>
+<li><a href="#headline-9">Meta data</a>
 </li>
-<li><a href="#headline-10">Audit trail Kalle for meta data</a>
+<li><a href="#headline-10">Meta data with entity attribute</a>
 </li>
-<li><a href="#headline-11">Audit trail data together with some entity data</a>
+<li><a href="#headline-11">Entity before and after each transaction</a>
 </li>
-<li><a href="#headline-12">Entity before and after each transaction</a>
-</li>
-<li><a href="#headline-13">Changes in each transaction</a>
+<li><a href="#headline-12">Changes in each transaction</a>
 </li>
 </ul>
 </nav>
@@ -137,7 +135,7 @@ Prerequisite
           com.datomic/datomic-free {<span style="color:#e6db74">:mvn/version</span> <span style="color:#e6db74">&#34;0.9.5697&#34;</span>}}}</code></pre></div>
 </div>
 <h2 id="headline-5">
-Connect to in memory database.
+In memory database.
 </h2>
 <p>
   Set up a random in memory database. If you would like to get a new fresh database, eval
@@ -206,13 +204,10 @@ Schema
 
      {<span style="color:#e6db74">:db/ident</span>       <span style="color:#e6db74">:audit/type</span>
       <span style="color:#e6db74">:db/cardinality</span> <span style="color:#e6db74">:db.cardinality/one</span>
-      <span style="color:#e6db74">:db/valueType</span>   <span style="color:#e6db74">:db.type/keyword</span>}])</code></pre></div>
-</div>
-<h2 id="headline-7">
-Transact the schema
-</h2>
-<div class="src src-clojure">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#66d9ef">def </span>schema-set
+      <span style="color:#e6db74">:db/valueType</span>   <span style="color:#e6db74">:db.type/keyword</span>}])
+
+  <span style="color:#75715e">;; conj all schemas into a single vector</span>
+  (<span style="color:#66d9ef">def </span>schema-set
     (<span style="color:#a6e22e">-&gt;&gt;</span> (<span style="color:#a6e22e">conj</span>
           person-schema
           audit-schema)
@@ -220,10 +215,11 @@ Transact the schema
          (<span style="color:#a6e22e">set</span>)
          (<span style="color:#a6e22e">vec</span>)))
 
+  <span style="color:#75715e">;; transact schema</span>
   <span style="color:#f92672">@</span>(<span style="color:#a6e22e">d/transact</span> (<span style="color:#a6e22e">conn</span>) schema-set)</code></pre></div>
 </div>
-<h2 id="headline-8">
-Person transactions
+<h2 id="headline-7">
+Transactions
 </h2>
 <p>
   In this section we transact some data into Datomic. Each transaction provides meta data
@@ -279,8 +275,8 @@ Person transactions
      {<span style="color:#e6db74">:audit/user</span> user-id
       <span style="color:#e6db74">:audit/type</span> <span style="color:#e6db74">:create-not-ours</span>}])</code></pre></div>
 </div>
-<h2 id="headline-9">
-Have a quick look at Kalle
+<h2 id="headline-8">
+Quick look at Kalle
 </h2>
 <p>
   Query and pull Kalle to see that all the mutations where successful.
@@ -301,16 +297,16 @@ Have a quick look at Kalle
  <span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1987</span>,
  <span style="color:#e6db74">:person/id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}</code></pre></div>
 </div>
-<h2 id="headline-10">
-Audit trail Kalle for meta data
+<h2 id="headline-9">
+Meta data
 </h2>
 <p>
   Query and pull the meta data passed to each transaction for the Kalle entity.
 </p>
 <p>
   The history database gives access to all of the datoms in the database. Not just the
-  most recent ones. This gives us the ability to ask for all of the transactions related
-  to a entity.
+  recent ones. This gives us the ability to ask for all of the transactions related to a
+  entity.
 </p>
 <p>
   It&#39;s not possible to <code class="verbatim">pull</code> from the history database. This example provides two
@@ -347,8 +343,8 @@ Audit trail Kalle for meta data
          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update3</span>,
          <span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:29.864-00:00&#34;</span>})</code></pre></div>
 </div>
-<h2 id="headline-11">
-Audit trail data together with some entity data
+<h2 id="headline-10">
+Meta data with entity attribute
 </h2>
 <p>
   This is more or less the same query as above. The only difference is that this query
@@ -378,7 +374,7 @@ Audit trail data together with some entity data
     <span style="color:#e6db74">&#34;Kalle&#34;</span>]
    ...]</code></pre></div>
 </div>
-<h2 id="headline-12">
+<h2 id="headline-11">
 Entity before and after each transaction
 </h2>
 <p>
@@ -454,7 +450,7 @@ Entity before and after each transaction
            <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1987</span>,
            <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}})</code></pre></div>
 </div>
-<h2 id="headline-13">
+<h2 id="headline-12">
 Changes in each transaction
 </h2>
 <p>
