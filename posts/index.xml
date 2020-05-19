@@ -6,18 +6,18 @@
     <description>Recent content in Posts on John Herrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 15 May 2020 08:28:11 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 17 May 2020 20:28:11 +0200</lastBuildDate>
     
 	<atom:link href="https://jherrlin.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Audit trail Datomic entity</title>
-      <link>https://jherrlin.github.io/posts/datomic-audit-trails/</link>
-      <pubDate>Fri, 15 May 2020 08:28:11 +0200</pubDate>
+      <title>Entity event log in Datomic</title>
+      <link>https://jherrlin.github.io/posts/datomic-entity-event-log/</link>
+      <pubDate>Sun, 17 May 2020 20:28:11 +0200</pubDate>
       
-      <guid>https://jherrlin.github.io/posts/datomic-audit-trails/</guid>
-      <description>TL;DR   Audit trail Datomic transactions that is related to an entity. Look at transaction meta data, diffs and the entity from different angles. Intro   This document is my own learning notes and designed to be used in Emacs org mode with help from org-babel, CIDER and Clojure CLI. This gives me live interaction abilities with the document and the source code blocks. I am on a learning path, if I have got something wrong please give me feedback via twitter.</description>
+      <guid>https://jherrlin.github.io/posts/datomic-entity-event-log/</guid>
+      <description>TL;DR   Create an event log from Datomic transactions that&amp;#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles. Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.</description>
     </item>
     
   </channel>

@@ -5,19 +5,19 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#1b1b1b">
-	<title>Audit trail Datomic entity | John Herrlin</title>
+	<title>Entity event log in Datomic | John Herrlin</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:title" content="Audit trail Datomic entity" />
-<meta property="og:description" content="TL;DR   Audit trail Datomic transactions that is related to an entity. Look at transaction meta data, diffs and the entity from different angles. Intro   This document is my own learning notes and designed to be used in Emacs org mode with help from org-babel, CIDER and Clojure CLI. This gives me live interaction abilities with the document and the source code blocks. I am on a learning path, if I have got something wrong please give me feedback via twitter." />
+		<meta property="og:title" content="Entity event log in Datomic" />
+<meta property="og:description" content="TL;DR   Create an event log from Datomic transactions that&#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles. Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jherrlin.github.io/posts/datomic-audit-trails/" />
-<meta property="article:published_time" content="2020-05-15T08:28:11+02:00" />
-<meta property="article:modified_time" content="2020-05-15T08:28:11+02:00" />
+<meta property="og:url" content="https://jherrlin.github.io/posts/datomic-entity-event-log/" />
+<meta property="article:published_time" content="2020-05-17T20:28:11+02:00" />
+<meta property="article:modified_time" content="2020-05-17T20:28:11+02:00" />
 
 		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Audit trail Datomic entity"/>
-<meta name="twitter:description" content="TL;DR   Audit trail Datomic transactions that is related to an entity. Look at transaction meta data, diffs and the entity from different angles. Intro   This document is my own learning notes and designed to be used in Emacs org mode with help from org-babel, CIDER and Clojure CLI. This gives me live interaction abilities with the document and the source code blocks. I am on a learning path, if I have got something wrong please give me feedback via twitter."/>
+<meta name="twitter:title" content="Entity event log in Datomic"/>
+<meta name="twitter:description" content="TL;DR   Create an event log from Datomic transactions that&#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles. Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type."/>
 
 	<link rel="stylesheet" href="/css/bundle.css">
 	<link rel="stylesheet" href="/css/custom.css">
@@ -43,13 +43,13 @@
 		<li class="breadcrumb__item">
 			<a class="breadcrumbs__link" href="/posts/">Posts</a>
 		</li>
-		<li class="breadcrumbs__item breadcrumb__item--active" aria-current="page">Audit trail Datomic entity</li>
+		<li class="breadcrumbs__item breadcrumb__item--active" aria-current="page">Entity event log in Datomic</li>
 	</ol>
 </nav>
 		<div class="single block">
 			<article class="entry">
 	<div class="entry__meta meta mb">
-	<time class="entry__meta-published meta-published" datetime="2020-05-15T08:28:11&#43;02:00">May 15, 2020</time>
+	<time class="entry__meta-published meta-published" datetime="2020-05-17T20:28:11&#43;02:00">May 17, 2020</time>
 <span class="entry__meta-categories meta-categories">
 	<span class="meta-categories__list">Categories:
 		<a class="meta-categories__link" href="/categories/database" rel="category">database</a>, 
@@ -58,7 +58,7 @@
 	</span>
 </span>
 	</div>
-				<h1 class="entry__title">Audit trail Datomic entity</h1>
+				<h1 class="entry__title">Entity event log in Datomic</h1>
 <details class="entry__toc toc" open>
 	<summary class="toc__title">Table of Contents</summary>
 	<nav id="TableOfContents">
@@ -69,7 +69,7 @@
 </li>
 <li><a href="#headline-3">Thanks to</a>
 </li>
-<li><a href="#headline-4">Prerequisite</a>
+<li><a href="#headline-4">Dependencies</a>
 </li>
 <li><a href="#headline-5">In memory database.</a>
 </li>
@@ -77,15 +77,19 @@
 </li>
 <li><a href="#headline-7">Transactions</a>
 </li>
-<li><a href="#headline-8">Quick look at Kalle</a>
+<li><a href="#headline-8">Quick look at Anna</a>
 </li>
-<li><a href="#headline-9">Meta data</a>
+<li><a href="#headline-9">Transaction metadata</a>
 </li>
-<li><a href="#headline-10">Meta data with entity attribute</a>
+<li><a href="#headline-10">Metadata together with entity attribute</a>
 </li>
-<li><a href="#headline-11">Entity before and after each transaction</a>
+<li><a href="#headline-11">Event log</a>
 </li>
-<li><a href="#headline-12">Changes in each transaction</a>
+<li><a href="#headline-12">Entity before and after each transaction</a>
+</li>
+<li><a href="#headline-13">Changes in each transaction</a>
+</li>
+<li><a href="#headline-14">Conclusion</a>
 </li>
 </ul>
 </nav>
@@ -95,17 +99,39 @@
 TL;DR
 </h2>
 <p>
-  Audit trail Datomic transactions that is related to an entity. Look at transaction meta
-  data, diffs and the entity from different angles.
+  Create an event log from Datomic transactions that&#39;s related to an entity. Look at
+  transaction metadata, diffs and the entity from different angles.
 </p>
 <h2 id="headline-2">
 Intro
 </h2>
 <p>
-  This document is my own learning notes and designed to be used in Emacs org mode with
-  help from org-babel, CIDER and Clojure CLI. This gives me live interaction abilities
-  with the document and the source code blocks. I am on a learning path, if I have got
-  something wrong please give me feedback via twitter. Would love that!
+  I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a
+  model called <em>event-log</em>. This model is used to keep track of changes (mutations) in the
+  system. It have the following attributes: <em>author</em>, <em>datetime</em>, <em>entity</em>, <em>id</em>, <em>type</em>.
+  <em>author</em> is the user that made the change, <em>entity</em> is a reference to the entity that&#39;s
+  changed, <em>datetime</em> is a timestamp of when the change occurred, <em>id</em> is a unique
+  identifier of the event log entity and <em>type</em> is a categorization of the change. If a
+  change was successful an <em>event-log</em> entity would be created. This implies that for each
+  change, a new <em>event-log</em> entity will be created.
+</p>
+<p>
+  After watching <a href="https://www.youtube.com/watch?v=7lm3K8zVOdY">this</a> talk I started to wonder if the <em>event-log</em> model was really needed
+  in this app (it have only one database). Features of Datomic maybe could replace this
+  model and the app could benefit from less code and one less domain model. In the end it
+  looks like I can. This document will describe my finds.
+</p>
+<p>
+  In this document I use the term transaction metadata. This is data that is passed along
+  with transactions but doesn&#39;t belong to a system/business model. This data is queried
+  from Datomic and will together with some Datomic transaction data replace my <em>event-log</em>
+  model completely.
+</p>
+<p>
+  While learning about this I created this Emacs Org mode document. With help from
+  org-babel, CIDER and Clojure CLI I have a document where is can do a style of literate
+  programming. <a href="https://www.youtube.com/watch?v=dljNabciEGg">Video about literate devops in Emacs</a>. I am on a learning path. If I have
+  got something wrong please give me feedback via <a href="https://twitter.com/jherrlin">Twitter</a>. Would love that!
 </p>
 <h2 id="headline-3">
 Thanks to
@@ -114,7 +140,7 @@ Thanks to
 <li>
 <p>
 <a href="https://www.youtube.com/watch?v=7lm3K8zVOdY">Lucas Cavalcanti &amp; Edward Wible - Exploring four hidden superpowers of Datomic</a>
-Gave me idea of removing the &#34;event-log&#34; entity from my business models and embrace Datomic.
+Gave me idea of removing the &#34;event-log&#34; model from my domain models and embrace Datomic.
 </p>
 </li>
 <li>
@@ -123,12 +149,17 @@ Gave me idea of removing the &#34;event-log&#34; entity from my business models 
 Gave me a lot of inspiration and some of my code is <strong>heavily</strong> inspired from his post.
 </p>
 </li>
+<li>
+<p>
+Robin Karlsson. For awesome review and feedback.
+</p>
+</li>
 </ul>
 <h2 id="headline-4">
-Prerequisite
+Dependencies
 </h2>
 <p>
-  <a href="https://clojure.org/guides/deps_and_cli">Clojure Deps</a> to handle dependencies. <code class="verbatim">deps.edn</code> looks like this:
+  <a href="https://clojure.org/guides/deps_and_cli">Clojure Deps</a> handles dependencies. The <code class="verbatim">deps.edn</code> looks like this:
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  {<span style="color:#e6db74">:deps</span> {org.clojure/clojure {<span style="color:#e6db74">:mvn/version</span> <span style="color:#e6db74">&#34;1.10.1&#34;</span>}
@@ -138,24 +169,20 @@ Prerequisite
 In memory database.
 </h2>
 <p>
-  Set up a random in memory database. If you would like to get a new fresh database, eval
-  <code class="verbatim">(connect!)</code>.
+  Connect to a random, in memory database. If you would like to get a new fresh database,
+  eval <code class="verbatim">(connect!)</code>.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#a6e22e">require</span> <span style="color:#f92672">&#39;</span>[datomic.api <span style="color:#e6db74">:as</span> d])
 
   (<span style="color:#66d9ef">def </span>state (<span style="color:#a6e22e">atom</span> {<span style="color:#e6db74">:datomic-connection</span> nil}))
 
-  (<span style="color:#66d9ef">defn </span>random-in-memory-uri
-    <span style="color:#e6db74">&#34;Generate a random in memory Datomic URI&#34;</span>
-    []
-    (str <span style="color:#e6db74">&#34;datomic:mem://&#34;</span> (<span style="color:#a6e22e">gensym</span>)))
-
   (<span style="color:#66d9ef">defn </span>establish-connection
-    <span style="color:#e6db74">&#34;Establish connection to URL&#34;</span>
-    [uri]
-    (<span style="color:#a6e22e">d/create-database</span> uri)
-    (<span style="color:#a6e22e">d/connect</span> uri))
+    <span style="color:#e6db74">&#34;Establish connection to random in memory database.&#34;</span>
+    []
+    (<span style="color:#66d9ef">let </span>[uri (str <span style="color:#e6db74">&#34;datomic:mem://&#34;</span> (<span style="color:#a6e22e">gensym</span>))]
+      (<span style="color:#a6e22e">d/create-database</span> uri)
+      (<span style="color:#a6e22e">d/connect</span> uri)))
 
   (<span style="color:#66d9ef">defn </span>conn
     <span style="color:#e6db74">&#34;Get the database connection&#34;</span>
@@ -165,7 +192,7 @@ In memory database.
   (<span style="color:#66d9ef">defn </span>connect!
     <span style="color:#e6db74">&#34;Start a connection to a new random in memory database.&#34;</span>
     []
-    (<span style="color:#66d9ef">let </span>[db-conn (<span style="color:#a6e22e">establish-connection</span> (<span style="color:#a6e22e">random-in-memory-uri</span>))]
+    (<span style="color:#66d9ef">let </span>[db-conn (<span style="color:#a6e22e">establish-connection</span>)]
       (<span style="color:#a6e22e">swap!</span> state assoc <span style="color:#e6db74">:datomic-connection</span> db-conn)))
 
    (<span style="color:#a6e22e">connect!</span>)</code></pre></div>
@@ -174,9 +201,12 @@ In memory database.
 Schema
 </h2>
 <p>
-  The person-schema is describing a Person model. The audit-schema holds meta data values
-  that will be passed with the Person mutation transactions. This are the values that we
-  are interested in when building the audit trail.
+  Here is the schema. We will work with a person model. person-schema describes that
+  model. The audit-schema describes transaction metadata that will be passed along with
+  all transactions. This is the data that we are interested in when building the event
+  log. <code class="verbatim">:audit/user</code> holds a reference to the user that made the transaction.
+  <code class="verbatim">:audit/type</code> is the categorization of the transaction. It&#39;s also used as a unique value
+  to make sure that we get correct data from our queries.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#66d9ef">def </span>person-schema
@@ -222,26 +252,23 @@ Schema
 Transactions
 </h2>
 <p>
-  In this section we transact some data into Datomic. Each transaction provides meta data
-  about the transaction. Things like what user did the transaction, what type of
-  transaction we categorize it as.
+  Create a person with the first name Anna and then make some changes to that entity. Anna
+  will be our main target from now on. We also have a person called Erik. Erik is just
+  here to make sure that we get the correct results. If we find data related to Erik,
+  something is wrong.
 </p>
 <p>
-  Each transaction have a unique <code class="verbatim">:audit/type</code>. The reason for this is to make it easy to
-  see if we query something wrong later on.
-</p>
-<p>
-  We have 2 persons in the database. Kalle and Erik. Kalle is the person we mutate and
-  audit trail later on. Erik is just there to make sure that we don&#39;t get any of his data.
+  Each transaction have a unique <code class="verbatim">:audit/type</code>. This is to make sure that we query the
+  correct data later on.
 </p>
 <div class="src src-clojure">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  <span style="color:#75715e">;; uuid to the user that makes the mutations</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  <span style="color:#75715e">;; uuid to the user that makes the transactions</span>
   (<span style="color:#66d9ef">def </span>user-id <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>)
 
   (<span style="color:#66d9ef">def </span>person
     {<span style="color:#e6db74">:person/id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>
-     <span style="color:#e6db74">:person/first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span>
-     <span style="color:#e6db74">:person/last-name</span>  <span style="color:#e6db74">&#34;Karlss&#34;</span>})
+     <span style="color:#e6db74">:person/first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>
+     <span style="color:#e6db74">:person/last-name</span>  <span style="color:#e6db74">&#34;Anderss&#34;</span>})
 
   <span style="color:#f92672">@</span>(<span style="color:#a6e22e">d/transact</span>
     (<span style="color:#a6e22e">conn</span>)
@@ -251,7 +278,7 @@ Transactions
 
   <span style="color:#f92672">@</span>(<span style="color:#a6e22e">d/transact</span>
     (<span style="color:#a6e22e">conn</span>)
-    [{<span style="color:#e6db74">:person/id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span> <span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Karlsson&#34;</span>}
+    [{<span style="color:#e6db74">:person/id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span> <span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>}
      {<span style="color:#e6db74">:audit/user</span> user-id
       <span style="color:#e6db74">:audit/type</span> <span style="color:#e6db74">:update1</span>}])
 
@@ -276,10 +303,10 @@ Transactions
       <span style="color:#e6db74">:audit/type</span> <span style="color:#e6db74">:create-not-ours</span>}])</code></pre></div>
 </div>
 <h2 id="headline-8">
-Quick look at Kalle
+Quick look at Anna
 </h2>
 <p>
-  Query and pull Kalle to see that all the mutations where successful.
+  Query and pull Anna to see that all the transactions where successful.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#a6e22e">d/q</span> <span style="color:#f92672">&#39;</span>[<span style="color:#e6db74">:find</span> (<span style="color:#a6e22e">pull</span> ?e [*]) .
@@ -288,20 +315,20 @@ Quick look at Kalle
        (<span style="color:#a6e22e">d/db</span> (<span style="color:#a6e22e">conn</span>)) <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>)</code></pre></div>
 </div>
 <p>
-  This is the results.
+  This is the results and Anna looks correct.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">{<span style="color:#e6db74">:db/id</span> <span style="color:#ae81ff">17592186045418</span>,
- <span style="color:#e6db74">:person/first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span>,
- <span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Karlsson&#34;</span>,
+ <span style="color:#e6db74">:person/first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+ <span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
  <span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1987</span>,
  <span style="color:#e6db74">:person/id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}</code></pre></div>
 </div>
 <h2 id="headline-9">
-Meta data
+Transaction metadata
 </h2>
 <p>
-  Query and pull the meta data passed to each transaction for the Kalle entity.
+  Lets look at what metadata we can get from the transactions we did on Anna.
 </p>
 <p>
   The history database gives access to all of the datoms in the database. Not just the
@@ -309,9 +336,8 @@ Meta data
   entity.
 </p>
 <p>
-  It&#39;s not possible to <code class="verbatim">pull</code> from the history database. This example provides two
-  databases to the query to make it able to pull. In a real scenario I think the query and
-  the pull are separate concerns.
+  It&#39;s not possible to <code class="verbatim">pull</code> from the history database. This example uses two databases
+  to enable pulls.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#a6e22e">-&gt;&gt;</span> (<span style="color:#a6e22e">d/q</span> <span style="color:#f92672">&#39;</span>{<span style="color:#e6db74">:find</span>  [(<span style="color:#a6e22e">pull</span> ?audit [<span style="color:#e6db74">:audit/user</span> <span style="color:#e6db74">:audit/type</span>])
@@ -322,7 +348,7 @@ Meta data
                       [$           ?audit     <span style="color:#e6db74">:audit/type</span> _          ?tx]]}
             (<span style="color:#a6e22e">d/history</span> (<span style="color:#a6e22e">d/db</span> (<span style="color:#a6e22e">conn</span>)))
             (<span style="color:#a6e22e">d/db</span> (<span style="color:#a6e22e">conn</span>))
-            <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>)
+            <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>) <span style="color:#75715e">;; Annas :person/id</span>
        (map (<span style="color:#66d9ef">fn </span>[[a b]] (merge a b)))
        (sort-by <span style="color:#e6db74">:audit/datetime</span>))</code></pre></div>
 </div>
@@ -332,23 +358,28 @@ Meta data
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:create</span>,
-         <span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:17.696-00:00&#34;</span>}
+         <span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:02.305-00:00&#34;</span>}
  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update1</span>,
-         <span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:21.321-00:00&#34;</span>}
+         <span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:08.926-00:00&#34;</span>}
  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update2</span>,
-         <span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:24.688-00:00&#34;</span>}
+         <span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:14.794-00:00&#34;</span>}
  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update3</span>,
-         <span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:29.864-00:00&#34;</span>})</code></pre></div>
+         <span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:26.063-00:00&#34;</span>})</code></pre></div>
 </div>
+<p>
+  We get a collection with all the changes made to Anna. For each change/transaction we
+  get the author, timestamp and our categorization.
+</p>
 <h2 id="headline-10">
-Meta data with entity attribute
+Metadata together with entity attribute
 </h2>
 <p>
-  This is more or less the same query as above. The only difference is that this query
-  gets some attributes from the most recent entity facts.
+  This is more or less the same as above. But here we retrieve the first name on the most
+  recent version of Anna. In the next section we use this value to create an event log
+  message.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#a6e22e">d/q</span> <span style="color:#f92672">&#39;</span>{<span style="color:#e6db74">:find</span>  [(<span style="color:#a6e22e">pull</span> ?audit [<span style="color:#e6db74">:audit/user</span> <span style="color:#e6db74">:audit/type</span>])
@@ -356,7 +387,7 @@ Meta data with entity attribute
                  ?person-name]
          <span style="color:#e6db74">:in</span>    [$history-db $ ?person-id]
          <span style="color:#e6db74">:where</span> [[$history-db ?history-e  <span style="color:#e6db74">:person/id</span>         ?person-id]
-                 [$history-db ?history-e  ?attr              _            ?tx]
+                 [$history-db ?history-e  _                  _            ?tx]
                  [$           ?audit      <span style="color:#e6db74">:audit/type</span>        _            ?tx]
                  [$           ?e          <span style="color:#e6db74">:person/id</span>         ?person-id]
                  [$           ?e          <span style="color:#e6db74">:person/first-name</span> ?person-name]]}
@@ -365,21 +396,87 @@ Meta data with entity attribute
        <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>)</code></pre></div>
 </div>
 <p>
-  Result is truncated.
+  The result is truncated.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  [[<span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
             <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update1</span>}
-    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:21.321-00:00&#34;</span>}
-    <span style="color:#e6db74">&#34;Kalle&#34;</span>]
-   ...]</code></pre></div>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:datetime</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:39.735-00:00&#34;</span>}
+    <span style="color:#e6db74">&#34;Anna&#34;</span>]
+   ,,,]</code></pre></div>
 </div>
 <h2 id="headline-11">
+Event log
+</h2>
+<p>
+  Now lets assemble it and create a collection with event log strings and a timestamp.
+</p>
+<div class="src src-clojure">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#66d9ef">defmulti </span>event-log-msg <span style="color:#e6db74">:audit/type</span>)
+  (<span style="color:#66d9ef">defmethod </span>event-log-msg <span style="color:#e6db74">:create</span> [{<span style="color:#e6db74">:audit/keys</span> [user] <span style="color:#e6db74">:keys</span> [entity]}]
+    (str <span style="color:#e6db74">&#34;User &#34;</span> user <span style="color:#e6db74">&#34; created &#34;</span> entity))
+  (<span style="color:#66d9ef">defmethod </span>event-log-msg <span style="color:#e6db74">:update1</span> [{<span style="color:#e6db74">:audit/keys</span> [user] <span style="color:#e6db74">:keys</span> [entity]}]
+    (str <span style="color:#e6db74">&#34;User &#34;</span> user <span style="color:#e6db74">&#34; updated &#34;</span> entity))
+  (<span style="color:#66d9ef">defmethod </span>event-log-msg <span style="color:#e6db74">:default</span> [{<span style="color:#e6db74">:audit/keys</span> [user] <span style="color:#e6db74">:keys</span> [entity]}]
+    (str <span style="color:#e6db74">&#34;User &#34;</span> user <span style="color:#e6db74">&#34; updated &#34;</span> entity))
+
+  (<span style="color:#a6e22e">-&gt;&gt;</span> (<span style="color:#a6e22e">d/q</span> <span style="color:#f92672">&#39;</span>{<span style="color:#e6db74">:find</span>  [(<span style="color:#a6e22e">pull</span> ?audit [<span style="color:#e6db74">:audit/user</span> <span style="color:#e6db74">:audit/type</span>])
+                      (<span style="color:#a6e22e">pull</span> ?tx    [[<span style="color:#e6db74">:db/txInstant</span> <span style="color:#e6db74">:as</span> <span style="color:#e6db74">:audit/datetime</span>]])
+                      ?person-name]
+              <span style="color:#e6db74">:in</span>    [$history-db $ ?person-id]
+              <span style="color:#e6db74">:where</span> [[$history-db ?history-e  <span style="color:#e6db74">:person/id</span>         ?person-id]
+                      [$history-db ?history-e  _                  _            ?tx]
+                      [$           ?audit      <span style="color:#e6db74">:audit/type</span>        _            ?tx]
+                      [$           ?e          <span style="color:#e6db74">:person/id</span>         ?person-id]
+                      [$           ?e          <span style="color:#e6db74">:person/first-name</span> ?person-name]]}
+            (<span style="color:#a6e22e">d/history</span> (<span style="color:#a6e22e">d/db</span> (<span style="color:#a6e22e">conn</span>)))
+            (<span style="color:#a6e22e">d/db</span> (<span style="color:#a6e22e">conn</span>))
+            <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>)
+       (map (<span style="color:#66d9ef">fn </span>[[a t person-name]]
+              (-&gt; (merge a t)
+                  (assoc <span style="color:#e6db74">:entity</span> person-name))))
+       (map (<span style="color:#66d9ef">fn </span>[x] [(<span style="color:#e6db74">:audit/datetime</span> x) (<span style="color:#a6e22e">event-log-msg</span> x)]))
+       (sort-by first))</code></pre></div>
+</div>
+<p>
+  Looks pretty good and gives a good overview of the transactions that is related to Anna.
+</p>
+<div class="src src-clojure">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">([<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:37.992-00:00&#34;</span>
+  <span style="color:#e6db74">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb created Anna&#34;</span>]
+ [<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:39.735-00:00&#34;</span>
+  <span style="color:#e6db74">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb updated Anna&#34;</span>]
+ [<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:43.242-00:00&#34;</span>
+  <span style="color:#e6db74">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb updated Anna&#34;</span>]
+ [<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:48.210-00:00&#34;</span>
+  <span style="color:#e6db74">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb updated Anna&#34;</span>])</code></pre></div>
+</div>
+<p>
+  By providing author and categorization to each transaction I now have everything I need
+  to trace the changes made to an entity and we are able to create an event log. The
+  attributes <em>id</em> and the reference to the entity is not longer of any use. The
+  transaction id is the unique identifier but not that relevant anymore. The <em>entity</em>
+  reference is created automagically in the Datomic transaction. This makes it possible
+  for me to remove my <em>event-log</em> model and some of the code that&#39;s associated to it.
+</p>
+<h2 id="headline-12">
 Entity before and after each transaction
 </h2>
 <p>
-  Query and pull each transaction that is related to Kalle. Show how the entity looks
-  before and after the transaction.
+  This is an elaboration on the event log and I am not sure I have use for in my current
+  app. But <a href="https://augustl.com/blog/2019/datomic_querying_for_history_of_entity_v2/">August Lilleaas post</a> shows how to look at the entity before and after each
+  transaction. This is really interesting and could be really useful when needed.
+</p>
+<p>
+  <a href="https://docs.datomic.com/on-prem/clojure/index.html#datomic.api/tx-%3Et">d/tx-&gt;t</a> returns the Datomic time the transaction was made. This is not the same as wall
+  clock time. Instead it&#39;s and incremental number starting from 1000.
+</p>
+<p>
+  <a href="https://docs.datomic.com/on-prem/clojure/index.html#datomic.api/entity">d/entity</a> pulls an entity from a database and returns a dynamic/lazy map. To make it
+  eager we use <code class="verbatim">into</code> on it.
+</p>
+<p>
+  <a href="https://docs.datomic.com/on-prem/clojure/index.html#datomic.api/as-of">d/as-of</a> returns a database for a specific time.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#66d9ef">let </span>[db (<span style="color:#a6e22e">d/db</span> (<span style="color:#a6e22e">conn</span>))]
@@ -389,73 +486,90 @@ Entity before and after each transaction
                         [?e     ?attr       ?val        ?tx ?added]
                         [?audit <span style="color:#e6db74">:audit/type</span> _           ?tx]]}
               (<span style="color:#a6e22e">d/history</span> db)
-              <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>) <span style="color:#75715e">;; uid of the person we audit</span>
+              <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>) <span style="color:#75715e">;; uuid of Anna</span>
          (map (<span style="color:#66d9ef">fn </span>[[eid tx-eid audit-eid]]
-                {<span style="color:#e6db74">:timestamp</span> (<span style="color:#e6db74">:db/txInstant</span> (<span style="color:#a6e22e">d/entity</span> db tx-eid))
-                 <span style="color:#e6db74">:audit</span>     (into {} (<span style="color:#a6e22e">d/entity</span> db audit-eid)) <span style="color:#75715e">;; db/entity returns a lazy</span>
+                {<span style="color:#e6db74">:t-dec</span>     (dec (<span style="color:#a6e22e">d/tx-&gt;t</span> tx-eid))
+                 <span style="color:#e6db74">:t</span>         (<span style="color:#a6e22e">d/tx-&gt;t</span> tx-eid)
+                 <span style="color:#e6db74">:timestamp</span> (<span style="color:#e6db74">:db/txInstant</span> (<span style="color:#a6e22e">d/entity</span> db tx-eid))
+                 <span style="color:#e6db74">:audit</span>     (into {} (<span style="color:#a6e22e">d/entity</span> db audit-eid))
                  <span style="color:#e6db74">:before</span>    (into {} (<span style="color:#a6e22e">d/entity</span> (<span style="color:#a6e22e">d/as-of</span> db (dec (<span style="color:#a6e22e">d/tx-&gt;t</span> tx-eid))) eid))
                  <span style="color:#e6db74">:after</span>     (into {} (<span style="color:#a6e22e">d/entity</span> (<span style="color:#a6e22e">d/as-of</span> db tx-eid) eid))}))
          (sort-by <span style="color:#e6db74">:timestamp</span>)))</code></pre></div>
 </div>
 <p>
-  This is the result.
+  The results.
 </p>
 <div class="src src-clojure">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">({<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:17.696-00:00&#34;</span>,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">({<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:02.305-00:00&#34;</span>,
   <span style="color:#e6db74">:audit</span>
   <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
           <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:create</span>},
   <span style="color:#e6db74">:before</span> {},
   <span style="color:#e6db74">:after</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Karlss&#34;</span>,
+  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span>,
            <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:21.321-00:00&#34;</span>,
+ {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:08.926-00:00&#34;</span>,
   <span style="color:#e6db74">:audit</span>
   <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
           <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update1</span>},
   <span style="color:#e6db74">:before</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Karlss&#34;</span>,
+  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span>,
            <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>},
   <span style="color:#e6db74">:after</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Karlsson&#34;</span>,
+  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
            <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:24.688-00:00&#34;</span>,
+ {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:14.794-00:00&#34;</span>,
   <span style="color:#e6db74">:audit</span>
   <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
           <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update2</span>},
   <span style="color:#e6db74">:before</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Karlsson&#34;</span>,
+  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
            <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>},
   <span style="color:#e6db74">:after</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Karlsson&#34;</span>,
+  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
            <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1986</span>,
            <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:29.864-00:00&#34;</span>,
+ {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:26.063-00:00&#34;</span>,
   <span style="color:#e6db74">:audit</span>
   <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
           <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update3</span>},
   <span style="color:#e6db74">:before</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Karlsson&#34;</span>,
+  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
            <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1986</span>,
            <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>},
   <span style="color:#e6db74">:after</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Karlsson&#34;</span>,
+  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
            <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1987</span>,
            <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}})</code></pre></div>
 </div>
-<h2 id="headline-12">
+<h2 id="headline-13">
 Changes in each transaction
 </h2>
 <p>
-  Query and pull each transaction that is related to Kalle. Return the changes that have
-  been made in each transaction together with audit data.
+  Lets continue on the elaboration. This code is also <strong>heavily</strong> inspired of <a href="https://augustl.com/blog/2019/datomic_querying_for_history_of_entity_v2/">August
+  Lilleaas post</a>.
+</p>
+<p>
+  Query and pull each transaction that is related to Anna. Return the changes that have
+  been made in each transaction together with metadata.
+</p>
+<p>
+  Also something that&#39;s not useful for my application but something that could be really
+  handy when needed.
+</p>
+<p>
+  <a href="https://docs.datomic.com/on-prem/clojure/index.html#datomic.api/ident">d/ident</a> return the attribute of the entity. Keywords like: <code class="verbatim">:person/first-name</code>,
+  <code class="verbatim">:person/last-name</code> and so on.
+</p>
+<p>
+  <code class="verbatim">added</code> returns <code class="verbatim">true</code> if something was added and <code class="verbatim">false</code> if something was retracted.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#66d9ef">let </span>[db (<span style="color:#a6e22e">d/db</span> (<span style="color:#a6e22e">conn</span>))]
@@ -469,7 +583,7 @@ Changes in each transaction
          (<span style="color:#a6e22e">group-by</span> first)
          (<span style="color:#a6e22e">mapv</span> (<span style="color:#66d9ef">fn </span>[[tx transactions]]
                  {<span style="color:#e6db74">:timestamp</span> (<span style="color:#e6db74">:db/txInstant</span> (<span style="color:#a6e22e">d/entity</span> db tx))
-                  <span style="color:#e6db74">:audit</span>     (into {} (<span style="color:#a6e22e">d/entity</span> db (<span style="color:#a6e22e">-&gt;&gt;</span> transactions (map last) first))) <span style="color:#75715e">;; db/entity returns a lazy</span>
+                  <span style="color:#e6db74">:audit</span>     (into {} (<span style="color:#a6e22e">d/entity</span> db (<span style="color:#a6e22e">-&gt;&gt;</span> transactions (map last) first)))
                   <span style="color:#e6db74">:changes</span>   (<span style="color:#a6e22e">-&gt;&gt;</span> (map (<span style="color:#66d9ef">fn </span>[[_ attr val added]]
                                          [(<span style="color:#a6e22e">d/ident</span> db attr) val added])
                                        transactions)
@@ -477,43 +591,52 @@ Changes in each transaction
          (sort-by <span style="color:#e6db74">:timestamp</span>)))</code></pre></div>
 </div>
 <p>
-  This is the results.
+  Results.
 </p>
 <div class="src src-clojure">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">({<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:17.696-00:00&#34;</span>,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">({<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:37.992-00:00&#34;</span>,
   <span style="color:#e6db74">:audit</span>
   <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
           <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:create</span>},
   <span style="color:#e6db74">:changes</span>
-  ([<span style="color:#e6db74">:person/first-name</span> <span style="color:#e6db74">&#34;Kalle&#34;</span> true]
-   [<span style="color:#e6db74">:person/id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span> true]
-   [<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Karlss&#34;</span> true])}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:21.321-00:00&#34;</span>,
+  ([<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span> true]
+   [<span style="color:#e6db74">:person/first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span> true]
+   [<span style="color:#e6db74">:person/id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span> true])}
+ {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:39.735-00:00&#34;</span>,
   <span style="color:#e6db74">:audit</span>
   <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
           <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update1</span>},
   <span style="color:#e6db74">:changes</span>
-  ([<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Karlss&#34;</span> false]
-   [<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Karlsson&#34;</span> true])}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:24.688-00:00&#34;</span>,
+  ([<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span> false]
+   [<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span> true])}
+ {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:43.242-00:00&#34;</span>,
   <span style="color:#e6db74">:audit</span>
   <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
           <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update2</span>},
   <span style="color:#e6db74">:changes</span> ([<span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1986</span> true])}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-15T09:23:29.864-00:00&#34;</span>,
+ {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:48.210-00:00&#34;</span>,
   <span style="color:#e6db74">:audit</span>
   <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
           <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update3</span>},
   <span style="color:#e6db74">:changes</span>
   ([<span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1986</span> false] [<span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1987</span> true])})</code></pre></div>
 </div>
+<h2 id="headline-14">
+Conclusion
+</h2>
+<p>
+  Datomic provides some really nice features. Features that makes you able to understand
+  how a state came to be and who made it into that state. Some of the features is maybe
+  overkill for my current use case. But I have no idea about the requirements of tomorrow.
+  And the ability to look and understand the system is much worth.
+</p>
 </div>
 				
 				<footer class="entry__footer">
 					
 					
 <div class="entry__share share">
-	<a class="share__link btn" title="Share on Twitter" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fjherrlin.github.io%2fposts%2fdatomic-audit-trails%2f&amp;text=Audit%20trail%20Datomic%20entity" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, 'Share on Twitter', 'width=800,height=450,resizable=yes,toolbar=0,status=0'); return false">
+	<a class="share__link btn" title="Share on Twitter" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fjherrlin.github.io%2fposts%2fdatomic-entity-event-log%2f&amp;text=Entity%20event%20log%20in%20Datomic" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, 'Share on Twitter', 'width=800,height=450,resizable=yes,toolbar=0,status=0'); return false">
 		<svg class="share__icon" aria-label="Twitter" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
 	</a>
 </div>
