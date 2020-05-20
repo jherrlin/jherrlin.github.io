@@ -481,9 +481,7 @@ Entity before and after each transaction
               (<span style="color:#a6e22e">d/history</span> db)
               <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>) <span style="color:#75715e">;; uuid of Anna</span>
          (map (<span style="color:#66d9ef">fn </span>[[eid tx-eid audit-eid]]
-                {<span style="color:#e6db74">:t-dec</span>     (dec (<span style="color:#a6e22e">d/tx-&gt;t</span> tx-eid))
-                 <span style="color:#e6db74">:t</span>         (<span style="color:#a6e22e">d/tx-&gt;t</span> tx-eid)
-                 <span style="color:#e6db74">:timestamp</span> (<span style="color:#e6db74">:db/txInstant</span> (<span style="color:#a6e22e">d/entity</span> db tx-eid))
+                {<span style="color:#e6db74">:timestamp</span> (<span style="color:#e6db74">:db/txInstant</span> (<span style="color:#a6e22e">d/entity</span> db tx-eid))
                  <span style="color:#e6db74">:audit</span>     (into {} (<span style="color:#a6e22e">d/entity</span> db audit-eid))
                  <span style="color:#e6db74">:before</span>    (into {} (<span style="color:#a6e22e">d/entity</span> (<span style="color:#a6e22e">d/as-of</span> db (dec (<span style="color:#a6e22e">d/tx-&gt;t</span> tx-eid))) eid))
                  <span style="color:#e6db74">:after</span>     (into {} (<span style="color:#a6e22e">d/entity</span> (<span style="color:#a6e22e">d/as-of</span> db tx-eid) eid))}))
