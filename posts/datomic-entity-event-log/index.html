@@ -170,7 +170,7 @@ In memory database.
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  (<span style="color:#a6e22e">require</span> <span style="color:#f92672">&#39;</span>[datomic.api <span style="color:#e6db74">:as</span> d])
 
-  (<span style="color:#66d9ef">def </span>state (<span style="color:#a6e22e">atom</span> {<span style="color:#e6db74">:datomic-connection</span> nil}))
+  (<span style="color:#66d9ef">defonce </span>state (<span style="color:#a6e22e">atom</span> {<span style="color:#e6db74">:datomic-connection</span> nil}))
 
   (<span style="color:#66d9ef">defn </span>establish-connection
     <span style="color:#e6db74">&#34;Establish connection to random in memory database.&#34;</span>
@@ -310,7 +310,7 @@ Quick look at Anna
        (<span style="color:#a6e22e">d/db</span> (<span style="color:#a6e22e">conn</span>)) <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>)</code></pre></div>
 </div>
 <p>
-  This is the results and Anna looks correct.
+  This is the result and Anna looks correct.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">{<span style="color:#e6db74">:db/id</span> <span style="color:#ae81ff">17592186045418</span>,
@@ -326,9 +326,8 @@ Transaction metadata
   Lets look at what metadata we can get from the transactions we did on Anna.
 </p>
 <p>
-  The history database gives access to all of the datoms in the database. Not just the
-  recent ones. This gives us the ability to ask for all of the transactions related to a
-  entity.
+  The history database gives access to all of the datoms in the database. Not just recent
+  ones. This gives us the ability to ask for all of the transactions related to a entity.
 </p>
 <p>
   It&#39;s not possible to <code class="verbatim">pull</code> from the history database. This example uses two databases
@@ -447,12 +446,11 @@ Event log
   <span style="color:#e6db74">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb updated Anna&#34;</span>])</code></pre></div>
 </div>
 <p>
-  By providing author and categorization to each transaction I now have everything I need
-  to trace the changes made to an entity and we are able to create an event log. The
-  attributes <em>id</em> and the reference to the entity is not longer of any use. The
-  transaction id is the unique identifier but not that relevant anymore. The <em>entity</em>
-  reference is created automagically in the Datomic transaction. This makes it possible
-  for me to remove my <em>event-log</em> model and some of the code that&#39;s associated to it.
+  By providing author and categorization to each transaction it is possible to trace the
+  changes made to an entity and create an event log. The id and entity reference that
+  existed in the event-log model is not needed. The transaction data replaces that need.
+  This makes it possible for me to remove my <em>event-log</em> model and some of the code that&#39;s
+  associated to it.
 </p>
 <h2 id="headline-12">
 Entity before and after each transaction
@@ -586,7 +584,7 @@ Changes in each transaction
          (sort-by <span style="color:#e6db74">:timestamp</span>)))</code></pre></div>
 </div>
 <p>
-  Results.
+  The results.
 </p>
 <div class="src src-clojure">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">({<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:37.992-00:00&#34;</span>,
