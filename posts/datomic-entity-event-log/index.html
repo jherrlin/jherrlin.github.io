@@ -572,13 +572,13 @@ Changes in each transaction
               (<span style="color:#a6e22e">d/history</span> db)
               <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>) <span style="color:#75715e">;; uuid of the person we audit</span>
          (<span style="color:#a6e22e">group-by</span> first)
-         (<span style="color:#a6e22e">mapv</span> (<span style="color:#66d9ef">fn </span>[[tx transactions]]
-                 {<span style="color:#e6db74">:timestamp</span> (<span style="color:#e6db74">:db/txInstant</span> (<span style="color:#a6e22e">d/entity</span> db tx))
-                  <span style="color:#e6db74">:audit</span>     (into {} (<span style="color:#a6e22e">d/entity</span> db (<span style="color:#a6e22e">-&gt;&gt;</span> transactions (map last) first)))
-                  <span style="color:#e6db74">:changes</span>   (<span style="color:#a6e22e">-&gt;&gt;</span> transactions
-                                  (map (<span style="color:#66d9ef">fn </span>[[_ attr val added]]
-                                         [(<span style="color:#a6e22e">d/ident</span> db attr) val added]))
-                                  (sort-by last))}))
+         (map (<span style="color:#66d9ef">fn </span>[[tx transactions]]
+                {<span style="color:#e6db74">:timestamp</span> (<span style="color:#e6db74">:db/txInstant</span> (<span style="color:#a6e22e">d/entity</span> db tx))
+                 <span style="color:#e6db74">:audit</span>     (into {} (<span style="color:#a6e22e">d/entity</span> db (<span style="color:#a6e22e">-&gt;&gt;</span> transactions (map last) first)))
+                 <span style="color:#e6db74">:changes</span>   (<span style="color:#a6e22e">-&gt;&gt;</span> transactions
+                                 (map (<span style="color:#66d9ef">fn </span>[[_ attr val added]]
+                                        [(<span style="color:#a6e22e">d/ident</span> db attr) val added]))
+                                 (sort-by last))}))
          (sort-by <span style="color:#e6db74">:timestamp</span>)))</code></pre></div>
 </div>
 <p>
