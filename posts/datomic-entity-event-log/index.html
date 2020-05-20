@@ -491,54 +491,54 @@ Entity before and after each transaction
   The results.
 </p>
 <div class="src src-clojure">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">({<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:02.305-00:00&#34;</span>,
-  <span style="color:#e6db74">:audit</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
-          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:create</span>},
-  <span style="color:#e6db74">:before</span> {},
-  <span style="color:#e6db74">:after</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span>,
-           <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:08.926-00:00&#34;</span>,
-  <span style="color:#e6db74">:audit</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
-          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update1</span>},
-  <span style="color:#e6db74">:before</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span>,
-           <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>},
-  <span style="color:#e6db74">:after</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
-           <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:14.794-00:00&#34;</span>,
-  <span style="color:#e6db74">:audit</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
-          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update2</span>},
-  <span style="color:#e6db74">:before</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
-           <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>},
-  <span style="color:#e6db74">:after</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
-           <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1986</span>,
-           <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:26.063-00:00&#34;</span>,
-  <span style="color:#e6db74">:audit</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
-          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update3</span>},
-  <span style="color:#e6db74">:before</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
-           <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1986</span>,
-           <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>},
-  <span style="color:#e6db74">:after</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
-           <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
-           <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1987</span>,
-           <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}})</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  ({<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:02.305-00:00&#34;</span>,
+    <span style="color:#e6db74">:audit</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
+            <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:create</span>},
+    <span style="color:#e6db74">:before</span> {},
+    <span style="color:#e6db74">:after</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+             <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span>,
+             <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}}
+   {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:08.926-00:00&#34;</span>,
+    <span style="color:#e6db74">:audit</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
+            <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update1</span>},
+    <span style="color:#e6db74">:before</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+             <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span>,
+             <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>},
+    <span style="color:#e6db74">:after</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+             <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
+             <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}}
+   {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:14.794-00:00&#34;</span>,
+    <span style="color:#e6db74">:audit</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
+            <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update2</span>},
+    <span style="color:#e6db74">:before</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+             <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
+             <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>},
+    <span style="color:#e6db74">:after</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+             <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
+             <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1986</span>,
+             <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}}
+   {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-18T19:49:26.063-00:00&#34;</span>,
+    <span style="color:#e6db74">:audit</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
+            <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update3</span>},
+    <span style="color:#e6db74">:before</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+             <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
+             <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1986</span>,
+             <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>},
+    <span style="color:#e6db74">:after</span>             <span style="color:#75715e">;; This is the most recent verson of Anna</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:person</span>{<span style="color:#e6db74">:first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span>,
+             <span style="color:#e6db74">:last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span>,
+             <span style="color:#e6db74">:birth-year</span> <span style="color:#ae81ff">1987</span>,
+             <span style="color:#e6db74">:id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span>}})</code></pre></div>
 </div>
 <h2 id="headline-13">
 Changes in each transaction
@@ -585,32 +585,34 @@ Changes in each transaction
   The results.
 </p>
 <div class="src src-clojure">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">({<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:37.992-00:00&#34;</span>,
-  <span style="color:#e6db74">:audit</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
-          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:create</span>},
-  <span style="color:#e6db74">:changes</span>
-  ([<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span> true]
-   [<span style="color:#e6db74">:person/first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span> true]
-   [<span style="color:#e6db74">:person/id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span> true])}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:39.735-00:00&#34;</span>,
-  <span style="color:#e6db74">:audit</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
-          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update1</span>},
-  <span style="color:#e6db74">:changes</span>
-  ([<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span> false]
-   [<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span> true])}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:43.242-00:00&#34;</span>,
-  <span style="color:#e6db74">:audit</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
-          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update2</span>},
-  <span style="color:#e6db74">:changes</span> ([<span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1986</span> true])}
- {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:48.210-00:00&#34;</span>,
-  <span style="color:#e6db74">:audit</span>
-  <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
-          <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update3</span>},
-  <span style="color:#e6db74">:changes</span>
-  ([<span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1986</span> false] [<span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1987</span> true])})</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">  ({<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:37.992-00:00&#34;</span>,
+    <span style="color:#e6db74">:audit</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
+            <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:create</span>},
+    <span style="color:#e6db74">:changes</span>
+    ([<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span> true]
+     [<span style="color:#e6db74">:person/first-name</span> <span style="color:#e6db74">&#34;Anna&#34;</span> true]
+     [<span style="color:#e6db74">:person/id</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span> true])}
+   {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:39.735-00:00&#34;</span>,
+    <span style="color:#e6db74">:audit</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
+            <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update1</span>},
+    <span style="color:#e6db74">:changes</span>
+    ([<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Anderss&#34;</span> false]
+     [<span style="color:#e6db74">:person/last-name</span> <span style="color:#e6db74">&#34;Andersson&#34;</span> true])}
+   {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:43.242-00:00&#34;</span>,
+    <span style="color:#e6db74">:audit</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
+            <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update2</span>},
+    <span style="color:#e6db74">:changes</span>
+    ([<span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1986</span> true])}
+   {<span style="color:#e6db74">:timestamp</span> <span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:48.210-00:00&#34;</span>,
+    <span style="color:#e6db74">:audit</span>
+    <span style="color:#f92672">#</span><span style="color:#e6db74">:audit</span>{<span style="color:#e6db74">:user</span> <span style="color:#f92672">#</span>uuid <span style="color:#e6db74">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
+            <span style="color:#e6db74">:type</span> <span style="color:#e6db74">:update3</span>},
+    <span style="color:#e6db74">:changes</span>
+    ([<span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1986</span> false]
+     [<span style="color:#e6db74">:person/birth-year</span> <span style="color:#ae81ff">1987</span> true])})</code></pre></div>
 </div>
 <h2 id="headline-14">
 Conclusion
