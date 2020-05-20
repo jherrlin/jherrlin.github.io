@@ -436,13 +436,13 @@ Event log
   Looks pretty good and gives a good overview of the transactions that is related to Anna.
 </p>
 <div class="src src-clojure">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">([<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-20T11:43:18.748-00:00&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">([<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:37.992-00:00&#34;</span>
   <span style="color:#e6db74">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb created Anna&#34;</span>]
- [<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-20T11:43:25.909-00:00&#34;</span>
+ [<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:39.735-00:00&#34;</span>
   <span style="color:#e6db74">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb updated Anna&#34;</span>]
- [<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-20T11:43:33.439-00:00&#34;</span>
+ [<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:43.242-00:00&#34;</span>
   <span style="color:#e6db74">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb updated Anna&#34;</span>]
- [<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-20T11:43:44.534-00:00&#34;</span>
+ [<span style="color:#f92672">#</span>inst <span style="color:#e6db74">&#34;2020-05-17T19:07:48.210-00:00&#34;</span>
   <span style="color:#e6db74">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb updated Anna&#34;</span>])</code></pre></div>
 </div>
 <p>
@@ -575,9 +575,9 @@ Changes in each transaction
          (<span style="color:#a6e22e">mapv</span> (<span style="color:#66d9ef">fn </span>[[tx transactions]]
                  {<span style="color:#e6db74">:timestamp</span> (<span style="color:#e6db74">:db/txInstant</span> (<span style="color:#a6e22e">d/entity</span> db tx))
                   <span style="color:#e6db74">:audit</span>     (into {} (<span style="color:#a6e22e">d/entity</span> db (<span style="color:#a6e22e">-&gt;&gt;</span> transactions (map last) first)))
-                  <span style="color:#e6db74">:changes</span>   (<span style="color:#a6e22e">-&gt;&gt;</span> (map (<span style="color:#66d9ef">fn </span>[[_ attr val added]]
-                                         [(<span style="color:#a6e22e">d/ident</span> db attr) val added])
-                                       transactions)
+                  <span style="color:#e6db74">:changes</span>   (<span style="color:#a6e22e">-&gt;&gt;</span> transactions
+                                  (map (<span style="color:#66d9ef">fn </span>[[_ attr val added]]
+                                         [(<span style="color:#a6e22e">d/ident</span> db attr) val added]))
                                   (sort-by last))}))
          (sort-by <span style="color:#e6db74">:timestamp</span>)))</code></pre></div>
 </div>
