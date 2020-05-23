@@ -4,12 +4,47 @@
   
   <url>
     <loc>https://jherrlin.github.io/categories/</loc>
-    <lastmod>2020-05-17T20:28:11+02:00</lastmod>
+    <lastmod>2020-05-22T23:47:13+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://jherrlin.github.io/categories/clojure/</loc>
-    <lastmod>2020-05-17T20:28:11+02:00</lastmod>
+    <lastmod>2020-05-22T23:47:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/categories/generative/</loc>
+    <lastmod>2020-05-22T23:47:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/</loc>
+    <lastmod>2020-05-22T23:47:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/posts/</loc>
+    <lastmod>2020-05-22T23:47:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/posts/clojure-spec-test-transducers/</loc>
+    <lastmod>2020-05-22T23:47:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/categories/spec/</loc>
+    <lastmod>2020-05-22T23:47:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/categories/test/</loc>
+    <lastmod>2020-05-22T23:47:13+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/categories/transducers/</loc>
+    <lastmod>2020-05-22T23:47:13+02:00</lastmod>
   </url>
   
   <url>
@@ -24,16 +59,6 @@
   
   <url>
     <loc>https://jherrlin.github.io/posts/datomic-entity-event-log/</loc>
-    <lastmod>2020-05-17T20:28:11+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jherrlin.github.io/</loc>
-    <lastmod>2020-05-17T20:28:11+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jherrlin.github.io/posts/</loc>
     <lastmod>2020-05-17T20:28:11+02:00</lastmod>
   </url>
   

@@ -6,7 +6,7 @@
     <description>Recent content in Categories on John Herrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 May 2020 20:28:11 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 22 May 2020 23:47:13 +0200</lastBuildDate>
     
 	<atom:link href="https://jherrlin.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,45 @@
     <item>
       <title>clojure</title>
       <link>https://jherrlin.github.io/categories/clojure/</link>
-      <pubDate>Sun, 17 May 2020 20:28:11 +0200</pubDate>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/categories/clojure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>generative</title>
+      <link>https://jherrlin.github.io/categories/generative/</link>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/categories/generative/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spec</title>
+      <link>https://jherrlin.github.io/categories/spec/</link>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/categories/spec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>https://jherrlin.github.io/categories/test/</link>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/categories/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>transducers</title>
+      <link>https://jherrlin.github.io/categories/transducers/</link>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/categories/transducers/</guid>
       <description></description>
     </item>
     

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on John Herrlin</title>
-    <link>https://jherrlin.github.io/posts/</link>
-    <description>Recent content in Posts on John Herrlin</description>
+    <title>test on John Herrlin</title>
+    <link>https://jherrlin.github.io/categories/test/</link>
+    <description>Recent content in test on John Herrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 May 2020 23:47:13 +0200</lastBuildDate>
     
-	<atom:link href="https://jherrlin.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jherrlin.github.io/categories/test/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://jherrlin.github.io/posts/clojure-spec-test-transducers/</guid>
       <description>Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.  Wont cover or explain details, instead show how it can be used.  Some examples where generated data can be used:    Provide generated data through a Rest API endpoint and serve it a JSON.</description>
-    </item>
-    
-    <item>
-      <title>Entity event log in Datomic</title>
-      <link>https://jherrlin.github.io/posts/datomic-entity-event-log/</link>
-      <pubDate>Sun, 17 May 2020 20:28:11 +0200</pubDate>
-      
-      <guid>https://jherrlin.github.io/posts/datomic-entity-event-log/</guid>
-      <description>TL;DR   Create an event log from Datomic transactions that&amp;#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles. Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.</description>
     </item>
     
   </channel>
