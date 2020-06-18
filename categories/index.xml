@@ -6,10 +6,46 @@
     <description>Recent content in Categories on John Herrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jun 2020 16:44:47 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jun 2020 13:18:00 +0200</lastBuildDate>
     
 	<atom:link href="https://jherrlin.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>emacs</title>
+      <link>https://jherrlin.github.io/categories/emacs/</link>
+      <pubDate>Mon, 15 Jun 2020 13:18:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/categories/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GNU</title>
+      <link>https://jherrlin.github.io/categories/gnu/</link>
+      <pubDate>Mon, 15 Jun 2020 13:18:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/categories/gnu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>org</title>
+      <link>https://jherrlin.github.io/categories/org/</link>
+      <pubDate>Mon, 15 Jun 2020 13:18:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/categories/org/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://jherrlin.github.io/categories/programming/</link>
+      <pubDate>Mon, 15 Jun 2020 13:18:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/categories/programming/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>arch</title>

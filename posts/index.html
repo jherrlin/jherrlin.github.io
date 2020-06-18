@@ -12,7 +12,7 @@
 <meta property="og:description" content="Responsive card-based &amp; code-light Hugo theme" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jherrlin.github.io/posts/" />
-<meta property="og:updated_time" content="2020-06-01T16:44:47+02:00" />
+<meta property="og:updated_time" content="2020-06-15T13:18:00+02:00" />
 
 		<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -48,6 +48,24 @@
 			
 		</div>
 		<div class="cards">
+			
+				<div class="card card--2col">
+					<article class="entry card__box block">
+	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/posts/emacs-orgmode-source-code-blocks/">Emacs Org mode source blocks</a></h1>
+	<div class="entry__content">Intro   It&#39;s time to start documenting how I use Emacs org mode (from now on org) and it will contain a serie of posts.  This is the first post and it will cover source blocks.  One of Emacs many killing features is org. To describe it fairly wide it&#39;s like markdown on steroids, with extensions. You can write headings and subheadings to create levels of sections.</div>
+	<div class="entry__meta meta mt tar">
+	<time class="entry__meta-published meta-published" datetime="2020-06-15T13:18:00&#43;02:00">June 15, 2020</time>
+<span class="entry__meta-categories meta-categories">
+	<span class="meta-categories__list">Categories:
+		<a class="meta-categories__link" href="/categories/emacs" rel="category">emacs</a>, 
+		<a class="meta-categories__link" href="/categories/gnu" rel="category">GNU</a>, 
+		<a class="meta-categories__link" href="/categories/org" rel="category">org</a>, 
+		<a class="meta-categories__link" href="/categories/programming" rel="category">programming</a>
+	</span>
+</span>
+	</div>
+</article>
+				</div>
 			
 				<div class="card card--2col">
 					<article class="entry card__box block">
@@ -99,6 +117,24 @@
 		<a class="meta-categories__link" href="/categories/clojure" rel="category">clojure</a>
 	</span>
 </span>
+	</div>
+</article>
+				</div>
+			
+				<div class="card card--2col">
+					<article class="entry card__box block">
+	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/posts/screenshots/"></a></h1>
+	<div class="entry__content"> sudo pacman -S grim slurp  #+END_SRC function screenshot (){ if [-z &#34;$1&#34;]; then # display usage echo &#34;Usage: screenshot FILE&#34; return 1 else grim -g &#34;$(slurp -d)&#34; $1 fi }  </div>
+	<div class="entry__meta meta mt tar">
+	</div>
+</article>
+				</div>
+			
+				<div class="card card--2col">
+					<article class="entry card__box block">
+	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/posts/wireguard-vpn/"></a></h1>
+	<div class="entry__content">https://integrity.st/ https://wireguard-bahnhof.5july.net/  https://www.ivpn.net/knowledgebase/255/Linux—Autostart-WireGuard-in-systemd.html sudo pacman -S wireguard-tools  sudo wg-quick up integrity_vpn sudo wg-quick down integrity_vpn systemctl status wg-quick@integrity_vpn.service systemctl start wg-quick@integrity_vpn.service systemctl enable wg-quick@integrity_vpn.service  [#] ip link add integrity_vpn type wireguard [#] wg setconf integrity_vpn /dev/fd/63 [#] ip -4 address add 10.0.4.9/24 dev integrity_vpn [#] ip -6 address add fdab:1337:1337:4::9/64 dev integrity_vpn [#] ip link set mtu 1420 up dev integrity_vpn [#] resolvconf -a integrity_vpn -m 0 -x /usr/bin/wg-quick: line 32: resolvconf: command not found [#] ip link delete dev integrity_vpn   https://wiki.</div>
+	<div class="entry__meta meta mt tar">
 	</div>
 </article>
 				</div>

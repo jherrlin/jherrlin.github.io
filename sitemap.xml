@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jherrlin.github.io/categories/</loc>
+    <lastmod>2020-06-15T13:18:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/categories/emacs/</loc>
+    <lastmod>2020-06-15T13:18:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/</loc>
+    <lastmod>2020-06-15T13:18:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/categories/gnu/</loc>
+    <lastmod>2020-06-15T13:18:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/</loc>
+    <lastmod>2020-06-15T13:18:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/categories/org/</loc>
+    <lastmod>2020-06-15T13:18:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/posts/</loc>
+    <lastmod>2020-06-15T13:18:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/categories/programming/</loc>
+    <lastmod>2020-06-15T13:18:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jherrlin.github.io/categories/arch/</loc>
     <lastmod>2020-06-01T16:44:47+02:00</lastmod>
   </url>
@@ -13,27 +53,12 @@
   </url>
   
   <url>
-    <loc>https://jherrlin.github.io/categories/</loc>
-    <lastmod>2020-06-01T16:44:47+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jherrlin.github.io/categories/encryption/</loc>
     <lastmod>2020-06-01T16:44:47+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://jherrlin.github.io/categories/install/</loc>
-    <lastmod>2020-06-01T16:44:47+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jherrlin.github.io/</loc>
-    <lastmod>2020-06-01T16:44:47+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jherrlin.github.io/posts/</loc>
     <lastmod>2020-06-01T16:44:47+02:00</lastmod>
   </url>
   
@@ -85,6 +110,14 @@
   <url>
     <loc>https://jherrlin.github.io/posts/datomic-entity-event-log/</loc>
     <lastmod>2020-05-17T20:28:11+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/posts/screenshots/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jherrlin.github.io/posts/wireguard-vpn/</loc>
   </url>
   
   <url>
