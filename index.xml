@@ -47,23 +47,5 @@
       <description>TL;DR   Create an event log from Datomic transactions that&amp;#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles. Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.</description>
     </item>
     
-    <item>
-      <title></title>
-      <link>https://jherrlin.github.io/posts/screenshots/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jherrlin.github.io/posts/screenshots/</guid>
-      <description> sudo pacman -S grim slurp  #+END_SRC function screenshot (){ if [-z &amp;#34;$1&amp;#34;]; then # display usage echo &amp;#34;Usage: screenshot FILE&amp;#34; return 1 else grim -g &amp;#34;$(slurp -d)&amp;#34; $1 fi }  </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://jherrlin.github.io/posts/wireguard-vpn/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jherrlin.github.io/posts/wireguard-vpn/</guid>
-      <description>https://integrity.st/ https://wireguard-bahnhof.5july.net/  https://www.ivpn.net/knowledgebase/255/Linux—Autostart-WireGuard-in-systemd.html sudo pacman -S wireguard-tools  sudo wg-quick up integrity_vpn sudo wg-quick down integrity_vpn systemctl status wg-quick@integrity_vpn.service systemctl start wg-quick@integrity_vpn.service systemctl enable wg-quick@integrity_vpn.service  [#] ip link add integrity_vpn type wireguard [#] wg setconf integrity_vpn /dev/fd/63 [#] ip -4 address add 10.0.4.9/24 dev integrity_vpn [#] ip -6 address add fdab:1337:1337:4::9/64 dev integrity_vpn [#] ip link set mtu 1420 up dev integrity_vpn [#] resolvconf -a integrity_vpn -m 0 -x /usr/bin/wg-quick: line 32: resolvconf: command not found [#] ip link delete dev integrity_vpn   https://wiki.</description>
-    </item>
-    
   </channel>
 </rss>
