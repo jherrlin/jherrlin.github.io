@@ -1,174 +1,216 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en-us">
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="theme-color" content="#1b1b1b">
-	<title>Emacs Org mode source blocks | John Herrlin</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="Emacs Org mode source blocks" />
-<meta property="og:description" content="Intro   It&#39;s time to start documenting how I use Emacs org mode (from now on org) and it will contain a serie of posts.  This is the first post and it will cover source blocks.  One of Emacs many killing features is org. To describe it fairly wide it&#39;s like markdown on steroids, with extensions. You can write headings and subheadings to create levels of sections." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/" />
-<meta property="article:published_time" content="2020-06-15T13:18:00+02:00" />
-<meta property="article:modified_time" content="2020-06-15T13:18:00+02:00" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Emacs Org mode source blocks"/>
-<meta name="twitter:description" content="Intro   It&#39;s time to start documenting how I use Emacs org mode (from now on org) and it will contain a serie of posts.  This is the first post and it will cover source blocks.  One of Emacs many killing features is org. To describe it fairly wide it&#39;s like markdown on steroids, with extensions. You can write headings and subheadings to create levels of sections."/>
+<title>Emacs Org mode source blocks | jherrlin</title>
 
-	<link rel="stylesheet" href="/css/bundle.css">
-	<link rel="stylesheet" href="/css/custom.css">
-	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
-	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
-		
+<meta property='og:title' content='Emacs Org mode source blocks - jherrlin'>
+<meta property='og:description' content='Intro   It&#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.  One of the features I&#39;ve been using very frequently is source blocks.'>
+<meta property='og:url' content='https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/'>
+<meta property='og:site_name' content='jherrlin'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/863335b1b544efa54915dc5a807256ae?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='GNU'><meta property='article:tag' content='org'><meta property='article:tag' content='programming'><meta property='article:published_time' content='2020-06-15T13:18:00&#43;02:00'/><meta property='article:modified_time' content='2020-06-15T13:18:00&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
+
+
+<link href="https://jherrlin.github.io/index.xml" rel="alternate" type="application/rss+xml" title="jherrlin" />
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 </head>
 <body>
-	<header class="header">
-	<a class="logo" href="/">John Herrlin</a>
-	
-</header>
-	<div class="primary">
-	
-	<main class="main">
-		
-<nav class="breadcrumb block" aria-label="breadcrumb">
-	<ol class="breadcrumb__list">
-		
-		<li class="breadcrumb__item">
-			<a class="breadcrumbs__link" href="/">Home</a>
-		</li>
-		<li class="breadcrumb__item">
-			<a class="breadcrumbs__link" href="/posts/">Posts</a>
-		</li>
-		<li class="breadcrumbs__item breadcrumb__item--active" aria-current="page">Emacs Org mode source blocks</li>
-	</ol>
-</nav>
-		<div class="single block">
-			<article class="entry">
-	<div class="entry__meta meta mb">
-	<time class="entry__meta-published meta-published" datetime="2020-06-15T13:18:00&#43;02:00">June 15, 2020</time>
-<span class="entry__meta-categories meta-categories">
-	<span class="meta-categories__list">Categories:
-		<a class="meta-categories__link" href="/categories/emacs" rel="category">emacs</a>, 
-		<a class="meta-categories__link" href="/categories/gnu" rel="category">GNU</a>, 
-		<a class="meta-categories__link" href="/categories/org" rel="category">org</a>, 
-		<a class="meta-categories__link" href="/categories/programming" rel="category">programming</a>
-	</span>
-</span>
-	</div>
-				<h1 class="entry__title">Emacs Org mode source blocks</h1>
-<details class="entry__toc toc" open>
-	<summary class="toc__title">Table of Contents</summary>
-	<nav id="TableOfContents">
-<ul>
-<li><a href="#headline-1">Intro</a>
-</li>
-<li><a href="#headline-2">Emacs config</a>
-</li>
-<li><a href="#headline-3">Bash echo</a>
-</li>
-<li><a href="#headline-4">Echo input variables</a>
-</li>
-<li><a href="#headline-5">Document variable</a>
-</li>
-<li><a href="#headline-6">Result output</a>
-</li>
-<li><a href="#headline-7">More on document variables</a>
-</li>
-<li><a href="#headline-8">File (almost) from file system</a>
-</li>
-<li><a href="#headline-9">Combine results and source blocks</a>
-</li>
-<li><a href="#headline-10">Nice things i didn&#39;t cover</a>
-</li>
-<li><a href="#headline-11">Conclusion</a>
-</li>
-</ul>
-</nav>
-</details>
-				<div class="entry__content">
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://jherrlin.github.io/">
+          <h1 id="nav-heading" class="title is-4">jherrlin</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:jerrlin@gmail.com'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/john-herrlin-63458280'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="rss" href='/index.xml'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/emacs/">#emacs</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/gnu/">#GNU</a>
+  
+  | <a class="subtitle is-6" href="/tags/org/">#org</a>
+  
+  | <a class="subtitle is-6" href="/tags/programming/">#programming</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">June 15, 2020</h2>
+    <h1 class="title">Emacs Org mode source blocks</h1>
+    
+    <div class="content">
+      
 <h2 id="headline-1">
 Intro
 </h2>
 <p>
-  It&#39;s time to start documenting how I use Emacs <a href="https://orgmode.org/">org mode</a> (from now on org) and it will
-  contain a serie of posts.
+  It&#39;s time to start documenting how I use Emacs <a href="https://orgmode.org/">Org mode</a> (from now on org) and it will
+  contain a serie of posts. This is the first post and it will cover source blocks. Some
+  of the content assumes basic knowledge about org. If you are new to org I can recommend
+  this two videos; <a href="https://www.youtube.com/watch?v=SzA2YODtgK4">hrs</a> and <a href="https://www.youtube.com/watch?v=fgizHHd7nOo">kitchin</a>.
 </p>
 <p>
-  This is the first post and it will cover source blocks.
+  One of the features I&#39;ve been using very frequently is source blocks. The power of
+  evaluating code directly from a block and get the results back into the document is
+  really convenient. While reading <a href="https://ia802309.us.archive.org/25/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf">The AWK Programming Language</a> I took notes and did all
+  of the <code class="verbatim">awk</code> programming withing source blocks. This makes me able to have notes, code
+  and execution results in the same document. And as everything is just text, it&#39;s easy
+  to version control!
 </p>
 <p>
-  One of Emacs many killing features is org. To describe it fairly wide it&#39;s like markdown
-  on steroids, with extensions. You can write headings and subheadings to create levels of
-  sections. You can use <strong>bold</strong>, <em>italic</em> , <span style="text-decoration: underline;">underline</span> to make you text more describing.
-</p>
-<p>
-  Just like markdown you can create source blocks that will give your code syntax
-  highlighting when exported to HTML, LaTeX or other formats. But source blocks can also be
-  used to run code! I think this is an amazing feature! You can easily do <a href="https://en.wikipedia.org/wiki/Literate_programming">literate
-  programming</a>. I have found it very useful when learning programming languages, writing
-  scripts or when documenting.
-</p>
-<p>
-  Org mode&#39;s documentation on source blocks can be found <a href="https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code">here</a>.
-</p>
-<p>
-  This is the structure of a source block:
+  This is the structure of a source block. Org mode&#39;s documentation on source blocks can
+  be found <a href="https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code">here</a>.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">&lt;language&gt;</span><span style="color:#75715e"> &lt;switches&gt; &lt;header arguments&gt;
-</span><span style="color:#75715e"></span>    &lt;body&gt;
-<span style="color:#75715e">  #+END_SRC</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">&lt;language&gt;</span><span class="c"> &lt;switches&gt; &lt;header arguments&gt;
+</span><span class="c"></span>    &lt;body&gt;
+<span class="c">  #+END_SRC</span></code></pre></div>
 </div>
 <p>
   Header arguments differ for different languages and applications. Look in the
   documentation for your specific language/application to find out what and how to use it.
 </p>
 <h2 id="headline-2">
+Versions
+</h2>
+<p>
+  … of Emacs and Org mode.
+</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
+</span><span class="c"></span>    <span class="p">(</span><span class="nv">org-version</span><span class="p">)</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  : 9.3.7
+
+<span class="c">  #+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
+</span><span class="c"></span>  <span class="p">(</span><span class="nv">emacs-version</span><span class="p">)</span>
+<span class="c">  #+END_SRC</span>
+
+  #<span class="gd">+RESULTS:
+</span><span class="gd">  : GNU Emacs 26.3 (build 1, x86_64-pc-linux-gnu, GTK+</span> Version 3.24.20)
+  :  of 2020-05-19</code></pre></div>
+</div>
+<h2 id="headline-3">
 Emacs config
 </h2>
 <p>
-  To be able to follow along and execute code in source blocks you need to provide Emacs
-  with some config. The following tells Emacs not ask for confirmation when evaluating a
-  source block with the keyboard sequence <code class="verbatim">C-c C-c</code>. The other code tells what source blocks
-  org documents should understand. A complete list can be found here: <a href="https://code.orgmode.org/bzg/org-mode/src/master/lisp">repo</a>. Files with
-  source blocks support are prefixed with <code class="verbatim">ob-</code>.
+  Without config Emacs don&#39;t know how to execute source blocks. This following snippet
+  provides Emacs with the ability to understand a set of languages/applications. The set
+  of languages/applications need to be available in the underlying OS. To get a complete
+  list of languages/applications available in org. A complete list can be found here:
+  <a href="https://code.orgmode.org/bzg/org-mode/src/master/lisp">repo</a>. Support for source blocks are available in files prefixed with <code class="verbatim">ob-</code>.
 </p>
 <div class="src src-emacs-lisp">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">  (setq org-confirm-babel-evaluate <span style="color:#66d9ef">nil</span>)
-  (org-babel-do-load-languages
-   <span style="color:#e6db74">&#39;org-babel-load-languages</span>
-   <span style="color:#f92672">&#39;</span>((emacs-lisp <span style="color:#f92672">.</span> <span style="color:#66d9ef">t</span>)
-     (shell <span style="color:#f92672">.</span> <span style="color:#66d9ef">t</span>)  <span style="color:#75715e">; in my case /bin/bash</span>
-     (scheme <span style="color:#f92672">.</span> <span style="color:#66d9ef">t</span>)
-     (python <span style="color:#f92672">.</span> <span style="color:#66d9ef">t</span>)
-     (sed <span style="color:#f92672">.</span> <span style="color:#66d9ef">t</span>)
-     (awk <span style="color:#f92672">.</span> <span style="color:#66d9ef">t</span>)
-     (clojure <span style="color:#f92672">.</span> <span style="color:#66d9ef">t</span>)))</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp">  <span class="p">(</span><span class="nb">setq</span> <span class="nv">org-confirm-babel-evaluate</span> <span class="no">nil</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="nv">org-babel-do-load-languages</span>
+   <span class="ss">&#39;org-babel-load-languages</span>
+   <span class="o">&#39;</span><span class="p">((</span><span class="nv">emacs-lisp</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">shell</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>  <span class="c1">; in my case /bin/bash</span>
+     <span class="p">(</span><span class="nv">scheme</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">python</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">sed</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">awk</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">clojure</span> <span class="o">.</span> <span class="no">t</span><span class="p">)))</span></code></pre></div>
 </div>
-<h2 id="headline-3">
+<h2 id="headline-4">
 Bash echo
 </h2>
 <p>
-  This example uses bash to evaluate a command. The code or as in this case the command is
-  within <code class="verbatim">#+BEGIN_SRC</code> and <code class="verbatim">#+END_SRC</code>. The result of the evaluated command is under
-  <code class="verbatim">#+RESULTS:</code>. Evaluation is done by moving the pointer to the source block and press the
-  key sequence <code class="verbatim">C-c C-c</code>.
+  This small example uses bash to evaluate the <code class="verbatim">echo</code> command. Evaluation is done by
+  moving the pointer to the source block and press the key sequence <code class="verbatim">C-c C-c</code>.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">  What shell am I using?
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  What shell am I using?
 
-<span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">shell</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>    echo $SHELL
-<span style="color:#75715e">  #+END_SRC</span>
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>    <span class="nb">echo</span> <span class="nv">$SHELL</span>
+<span class="c">  #+END_SRC</span>
 
   #+RESULTS:
   : /bin/bash</code></pre></div>
 </div>
-<h2 id="headline-4">
+<h2 id="headline-5">
 Echo input variables
 </h2>
 <p>
@@ -176,15 +218,15 @@ Echo input variables
   <strong>ARG1</strong> and <strong>ARG2</strong>. The command get the arguments and uses them in the command.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">shell</span><span style="color:#75715e"> :var ARG1=&#34;FOO&#34; ARG2=&#34;BOO&#34;
-</span><span style="color:#75715e"></span>    echo $ARG1 $ARG2
-<span style="color:#75715e">  #+END_SRC</span>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :var ARG1=&#34;FOO&#34; ARG2=&#34;BAR&#34;
+</span><span class="c"></span>    <span class="nb">echo</span> <span class="nv">$ARG1</span> <span class="nv">$ARG2</span>
+<span class="c">  #+END_SRC</span>
 
   #+RESULTS:
-  : FOO BOO</code></pre></div>
+  : FOO BAR</code></pre></div>
 </div>
-<h2 id="headline-5">
-Document variable
+<h2 id="headline-6">
+Document variables
 </h2>
 <p>
   Lets elaborate on argument to source blocks even further. Org documents can contain
@@ -193,17 +235,15 @@ Document variable
   <code class="verbatim">lst</code>. When executed by Python the <code class="verbatim">lst</code> data structure is a vector with vectors.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">  #+NAME: my-list
-  <span style="color:#e6db74">| A | 1 |</span>
-  <span style="color:#e6db74">| B | 2 |</span>
-  <span style="color:#e6db74">| C | 3 |</span>
-
-  `my-list` is a variable in this org document and can be passed in as data to a source code
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: my-list
+  <span class="s">| A | 1 |</span>
+  <span class="s">| B | 2 |</span>
+  <span class="s">| C | 3 |</span> <span class="nc">=my-list=</span> is a variable in this org document and can be passed in as data to a source code
   block.
 
-<span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">python</span><span style="color:#75715e"> :results output :var lst=my-list
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">print</span>(lst)
-<span style="color:#75715e">  #+END_SRC</span>
+<span class="c">  #+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results output :var lst=my-list
+</span><span class="c"></span>    <span class="k">print</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+<span class="c">  #+END_SRC</span>
 
   The data structure that will be passed to the source block is a vector or vectors.
 
@@ -212,14 +252,14 @@ Document variable
 
   Just like with a normal Python application you can manipulate the data.
 
-<span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">python</span><span style="color:#75715e"> :results raw :var lst=my-list
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> [[chr((ord(x)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)), y<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">for</span> x,y <span style="color:#f92672">in</span> lst]
-<span style="color:#75715e">  #+END_SRC</span>
+<span class="c">  #+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results raw :var lst=my-list
+</span><span class="c"></span>    <span class="k">return</span> <span class="p">[[</span><span class="nb">chr</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)),</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span>
+<span class="c">  #+END_SRC</span>
 
   #+RESULTS:
   [[&#39;B&#39;, 2], [&#39;C&#39;, 3], [&#39;D&#39;, 4]]</code></pre></div>
 </div>
-<h2 id="headline-6">
+<h2 id="headline-7">
 Result output
 </h2>
 <p>
@@ -227,7 +267,7 @@ Result output
   more. Output results are described with the <code class="verbatim">:results</code> switch in the source block header.
   This post won&#39;t go more into details but more information can be found <a href="https://orgmode.org/manual/Results-of-Evaluation.html">here</a>.
 </p>
-<h2 id="headline-7">
+<h2 id="headline-8">
 More on document variables
 </h2>
 <p>
@@ -240,24 +280,24 @@ More on document variables
   document.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">  #+NAME: text-example
-<span style="color:#75715e">  #+BEGIN_EXAMPLE</span>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: text-example
+<span class="c">  #+BEGIN_EXAMPLE</span>
     Item1 100
     Item2 200
     Item3 50
-<span style="color:#75715e">  #+END_EXAMPLE</span>
+<span class="c">  #+END_EXAMPLE</span>
 
   Sum field nr 2.
 
-<span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">awk</span><span style="color:#75715e"> :results table :stdin text-example
-</span><span style="color:#75715e"></span>    BEGIN {OFS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;|&#34;</span>}; { <span style="color:#a6e22e">sum</span><span style="color:#f92672">+=</span> <span style="color:#f92672">$</span><span style="color:#ae81ff">2</span>}; END { <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;Sum&#34;</span>, <span style="color:#a6e22e">sum</span>}
-<span style="color:#75715e">  #+END_SRC</span>
+<span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results table :stdin text-example
+</span><span class="c"></span>    <span class="nb">BEGIN</span> <span class="p">{</span><span class="nb">OFS</span><span class="o">=</span><span class="s2">&#34;|&#34;</span><span class="p">};</span> <span class="p">{</span> <span class="nx">sum</span><span class="o">+=</span> <span class="o">$</span><span class="mi">2</span><span class="p">};</span> <span class="nb">END</span> <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;Sum&#34;</span><span class="p">,</span> <span class="nx">sum</span><span class="p">}</span>
+<span class="c">  #+END_SRC</span>
 
   #+RESULTS:
-  <span style="color:#e6db74">| Sum | 350 |</span></code></pre></div>
+  <span class="s">| Sum | 350 |</span></code></pre></div>
 </div>
-<h2 id="headline-8">
-File (almost) from file system
+<h2 id="headline-9">
+File from file system
 </h2>
 <p>
   This example is very similar to the one in <a href="#headline-4">&#34;Echo input variables&#34;</a>. It passed a variable
@@ -265,18 +305,18 @@ File (almost) from file system
   <strong>:in-file</strong> as an argument.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">   Get system users that have <span style="color:#a6e22e">=/bin/bash=</span> access.
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">   Get system users that have <span class="nc">=/bin/bash=</span> access.
 
-<span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">awk</span><span style="color:#75715e"> :results table :in-file /etc/passwd
-</span><span style="color:#75715e"></span>    BEGIN { FS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;:&#34;</span>}
-    <span style="color:#f92672">$</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;/bin/bash&#34;</span> { <span style="color:#66d9ef">print</span> <span style="color:#f92672">$</span><span style="color:#ae81ff">1</span>}
-<span style="color:#75715e">  #+END_SRC</span>
+<span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results table :in-file /etc/passwd
+</span><span class="c"></span>    <span class="nb">BEGIN</span> <span class="p">{</span> <span class="nb">FS</span><span class="o">=</span><span class="s2">&#34;:&#34;</span><span class="p">}</span>
+    <span class="o">$</span><span class="mi">7</span> <span class="o">==</span> <span class="s2">&#34;/bin/bash&#34;</span> <span class="p">{</span> <span class="kr">print</span> <span class="o">$</span><span class="mi">1</span><span class="p">}</span>
+<span class="c">  #+END_SRC</span>
 
   #+RESULTS:
-  <span style="color:#e6db74">| root |</span>
-  <span style="color:#e6db74">| john |</span></code></pre></div>
+  <span class="s">| root |</span>
+  <span class="s">| john |</span></code></pre></div>
 </div>
-<h2 id="headline-9">
+<h2 id="headline-10">
 Combine results and source blocks
 </h2>
 <p>
@@ -289,12 +329,12 @@ Combine results and source blocks
   <code class="verbatim">#+NAME:</code> on a source block instead of a text block or a table.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">  List files ending with .awk in <span style="font-style:italic">/tmp/</span> dir.
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  List files ending with .awk in <span class="ge">/tmp/</span> dir.
 
   #+NAME: ls-output
-<span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">shell</span><span style="color:#75715e"> :dir /tmp :results output
-</span><span style="color:#75715e"></span>    ls -la *.awk
-<span style="color:#75715e">  #+END_SRC</span>
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :dir /tmp :results output
+</span><span class="c"></span>    ls -la *.awk
+<span class="c">  #+END_SRC</span>
 
   #+RESULTS: ls-output
   : -rw-r--r-- 1 john users 492 Jun 15 11:46 awk-play.awk
@@ -304,23 +344,23 @@ Combine results and source blocks
   Take only size and filename and return a table.
 
   #+NAME: ls-output-table
-<span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">awk</span><span style="color:#75715e"> :results table :stdin ls-output
-</span><span style="color:#75715e"></span>    BEGIN { OFS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;|&#34;</span> }; { <span style="color:#66d9ef">print</span> <span style="color:#f92672">$</span><span style="color:#ae81ff">5</span>, <span style="color:#f92672">$</span><span style="color:#ae81ff">9</span>}
-<span style="color:#75715e">  #+END_SRC</span>
+<span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results table :stdin ls-output
+</span><span class="c"></span>    <span class="nb">BEGIN</span> <span class="p">{</span> <span class="nb">OFS</span><span class="o">=</span><span class="s2">&#34;|&#34;</span> <span class="p">};</span> <span class="p">{</span> <span class="kr">print</span> <span class="o">$</span><span class="mi">5</span><span class="p">,</span> <span class="o">$</span><span class="mi">9</span><span class="p">}</span>
+<span class="c">  #+END_SRC</span>
 
   #+RESULTS: ls-output-table
-  <span style="color:#e6db74">| 492 | awk-play.awk                      |</span>
-  <span style="color:#e6db74">| 396 | copy-line-on-confirm.awk          |</span>
-  <span style="color:#e6db74">| 412 | filter-google-chromepasswords.awk |</span>
+  <span class="s">| 492 | awk-play.awk                      |</span>
+  <span class="s">| 396 | copy-line-on-confirm.awk          |</span>
+  <span class="s">| 412 | filter-google-chromepasswords.awk |</span>
 
   Process the table with Python.
 
-<span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">python</span><span style="color:#75715e"> :results output :var table=ls-output-table
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">print</span>(table)
-    <span style="color:#66d9ef">print</span>(max(table))                              <span style="color:#75715e"># Biggest awk file</span>
-    <span style="color:#66d9ef">print</span>(min(table))                              <span style="color:#75715e"># Smallest awk file</span>
-    <span style="color:#66d9ef">print</span>(sum([x <span style="color:#66d9ef">for</span> x,y <span style="color:#f92672">in</span> table]) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000</span> , <span style="color:#e6db74">&#34;kb&#34;</span>) <span style="color:#75715e"># Sum of all awk files</span>
-<span style="color:#75715e">  #+END_SRC</span>
+<span class="c">  #+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results output :var table=ls-output-table
+</span><span class="c"></span>    <span class="k">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>                              <span class="c1"># Biggest awk file</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>                              <span class="c1"># Smallest awk file</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="n">table</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1000</span> <span class="p">,</span> <span class="s2">&#34;kb&#34;</span><span class="p">)</span> <span class="c1"># Sum of all awk files</span>
+<span class="c">  #+END_SRC</span>
 
   #+RESULTS:
   : [[492, &#39;awk-play.awk&#39;], [396, &#39;copy-line-on-confirm.awk&#39;], [412, &#39;filter-google-chromepasswords.awk&#39;]]
@@ -328,8 +368,8 @@ Combine results and source blocks
   : [396, &#39;copy-line-on-confirm.awk&#39;]
   : 1.3 kb</code></pre></div>
 </div>
-<h2 id="headline-10">
-Nice things i didn&#39;t cover
+<h2 id="headline-11">
+Nice things I didn&#39;t cover
 </h2>
 <p>
   Org have ways to execute code on remote servers via source blocks. This is awesome and can
@@ -340,7 +380,7 @@ Nice things i didn&#39;t cover
   Source blocks can also be written to the file system via the header switch <code class="verbatim">:tangle</code>. This
   is also very useful. More info about that can be found <a href="https://orgmode.org/manual/Extracting-Source-Code.html">here</a>.
 </p>
-<h2 id="headline-11">
+<h2 id="headline-12">
 Conclusion
 </h2>
 <p>
@@ -349,45 +389,31 @@ Conclusion
   languages. From the document view everything is just text so version control a org
   document is very simple.
 </p>
+
+      
+      <div class="related">
 </div>
-				
-				<footer class="entry__footer">
-					
-					
-<div class="entry__share share">
-	<a class="share__link btn" title="Share on Twitter" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fjherrlin.github.io%2fposts%2femacs-orgmode-source-code-blocks%2f&amp;text=Emacs%20Org%20mode%20source%20blocks" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, 'Share on Twitter', 'width=800,height=450,resizable=yes,toolbar=0,status=0'); return false">
-		<svg class="share__icon" aria-label="Twitter" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
-	</a>
-</div>
-				</footer>
-				
-			</article>
-		</div>
-	</main>
-	
-	
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
 
 
 
-	
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
 
-	</div>
-	<footer class="footer">
-<div class="footer__social social">
-		<a class="social__link" target="_blank" rel="noopener noreferrer" href="mailto:jherrlin@gmail.com">
-			<svg class="social__icon" aria-label="Email" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M299 268l124 106c-4 4-10 7-17 7H106c-7 0-13-3-17-7l124-106 43 38 43-38zm-43 13L89 138c4-4 10-7 17-7h300c7 0 13 3 17 7L256 281zm54-23l121-105v208L310 258zM81 153l121 105L81 361V153z"/></svg>
-		</a>
-		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://twitter.com/jherrlin">
-			<svg class="social__icon" aria-label="Twitter" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
-		</a>
-		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://github.com/jherrlin">
-			<svg class="social__icon" aria-label="Github" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
-		</a>
-</div>
-	<div class="footer__copyright">© 2020 John Herrlin. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
-</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
 
-<script src="/js/custom.js"></script>
+
 </body>
 </html>
+

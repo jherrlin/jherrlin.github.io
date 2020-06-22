@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on John Herrlin</title>
+    <title>Posts on jherrlin</title>
     <link>https://jherrlin.github.io/posts/</link>
-    <description>Recent content in Posts on John Herrlin</description>
+    <description>Recent content in Posts on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2020 13:18:00 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2020 16:16:30 +0200</lastBuildDate>
     
 	<atom:link href="https://jherrlin.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Emacs Org mode tables</title>
+      <link>https://jherrlin.github.io/posts/emacs-orgmode-tables/</link>
+      <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/emacs-orgmode-tables/</guid>
+      <description>Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.  Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &amp;#34;Emacs Org mode source blocks&amp;#34;) or used in calculations.</description>
+    </item>
     
     <item>
       <title>Emacs Org mode source blocks</title>
@@ -17,7 +26,7 @@
       <pubDate>Mon, 15 Jun 2020 13:18:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/</guid>
-      <description>Intro   It&amp;#39;s time to start documenting how I use Emacs org mode (from now on org) and it will contain a serie of posts.  This is the first post and it will cover source blocks.  One of Emacs many killing features is org. To describe it fairly wide it&amp;#39;s like markdown on steroids, with extensions. You can write headings and subheadings to create levels of sections.</description>
+      <description>Intro   It&amp;#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.  One of the features I&amp;#39;ve been using very frequently is source blocks.</description>
     </item>
     
     <item>

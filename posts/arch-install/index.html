@@ -1,81 +1,123 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en-us">
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="theme-color" content="#1b1b1b">
-	<title>Arch install with LUKS and systemd-boot | John Herrlin</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="Arch install with LUKS and systemd-boot" />
-<meta property="og:description" content="Into   Recently made a fresh Arch Linux install.  The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.  The LUKS device contains a header with data about the device." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://jherrlin.github.io/posts/arch-install/" />
-<meta property="article:published_time" content="2020-06-01T16:44:47+02:00" />
-<meta property="article:modified_time" content="2020-06-01T16:44:47+02:00" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Arch install with LUKS and systemd-boot"/>
-<meta name="twitter:description" content="Into   Recently made a fresh Arch Linux install.  The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.  The LUKS device contains a header with data about the device."/>
+<title>Arch install with LUKS and systemd-boot | jherrlin</title>
 
-	<link rel="stylesheet" href="/css/bundle.css">
-	<link rel="stylesheet" href="/css/custom.css">
-	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
-	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
-		
+<meta property='og:title' content='Arch install with LUKS and systemd-boot - jherrlin'>
+<meta property='og:description' content='Into   Recently made a fresh Arch Linux install.  The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.  The LUKS device contains a header with data about the device.'>
+<meta property='og:url' content='https://jherrlin.github.io/posts/arch-install/'>
+<meta property='og:site_name' content='jherrlin'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/863335b1b544efa54915dc5a807256ae?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='arch'><meta property='article:tag' content='install'><meta property='article:tag' content='system'><meta property='article:tag' content='encryption'><meta property='article:published_time' content='2020-06-01T16:44:47&#43;02:00'/><meta property='article:modified_time' content='2020-06-01T16:44:47&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
+
+
+<link href="https://jherrlin.github.io/index.xml" rel="alternate" type="application/rss+xml" title="jherrlin" />
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://jherrlin.github.io/posts/arch-install/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 </head>
 <body>
-	<header class="header">
-	<a class="logo" href="/">John Herrlin</a>
-	
-</header>
-	<div class="primary">
-	
-	<main class="main">
-		
-<nav class="breadcrumb block" aria-label="breadcrumb">
-	<ol class="breadcrumb__list">
-		
-		<li class="breadcrumb__item">
-			<a class="breadcrumbs__link" href="/">Home</a>
-		</li>
-		<li class="breadcrumb__item">
-			<a class="breadcrumbs__link" href="/posts/">Posts</a>
-		</li>
-		<li class="breadcrumbs__item breadcrumb__item--active" aria-current="page">Arch install with LUKS and systemd-boot</li>
-	</ol>
-</nav>
-		<div class="single block">
-			<article class="entry">
-	<div class="entry__meta meta mb">
-	<time class="entry__meta-published meta-published" datetime="2020-06-01T16:44:47&#43;02:00">June 01, 2020</time>
-<span class="entry__meta-categories meta-categories">
-	<span class="meta-categories__list">Categories:
-		<a class="meta-categories__link" href="/categories/arch" rel="category">arch</a>, 
-		<a class="meta-categories__link" href="/categories/install" rel="category">install</a>, 
-		<a class="meta-categories__link" href="/categories/system" rel="category">system</a>, 
-		<a class="meta-categories__link" href="/categories/encryption" rel="category">encryption</a>
-	</span>
-</span>
-	</div>
-				<h1 class="entry__title">Arch install with LUKS and systemd-boot</h1>
-<details class="entry__toc toc" open>
-	<summary class="toc__title">Table of Contents</summary>
-	<nav id="TableOfContents">
-<ul>
-<li><a href="#headline-1">Into</a>
-</li>
-<li><a href="#headline-2">Thanks to</a>
-</li>
-<li><a href="#headline-3">Install</a>
-</li>
-<li><a href="#headline-4">Extra</a>
-</li>
-</ul>
-</nav>
-</details>
-				<div class="entry__content">
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://jherrlin.github.io/">
+          <h1 id="nav-heading" class="title is-4">jherrlin</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:jerrlin@gmail.com'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/john-herrlin-63458280'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="rss" href='/index.xml'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/arch/">#arch</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/install/">#install</a>
+  
+  | <a class="subtitle is-6" href="/tags/system/">#system</a>
+  
+  | <a class="subtitle is-6" href="/tags/encryption/">#encryption</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">June 1, 2020</h2>
+    <h1 class="title">Arch install with LUKS and systemd-boot</h1>
+    
+    <div class="content">
+      
 <h2 id="headline-1">
 Into
 </h2>
@@ -111,32 +153,32 @@ Thanks to
 Install
 </h2>
 <div class="src src-shell">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  gdisk /dev/nvme0n1 <span style="color:#75715e"># Disk for</span>
-  <span style="color:#75715e"># Remove all partitions</span>
-  <span style="color:#75715e"># Create two new partitions</span>
-  <span style="color:#75715e"># +1GB           EF00   EFI and boot</span>
-  <span style="color:#75715e"># rest of disk   8300   home and system</span>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  gdisk /dev/nvme0n1 <span class="c1"># Disk for</span>
+  <span class="c1"># Remove all partitions</span>
+  <span class="c1"># Create two new partitions</span>
+  <span class="c1"># +1GB           EF00   EFI and boot</span>
+  <span class="c1"># rest of disk   8300   home and system</span>
 
   mkfs.fat -F32 /dev/nvmw0n1p1
 
-  <span style="color:#75715e"># Create LUKS device</span>
-  <span style="color:#75715e"># Check the results</span>
-  <span style="color:#75715e"># Create header backup</span>
-  <span style="color:#75715e"># Mount the device</span>
+  <span class="c1"># Create LUKS device</span>
+  <span class="c1"># Check the results</span>
+  <span class="c1"># Create header backup</span>
+  <span class="c1"># Mount the device</span>
   cryptsetup -v --use-random luksFormat /dev/nvmw0n1p2
   cryptsetup luksDump /dev/nvmw0n1p2
-  cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file luks_header_backup_<span style="color:#e6db74">`</span>date +%Y-%m-%d<span style="color:#e6db74">`</span>
+  cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file luks_header_backup_<span class="sb">`</span>date +%Y-%m-%d<span class="sb">`</span>
   cryptsetup luksOpen /dev/nvmw0n1p2 cryptroot
 
-  <span style="color:#75715e"># Create file system on luks device</span>
+  <span class="c1"># Create file system on luks device</span>
   mkfs.ext4 /dev/mapper/cryptroot
 
-  <span style="color:#75715e"># Mount partitions</span>
+  <span class="c1"># Mount partitions</span>
   mount /dev/mapper/cryptroot /mnt
   mkdir -p /mnt/boot
   mount /dev/nvmw0n1p1 /mnt/boot
 
-  <span style="color:#75715e"># Connect to wifi</span>
+  <span class="c1"># Connect to wifi</span>
   wifi-menu
 
   pacstrap /mnt base base-devel linux linux-firmware intel-ucode git emacs sudo networkmanager bash-completion
@@ -149,74 +191,74 @@ Install
 
   hwclock --systohc --utc
 
-  <span style="color:#75715e"># Set host name</span>
-  echo arch &gt; /etc/hostname
+  <span class="c1"># Set host name</span>
+  <span class="nb">echo</span> arch &gt; /etc/hostname
 
   emacs /etc/locale.gen
-  <span style="color:#75715e"># uncomment:</span>
-  <span style="color:#75715e"># en_US.UTF-8 UTF-8</span>
+  <span class="c1"># uncomment:</span>
+  <span class="c1"># en_US.UTF-8 UTF-8</span>
 
   locale-gen
 
-  echo LANG<span style="color:#f92672">=</span>en_US.UTF-8 &gt; /etc/locale.conf
-  echo LANGUAGE<span style="color:#f92672">=</span>en_US &gt;&gt; /etc/locale.conf
-  echo LC_ALL<span style="color:#f92672">=</span>C &gt;&gt; /etc/locale.conf
+  <span class="nb">echo</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8 &gt; /etc/locale.conf
+  <span class="nb">echo</span> <span class="nv">LANGUAGE</span><span class="o">=</span>en_US &gt;&gt; /etc/locale.conf
+  <span class="nb">echo</span> <span class="nv">LC_ALL</span><span class="o">=</span>C &gt;&gt; /etc/locale.conf
 
-  <span style="color:#75715e"># Set root password</span>
+  <span class="c1"># Set root password</span>
   passwd
 
-  <span style="color:#75715e"># Create new user</span>
+  <span class="c1"># Create new user</span>
   useradd -m -g users -G wheel,video john
 
-  <span style="color:#75715e"># Set user password</span>
+  <span class="c1"># Set user password</span>
   passwd john
 
-  EDITOR<span style="color:#f92672">=</span>emacs visudo
-  <span style="color:#75715e"># Uncomment line:</span>
-  <span style="color:#75715e"># %wheel ALL=(ALL) ALL</span>
+  <span class="nv">EDITOR</span><span class="o">=</span>emacs visudo
+  <span class="c1"># Uncomment line:</span>
+  <span class="c1"># %wheel ALL=(ALL) ALL</span>
 
   emacs /etc/mkinitcpio.conf
-  <span style="color:#75715e"># Open mkinitcpio.conf and add the following to each section:</span>
-  <span style="color:#75715e"># MODULES=(ext4)</span>
-  <span style="color:#75715e"># On &#39;HOOKS&#39; add &#39;encrypt&#39; before &#39;filesystem&#39;</span>
-  <span style="color:#75715e"># Something like this:</span>
-  <span style="color:#75715e"># HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)</span>
+  <span class="c1"># Open mkinitcpio.conf and add the following to each section:</span>
+  <span class="c1"># MODULES=(ext4)</span>
+  <span class="c1"># On &#39;HOOKS&#39; add &#39;encrypt&#39; before &#39;filesystem&#39;</span>
+  <span class="c1"># Something like this:</span>
+  <span class="c1"># HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)</span>
 
   mkinitcpio -p linux
 
-  bootctl --path<span style="color:#f92672">=</span>/boot install
+  bootctl --path<span class="o">=</span>/boot install
 
-  echo <span style="color:#e6db74">&#39;default arch&#39;</span> &gt;&gt; /boot/loader/loader.conf
-  echo <span style="color:#e6db74">&#39;timeout 5&#39;</span> &gt;&gt; /boot/loader/loader.conf
+  <span class="nb">echo</span> <span class="s1">&#39;default arch&#39;</span> &gt;&gt; /boot/loader/loader.conf
+  <span class="nb">echo</span> <span class="s1">&#39;timeout 5&#39;</span> &gt;&gt; /boot/loader/loader.conf
 
-  <span style="color:#75715e"># Get the PARTUUID from the system partition into arch.conf</span>
+  <span class="c1"># Get the PARTUUID from the system partition into arch.conf</span>
   blkid -s PARTUUID -o value /dev/nvme1n1p2 &gt;&gt; /boot/loader/entries/arch.conf
 
   emacs /boot/loader/entries/arch.conf
-  <span style="color:#75715e"># Add the following content to arch.conf</span>
-  <span style="color:#75715e"># The partition &lt;PARTUUID&gt; is already in the file.</span>
+  <span class="c1"># Add the following content to arch.conf</span>
+  <span class="c1"># The partition &lt;PARTUUID&gt; is already in the file.</span>
   title Arch Linux
   linux /vmlinuz-linux
   initrd /intel-ucode.img
   initrd /initramfs-linux.img
-  options cryptdevice<span style="color:#f92672">=</span>PARTUUID<span style="color:#f92672">=</span>&lt;PARTUUID&gt;:cryptroot root<span style="color:#f92672">=</span>/dev/mapper/cryptroot rw
+  options <span class="nv">cryptdevice</span><span class="o">=</span><span class="nv">PARTUUID</span><span class="o">=</span>&lt;PARTUUID&gt;:cryptroot <span class="nv">root</span><span class="o">=</span>/dev/mapper/cryptroot rw
 
-  <span style="color:#75715e"># Exit new system and go into the cd shell</span>
-  exit
+  <span class="c1"># Exit new system and go into the cd shell</span>
+  <span class="nb">exit</span>
 
-  <span style="color:#75715e"># Unmount all</span>
+  <span class="c1"># Unmount all</span>
   umount -R /mnt
 
-  <span style="color:#75715e"># Reboot system</span>
+  <span class="c1"># Reboot system</span>
   shutdown -r now</code></pre></div>
 </div>
 <p>
   Start NetworkManager and connect to a wifi in the new system.
 </p>
 <div class="src src-shell">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl start NetworkManager
-systemctl enable NetworkManager
-nmcli device wifi connect &lt;SSID|BSSID&gt; password &lt;password&gt;</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">systemctl start NetworkManager
+systemctl <span class="nb">enable</span> NetworkManager
+nmcli device wifi connect &lt;SSID<span class="p">|</span>BSSID&gt; password &lt;password&gt;</code></pre></div>
 </div>
 <h2 id="headline-4">
 Extra
@@ -226,7 +268,7 @@ Extra
   have.
 </p>
 <div class="src src-shell">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  alacritty
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  alacritty
   acpi
   chromium
   clojure
@@ -242,45 +284,31 @@ Extra
   xorg-server-xwayland
   pass</code></pre></div>
 </div>
+
+      
+      <div class="related">
 </div>
-				
-				<footer class="entry__footer">
-					
-					
-<div class="entry__share share">
-	<a class="share__link btn" title="Share on Twitter" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fjherrlin.github.io%2fposts%2farch-install%2f&amp;text=Arch%20install%20with%20LUKS%20and%20systemd-boot" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, 'Share on Twitter', 'width=800,height=450,resizable=yes,toolbar=0,status=0'); return false">
-		<svg class="share__icon" aria-label="Twitter" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
-	</a>
-</div>
-				</footer>
-				
-			</article>
-		</div>
-	</main>
-	
-	
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
 
 
 
-	
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
 
-	</div>
-	<footer class="footer">
-<div class="footer__social social">
-		<a class="social__link" target="_blank" rel="noopener noreferrer" href="mailto:jherrlin@gmail.com">
-			<svg class="social__icon" aria-label="Email" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M299 268l124 106c-4 4-10 7-17 7H106c-7 0-13-3-17-7l124-106 43 38 43-38zm-43 13L89 138c4-4 10-7 17-7h300c7 0 13 3 17 7L256 281zm54-23l121-105v208L310 258zM81 153l121 105L81 361V153z"/></svg>
-		</a>
-		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://twitter.com/jherrlin">
-			<svg class="social__icon" aria-label="Twitter" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
-		</a>
-		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://github.com/jherrlin">
-			<svg class="social__icon" aria-label="Github" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
-		</a>
-</div>
-	<div class="footer__copyright">© 2020 John Herrlin. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
-</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
 
-<script src="/js/custom.js"></script>
+
 </body>
 </html>
+

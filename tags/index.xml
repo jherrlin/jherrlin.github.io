@@ -1,14 +1,150 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on John Herrlin</title>
+    <title>Tags on jherrlin</title>
     <link>https://jherrlin.github.io/tags/</link>
-    <description>Recent content in Tags on John Herrlin</description>
+    <description>Recent content in Tags on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sun, 21 Jun 2020 16:16:30 +0200</lastBuildDate>
     
 	<atom:link href="https://jherrlin.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>emacs</title>
+      <link>https://jherrlin.github.io/tags/emacs/</link>
+      <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GNU</title>
+      <link>https://jherrlin.github.io/tags/gnu/</link>
+      <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/gnu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>org</title>
+      <link>https://jherrlin.github.io/tags/org/</link>
+      <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/org/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://jherrlin.github.io/tags/programming/</link>
+      <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>arch</title>
+      <link>https://jherrlin.github.io/tags/arch/</link>
+      <pubDate>Mon, 01 Jun 2020 16:44:47 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/arch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>encryption</title>
+      <link>https://jherrlin.github.io/tags/encryption/</link>
+      <pubDate>Mon, 01 Jun 2020 16:44:47 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/encryption/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>install</title>
+      <link>https://jherrlin.github.io/tags/install/</link>
+      <pubDate>Mon, 01 Jun 2020 16:44:47 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/install/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>system</title>
+      <link>https://jherrlin.github.io/tags/system/</link>
+      <pubDate>Mon, 01 Jun 2020 16:44:47 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>clojure</title>
+      <link>https://jherrlin.github.io/tags/clojure/</link>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/clojure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>generative</title>
+      <link>https://jherrlin.github.io/tags/generative/</link>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/generative/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spec</title>
+      <link>https://jherrlin.github.io/tags/spec/</link>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/spec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>https://jherrlin.github.io/tags/test/</link>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>transducers</title>
+      <link>https://jherrlin.github.io/tags/transducers/</link>
+      <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/transducers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>database</title>
+      <link>https://jherrlin.github.io/tags/database/</link>
+      <pubDate>Sun, 17 May 2020 20:28:11 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>datomic</title>
+      <link>https://jherrlin.github.io/tags/datomic/</link>
+      <pubDate>Sun, 17 May 2020 20:28:11 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/datomic/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
