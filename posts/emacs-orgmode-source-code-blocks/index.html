@@ -238,7 +238,9 @@ Document variables
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: my-list
   <span class="s">| A | 1 |</span>
   <span class="s">| B | 2 |</span>
-  <span class="s">| C | 3 |</span> <span class="nc">=my-list=</span> is a variable in this org document and can be passed in as data to a source code
+  <span class="s">| C | 3 |</span>
+
+  my-list is a variable in this org document and can be passed in as data to a source code
   block.
 
 <span class="c">  #+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results output :var lst=my-list
@@ -320,13 +322,15 @@ File from file system
 Combine results and source blocks
 </h2>
 <p>
-  Now lets use the result from one source block as argument to another. In the example below
-  we use <code class="verbatim">bash</code> to get data about our file system. That result is then feed to <code class="verbatim">awk</code> that
-  creates a good looking table. That table is then sent to Python for further processing.
+  Now lets use the result from one source block as argument to another. The example
+  requires some files with a <code class="verbatim">.awk</code> ending to be present in <code class="verbatim">/tmp</code>. We use <code class="verbatim">bash</code> to get
+  data about our file system. That result is then feed to <code class="verbatim">awk</code> that creates a good
+  looking table. That table is then sent to Python for further processing.
 </p>
 <p>
   There is nothing different here from the other examples except that in this case we use
-  <code class="verbatim">#+NAME:</code> on a source block instead of a text block or a table.
+  <code class="verbatim">#+NAME:</code> on source blocks instead of a text blocks or a tables. The results from the
+  named source blocks will then be available as input to other source blocks.
 </p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  List files ending with .awk in <span class="ge">/tmp/</span> dir.
@@ -392,6 +396,15 @@ Conclusion
 
       
       <div class="related">
+
+<h3>Similar articles:</h3>
+<ul>
+	
+	<li><a href="/posts/clojure-spec-test-transducers/">Quick overview of Clojure spec, test.check and transducers</a></li>
+	
+	<li><a href="/posts/datomic-entity-event-log/">Entity event log in Datomic</a></li>
+	
+</ul>
 </div>
       
     </div>
