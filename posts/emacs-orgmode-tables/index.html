@@ -189,27 +189,27 @@ Table with a name
 </p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #<span class="gd">+NAME: countries
-</span><span class="gd">  | Country name | Population | Area | Region        |
-</span><span class="gd">  |--------------+</span>------------<span class="gd">+------+</span>---------------|
-  <span class="s">| USSR         |       8649 |  275 | Asia          |</span>
-  <span class="s">| Canada       |       3852 |   25 | North America |</span>
-  <span class="s">| China        |       3705 | 1032 | Asia          |</span>
-  <span class="s">| USA          |       3615 |  237 | North America |</span>
-  <span class="s">| Brazil       |       3286 |  134 | South America |</span>
-  <span class="s">| India        |       1267 |  746 | Asia          |</span>
-  <span class="s">| Mexico       |        762 |   78 | North America |</span>
-  <span class="s">| France       |        211 |   55 | Europe        |</span>
-  <span class="s">| Japan        |        144 |  120 | Asia          |</span>
-  <span class="s">| Germany      |         96 |   61 | Europe        |</span>
-  <span class="s">| England      |         94 |   56 | Europe        |</span>
+</span><span class="gd">  | Country name | Area | Population | Region        |
+</span><span class="gd">  |--------------+</span>------<span class="gd">+------------+</span>---------------|
+  <span class="s">| USSR         | 8649 |        275 | Asia          |</span>
+  <span class="s">| Canada       | 3852 |         25 | North America |</span>
+  <span class="s">| China        | 3705 |       1032 | Asia          |</span>
+  <span class="s">| USA          | 3615 |        237 | North America |</span>
+  <span class="s">| Brazil       | 3286 |        134 | South America |</span>
+  <span class="s">| India        | 1267 |        746 | Asia          |</span>
+  <span class="s">| Mexico       |  762 |         78 | North America |</span>
+  <span class="s">| France       |  211 |         55 | Europe        |</span>
+  <span class="s">| Japan        |  144 |        120 | Asia          |</span>
+  <span class="s">| Germany      |   96 |         61 | Europe        |</span>
+  <span class="s">| England      |   94 |         56 | Europe        |</span>
 
 <span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :stdin countries
-</span><span class="c"></span>    <span class="sr">/Europe/</span> <span class="p">{</span> <span class="nx">sum</span><span class="o">+=</span> <span class="o">$</span><span class="mi">2</span> <span class="p">}</span>
+</span><span class="c"></span>    <span class="sr">/Europe/</span> <span class="p">{</span> <span class="nx">sum</span><span class="o">+=</span> <span class="o">$</span><span class="mi">3</span> <span class="p">}</span>
     <span class="nb">END</span> <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;Sum of the population in Europe is&#34;</span><span class="p">,</span> <span class="nx">sum</span><span class="p">}</span>
 <span class="c">  #+END_SRC</span>
 
   #+RESULTS:
-  : Sum of the population in Europe is 401</code></pre></div>
+  : Sum of the population in Europe is 172</code></pre></div>
 </div>
 <p>
   Data is taken from the book <a href="https://ia802309.us.archive.org/25/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf">The AWK Programming Language</a>.
