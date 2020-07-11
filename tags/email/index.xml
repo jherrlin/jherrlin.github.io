@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>email on jherrlin</title>
+    <link>https://jherrlin.github.io/tags/email/</link>
+    <description>Recent content in email on jherrlin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 10 Jul 2020 16:00:00 +0200</lastBuildDate>
+    
+	<atom:link href="https://jherrlin.github.io/tags/email/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mail in Emacs with mu4e and mbsync</title>
+      <link>https://jherrlin.github.io/posts/emacs-mu4e/</link>
+      <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/emacs-mu4e/</guid>
+      <description>Intro   This post is the second part about GnuPG, password management, email, signing and encrypting emails and git commit signing. The first posts talked about GnuPG key generation, password management using pass, how to sign git commits and how Emacs connects with most of it. This post will focus on how to manage mails in Emacs with Mu4e and how to signing and encrypting messages with GnuPG. As the posts cover a lot of ground step by step instructions are not desirable.</description>
+    </item>
+    
+  </channel>
+</rss>

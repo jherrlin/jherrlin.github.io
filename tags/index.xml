@@ -6,7 +6,7 @@
     <description>Recent content in Tags on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Jun 2020 16:16:30 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jul 2020 16:00:00 +0200</lastBuildDate>
     
 	<atom:link href="https://jherrlin.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,63 @@
     <item>
       <title>emacs</title>
       <link>https://jherrlin.github.io/tags/emacs/</link>
-      <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
+      <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/tags/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>email</title>
+      <link>https://jherrlin.github.io/tags/email/</link>
+      <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/email/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>encryption</title>
+      <link>https://jherrlin.github.io/tags/encryption/</link>
+      <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/encryption/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gnugp</title>
+      <link>https://jherrlin.github.io/tags/gnugp/</link>
+      <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/gnugp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mu4e</title>
+      <link>https://jherrlin.github.io/tags/mu4e/</link>
+      <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/mu4e/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pass</title>
+      <link>https://jherrlin.github.io/tags/pass/</link>
+      <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/pass/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://jherrlin.github.io/tags/git/</link>
+      <pubDate>Fri, 10 Jul 2020 15:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/git/</guid>
       <description></description>
     </item>
     
@@ -53,15 +107,6 @@
       <pubDate>Mon, 01 Jun 2020 16:44:47 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/tags/arch/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>encryption</title>
-      <link>https://jherrlin.github.io/tags/encryption/</link>
-      <pubDate>Mon, 01 Jun 2020 16:44:47 +0200</pubDate>
-      
-      <guid>https://jherrlin.github.io/tags/encryption/</guid>
       <description></description>
     </item>
     

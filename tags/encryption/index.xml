@@ -6,10 +6,28 @@
     <description>Recent content in encryption on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jun 2020 16:44:47 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jul 2020 16:00:00 +0200</lastBuildDate>
     
 	<atom:link href="https://jherrlin.github.io/tags/encryption/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mail in Emacs with mu4e and mbsync</title>
+      <link>https://jherrlin.github.io/posts/emacs-mu4e/</link>
+      <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/emacs-mu4e/</guid>
+      <description>Intro   This post is the second part about GnuPG, password management, email, signing and encrypting emails and git commit signing. The first posts talked about GnuPG key generation, password management using pass, how to sign git commits and how Emacs connects with most of it. This post will focus on how to manage mails in Emacs with Mu4e and how to signing and encrypting messages with GnuPG. As the posts cover a lot of ground step by step instructions are not desirable.</description>
+    </item>
+    
+    <item>
+      <title>Emacs, GnuPG and Pass</title>
+      <link>https://jherrlin.github.io/posts/emacs-gnupg-and-pass/</link>
+      <pubDate>Fri, 10 Jul 2020 15:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/emacs-gnupg-and-pass/</guid>
+      <description>Intro   This post is the first out of two about GnuPG, password management, email, signing and encrypting emails and git commit signing. As always with a helping hand from Emacs. As the posts cover a lot of ground step by step instructions are not desirable. Links to more detailed resources can be found in each section. The main goal is to provide a quick but informative overview and give inspiration for further research.</description>
+    </item>
     
     <item>
       <title>Arch install with LUKS and systemd-boot</title>
