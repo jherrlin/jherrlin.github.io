@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Mail in Emacs with mu4e and mbsync | jherrlin</title>
+
+<meta property='og:title' content='Mail in Emacs with mu4e and mbsync - jherrlin'>
+<meta property='og:description' content='Intro   This post is the second part about GnuPG, password management, email, signing and encrypting emails and git commit signing. The first posts talked about GnuPG key generation, password management using pass, how to sign git commits and how Emacs connects with most of it. This post will focus on how to manage mails in Emacs with Mu4e and how to signing and encrypting messages with GnuPG. As the posts cover a lot of ground step by step instructions are not desirable.'>
+<meta property='og:url' content='https://jherrlin.github.io/posts/emacs-mu4e/'>
+<meta property='og:site_name' content='jherrlin'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/863335b1b544efa54915dc5a807256ae?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2020-07-10T16:00:00&#43;02:00'/><meta property='article:modified_time' content='2020-07-10T16:00:00&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
+
+
+<link href="https://jherrlin.github.io/index.xml" rel="alternate" type="application/rss+xml" title="jherrlin" />
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://jherrlin.github.io/posts/emacs-mu4e/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://jherrlin.github.io/">
+          <h1 id="nav-heading" class="title is-4">jherrlin</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:jerrlin@gmail.com'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/john-herrlin-63458280'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="rss" href='/index.xml'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">July 10, 2020</h2>
+    <h1 class="title">Mail in Emacs with mu4e and mbsync</h1>
+    
+    <div class="content">
+      
+<h2 id="headline-1">
+Intro
+</h2>
+<p>
+  This post is the second part about GnuPG, password management, email, signing and
+  encrypting emails and git commit signing. The first posts talked about GnuPG key
+  generation, password management using <code class="verbatim">pass</code>, how to sign git commits and how Emacs
+  connects with most of it. This post will focus on how to manage mails in Emacs with Mu4e
+  and how to signing and encrypting messages with GnuPG. As the posts cover a lot of
+  ground step by step instructions are not desirable. Links to more detailed resources can
+  be found in each section. The main goal is to provide a quick but informative overview
+  and give inspiration for further research.
+</p>
+<p>
+  The big picture is. Use <code class="verbatim">mbsync</code> to retrieve mails using imap. Mu4e for &#34;Maildir
+  indexer/searcher and Emacs client (mu4e)&#34;. All cridentials that are related to imap and
+  SMTP are stored in <code class="verbatim">pass</code>&#39;s password store and are version controlled using git. GnuPG
+  keys are used to encrypt the password store and to signing and encryting emails.
+</p>
+<p>
+  The layout of the post:
+</p>
+<ul>
+<li>
+<p>
+Environment; versions of the software (minus the ones already described in the first
+post).
+</p>
+</li>
+<li>
+<p>
+Mbsync; how to configure mbsync and how to take advantage of pass.
+</p>
+</li>
+<li>
+<p>
+Mu4e; Emacs config and how to sign and encrypt emails.
+</p>
+</li>
+</ul>
+<p>
+If things are unclear, please contact me via twitter!
+</p>
+<h2 id="headline-2">
+Environment
+</h2>
+<p>
+  Version of the software in use. OS, GnuPG, Pass and Emacs versions can be found in the
+  first post.
+</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>    mbsync --version
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  isync 1.3.1
+<span class="c">  #+end_src</span>
+
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>    mu --version
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  mu <span class="o">(</span>mail indexer/searcher<span class="o">)</span> version 1.4.10
+  Copyright <span class="o">(</span>C<span class="o">)</span> 2008-2020 Dirk-Jan C. Binnema
+  License GPLv3+: GNU GPL version <span class="m">3</span> or later &lt;http://gnu.org/licenses/gpl.html&gt;.
+  This is free software: you are free to change and redistribute it.
+  There is NO WARRANTY, to the extent permitted by law.
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+<h2 id="headline-3">
+Mbsync
+</h2>
+<p>
+  More details about isync/mbsync can be found here:
+</p>
+<ul>
+<li>
+<p>
+<a href="https://wiki.archlinux.org/index.php/isync">https://wiki.archlinux.org/index.php/isync</a>
+</p>
+</li>
+<li>
+<p>
+<a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">https://www.djcbsoftware.nl/code/mu/mu4e.html</a>
+</p>
+</li>
+<li>
+<p>
+<a href="https://cestlaz.github.io/posts/using-emacs-39-mu4e/">https://cestlaz.github.io/posts/using-emacs-39-mu4e/</a>
+</p>
+</li>
+<li>
+<p>
+<a href="http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html">http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html</a>
+</p>
+</li>
+</ul>
+<h3 id="headline-4">
+Install
+</h3>
+<p>
+   mbsync/isync exists in Arch standard repos.
+</p>
+<div class="src src-shell">
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  pacman -S isync</code></pre></div>
+</div>
+<h3 id="headline-5">
+Config files
+</h3>
+<p>
+   The config is more or less stolen from the <a href="https://wiki.archlinux.org/index.php/isync">Arch Wiki</a>. PassCmd is using long arguments
+   instead of short ones. Just to make things more describing.
+</p>
+<p>
+   Note that &#34;PassCmd&#34; gpg files is located in the <code class="verbatim">pass</code> password store.
+</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>    cat ~/.mbsyncrc
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  IMAPAccount gmail
+  Host imap.gmail.com
+  User jherrlin@gmail.com
+  PassCmd <span class="s2">&#34;gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.password-store/mbsync/gmail.gpg&#34;</span>
+  SSLType IMAPS
+  CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+  IMAPStore gmail-remote
+  Account gmail
+
+  MaildirStore gmail-local
+  Subfolders Verbatim
+  Path ~/.mail/gmail/
+  Inbox ~/.mail/gmail/Inbox
+
+  Channel gmail
+  Master :gmail-remote:
+  Slave :gmail-local:
+  Patterns * !<span class="o">[</span>Gmail<span class="o">]</span>* <span class="s2">&#34;[Gmail]/Sent Mail&#34;</span> <span class="s2">&#34;[Gmail]/Starred&#34;</span> <span class="s2">&#34;[Gmail]/All Mail&#34;</span>
+  Create Both
+  SyncState *
+
+
+  IMAPAccount lnu
+  Host imap.gmail.com
+  User jh222jx@student.lnu.se
+  PassCmd <span class="s2">&#34;gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/.password-store/mbsync/lnu.gpg&#34;</span>
+  SSLType IMAPS
+  CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+  IMAPStore lnu-remote
+  Account lnu
+
+  MaildirStore lnu-local
+  Subfolders Verbatim
+  Path ~/.mail/lnu/
+  Inbox ~/.mail/lnu/Inbox
+
+  Channel lnu
+  Master :lnu-remote:
+  Slave :lnu-local:
+  Create Both
+  SyncState *
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+<p>
+   Lets create the mbsync/gmail and mbsync/lnu files.
+</p>
+<div class="src src-shell">
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  pass insert mbsync/gmail
+  pass insert mbsync/lnu</code></pre></div>
+</div>
+<p>
+   The layout of the file should be just the password on the first row and nothing more.
+</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>    gpg --decrypt ~/.password-store/mbsync/gmail.gpg
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  &lt;PASSWORD&gt;
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+<p>
+   Create needed folders.
+</p>
+<div class="src src-shell">
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  mkdir -p ~/.mail/gmail ~/.mail/lnu</code></pre></div>
+</div>
+<p>
+   And sync all configs.
+</p>
+<div class="src src-shell">
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  mbsync -a</code></pre></div>
+</div>
+<p>
+   Now all of your emails should be in your <code class="verbatim">~/.mail</code> dir.
+</p>
+<h2 id="headline-6">
+Mu4e
+</h2>
+<p>
+  Here are some resources.
+</p>
+<ul>
+<li>
+<p>
+<a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">https://www.djcbsoftware.nl/code/mu/mu4e.html</a>
+</p>
+</li>
+</ul>
+<h3 id="headline-7">
+Install
+</h3>
+<p>
+   Mu4e is installed from <a href="https://aur.archlinux.org/packages/mu/">aur</a> using:
+</p>
+<div class="src src-shell">
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  mkdir -p ~/aur
+  <span class="nb">cd</span> <span class="nv">$_</span>
+  git clone https://aur.archlinux.org/mu.git
+  <span class="nb">cd</span> mu
+  makepkg -si</code></pre></div>
+</div>
+<h3 id="headline-8">
+Init
+</h3>
+<p>
+   Mu points to the same directory as mbsync. Before usage indexing needs to be done.
+</p>
+<div class="src src-shell">
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  mu init --maildir<span class="o">=</span>~/.mail --my-address<span class="o">=</span>jherrlin@gmail.com --my-address<span class="o">=</span>jh222jx@student.lnu.se
+  mu index</code></pre></div>
+</div>
+<h3 id="headline-9">
+Emacs config
+</h3>
+<p>
+   This is more or less all of the config for using mu4e in Emacs.
+</p>
+<p>
+   I will only cover the parts important to this post.
+</p>
+<p>
+   <code class="verbatim">(setq auth-sources &#39;(password-store))</code> and <code class="verbatim">(auth-source-pass-enable)</code> tells Emacs
+   that passwords for smtp is in the <code class="verbatim">pass</code> password store. <code class="verbatim">auth-source-pass</code> looks for
+   credentials in a certain order within the password store. The file that is found for
+   the gmail account is <code class="verbatim">~/.password-store/smtp.gmail.com/jherrlin@gmail.com.gpg</code>. It&#39;s
+   the <code class="verbatim">smtpmail-smtp-server</code> and <code class="verbatim">smtpmail-smtp-user</code> vars that points it to that
+   location.
+</p>
+<p>
+   There is a function on <code class="verbatim">message-send-hook</code> that asks to sign or encrypt the message
+   before sending. <code class="verbatim">mml-secure-message-sign-pgpmime</code> and
+   <code class="verbatim">mml-secure-message-encrypt-pgpmime</code> will automatically pick up your gpg keys and add
+   correct data to the message before sending.
+</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>     cat ~/.emacs.d/mail.el
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>    <span class="o">(</span>require <span class="s1">&#39;mu4e)
+</span><span class="s1">    (require &#39;</span>org-mu4e<span class="o">)</span>
+    <span class="o">(</span>require <span class="s1">&#39;mu4e-contrib)
+</span><span class="s1">    (require &#39;</span>smtpmail<span class="o">)</span>
+
+    <span class="o">(</span>auth-source-pass-enable<span class="o">)</span>
+    <span class="o">(</span>setq auth-source-debug t<span class="o">)</span>
+    <span class="o">(</span>setq auth-source-do-cache nil<span class="o">)</span>
+    <span class="o">(</span>setq auth-sources <span class="s1">&#39;(password-store))
+</span><span class="s1">    (setq message-kill-buffer-on-exit t)
+</span><span class="s1">    (setq message-send-mail-function &#39;</span>smtpmail-send-it<span class="o">)</span>
+    <span class="o">(</span>setq mu4e-attachment-dir <span class="s2">&#34;~/Downloads&#34;</span><span class="o">)</span>
+    <span class="o">(</span>setq mu4e-change-filenames-when-moving t<span class="o">)</span>
+    <span class="o">(</span>setq mu4e-completing-read-function <span class="s1">&#39;completing-read)
+</span><span class="s1">    (setq mu4e-compose-complete-addresses t)
+</span><span class="s1">    (setq mu4e-compose-context-policy nil)
+</span><span class="s1">    (setq mu4e-compose-dont-reply-to-self t)
+</span><span class="s1">    (setq mu4e-compose-keep-self-cc nil)
+</span><span class="s1">    (setq mu4e-context-policy &#39;</span>pick-first<span class="o">)</span>
+    <span class="o">(</span>setq mu4e-get-mail-command <span class="s2">&#34;mbsync -a&#34;</span><span class="o">)</span>
+    <span class="o">(</span>setq mu4e-headers-date-format <span class="s2">&#34;%d-%m-%Y %H:%M&#34;</span><span class="o">)</span>
+    <span class="o">(</span>setq mu4e-headers-fields <span class="s1">&#39;((:human-date . 20)
+</span><span class="s1">                                (:flags . 6)
+</span><span class="s1">                                (:mailing-list . 10)
+</span><span class="s1">                                (:from . 22)
+</span><span class="s1">                                (:subject)))
+</span><span class="s1">    (setq mu4e-headers-include-related t)
+</span><span class="s1">    (setq mu4e-sent-messages-behavior &#39;</span>delete<span class="o">)</span>
+    <span class="o">(</span>setq mu4e-view-show-addresses t<span class="o">)</span>
+    <span class="o">(</span>setq mu4e-view-show-images t<span class="o">)</span>
+    <span class="o">(</span>setq smtpmail-debug-info t<span class="o">)</span>
+    <span class="o">(</span>setq smtpmail-stream-type <span class="s1">&#39;starttls)
+</span><span class="s1">    (setq mm-sign-option &#39;</span>guided<span class="o">)</span>
+
+    <span class="o">(</span>when <span class="o">(</span>fboundp <span class="s1">&#39;imagemagick-register-types)
+</span><span class="s1">      (imagemagick-register-types))
+</span><span class="s1">
+</span><span class="s1">    (defun sign-or-encrypt-message ()
+</span><span class="s1">      (let ((answer (read-from-minibuffer &#34;Sign or encrypt?\nEmpty to do nothing.\n[s/e]: &#34;)))
+</span><span class="s1">        (cond
+</span><span class="s1">         ((string-equal answer &#34;s&#34;) (progn
+</span><span class="s1">                                      (message &#34;Signing message.&#34;)
+</span><span class="s1">                                      (mml-secure-message-sign-pgpmime)))
+</span><span class="s1">         ((string-equal answer &#34;e&#34;) (progn
+</span><span class="s1">                                      (message &#34;Encrypt and signing message.&#34;)
+</span><span class="s1">                                      (mml-secure-message-encrypt-pgpmime)))
+</span><span class="s1">         (t (progn
+</span><span class="s1">              (message &#34;Dont signing or encrypting message.&#34;)
+</span><span class="s1">              nil)))))
+</span><span class="s1">
+</span><span class="s1">    (add-hook &#39;</span>message-send-hook <span class="s1">&#39;sign-or-encrypt-message)
+</span><span class="s1">
+</span><span class="s1">    (setq mu4e-contexts
+</span><span class="s1">          `( ,(make-mu4e-context
+</span><span class="s1">               :name &#34;gmail&#34;
+</span><span class="s1">               :enter-func (lambda ()
+</span><span class="s1">                             (mu4e-message &#34;Entering gmail context&#34;)
+</span><span class="s1">                             (when (string-match-p (buffer-name (current-buffer)) &#34;mu4e-main&#34;)
+</span><span class="s1">                               (revert-buffer)))
+</span><span class="s1">               :leave-func (lambda ()
+</span><span class="s1">                             (mu4e-message &#34;Leaving gmail context&#34;)
+</span><span class="s1">                             (when (string-match-p (buffer-name (current-buffer)) &#34;mu4e-main&#34;)
+</span><span class="s1">                               (revert-buffer)))
+</span><span class="s1">               :match-func (lambda (msg)
+</span><span class="s1">                             (when msg
+</span><span class="s1">                               (or (mu4e-message-contact-field-matches msg :to &#34;jherrlin@gmail.com&#34;)
+</span><span class="s1">                                   (mu4e-message-contact-field-matches msg :from &#34;jherrlin@gmail.com&#34;)
+</span><span class="s1">                                   (mu4e-message-contact-field-matches msg :cc &#34;jherrlin@gmail.com&#34;)
+</span><span class="s1">                                   (mu4e-message-contact-field-matches msg :bcc &#34;jherrlin@gmail.com&#34;)
+</span><span class="s1">                                   (string-match-p &#34;^/gmail/Inbox&#34; (mu4e-message-field msg :maildir)))))
+</span><span class="s1">               :vars &#39;</span><span class="o">(</span> <span class="o">(</span> user-mail-address            . <span class="s2">&#34;jherrlin@gmail.com&#34;</span> <span class="o">)</span>
+                        <span class="o">(</span> smtpmail-smtp-user           . <span class="s2">&#34;jherrlin@gmail.com&#34;</span> <span class="o">)</span>
+                        <span class="o">(</span> mu4e-compose-signature       . <span class="s2">&#34;Mvh John&#34;</span> <span class="o">)</span>
+                        <span class="o">(</span> smtpmail-smtp-server         . <span class="s2">&#34;smtp.gmail.com&#34;</span> <span class="o">)</span>
+                        <span class="o">(</span> smtpmail-smtp-service        . <span class="m">587</span> <span class="o">)</span>
+                        <span class="o">(</span> mu4e-maildir-shortcuts       . <span class="o">((</span>:maildir <span class="s2">&#34;/gmail/Inbox&#34;</span> :key ?i<span class="o">)))</span>
+                        <span class="o">(</span> mu4e-bookmarks
+                          .
+                          <span class="o">((</span> :name  <span class="s2">&#34;Unread messages&#34;</span>
+                                     :query <span class="s2">&#34;maildir:/gmail/Inbox AND flag:unread AND NOT flag:trashed AND NOT outdoorexperten&#34;</span>
+                                     :key ?u<span class="o">)</span>
+                            <span class="o">(</span> :name <span class="s2">&#34;Today&#39;s messages&#34;</span>
+                                    :query <span class="s2">&#34;maildir:/gmail/Inbox AND date:today..now&#34;</span>
+                                    :key ?t<span class="o">)</span>
+                            <span class="o">(</span> :name <span class="s2">&#34;Last 7 days&#34;</span>
+                                    :query <span class="s2">&#34;maildir:/gmail/Inbox AND date:7d..now&#34;</span>
+                                    :hide-unread t
+                                    :key ?w<span class="o">)</span>
+                            <span class="o">(</span> :name <span class="s2">&#34;Deleted&#34;</span>
+                                    :query <span class="s2">&#34;flag:trashed&#34;</span>
+                                    :key ?d<span class="o">)</span>
+                            <span class="o">(</span> :name <span class="s2">&#34;Possibly garbage&#34;</span>
+                                    :query <span class="s2">&#34;bokio OR outdoorexperten&#34;</span>
+                                    :key ?g<span class="o">)))))</span>
+
+             ,<span class="o">(</span>make-mu4e-context
+               :name <span class="s2">&#34;school&#34;</span>
+               :enter-func <span class="o">(</span>lambda <span class="o">()</span>
+                             <span class="o">(</span>mu4e-message <span class="s2">&#34;Entering school context&#34;</span><span class="o">)</span>
+                             <span class="o">(</span>when <span class="o">(</span>string-match-p <span class="o">(</span>buffer-name <span class="o">(</span>current-buffer<span class="o">))</span> <span class="s2">&#34;mu4e-main&#34;</span><span class="o">)</span>
+                               <span class="o">(</span>revert-buffer<span class="o">)))</span>
+               :leave-func <span class="o">(</span>lambda <span class="o">()</span>
+                             <span class="o">(</span>mu4e-message <span class="s2">&#34;Leaving school context&#34;</span><span class="o">)</span>
+                             <span class="o">(</span>when <span class="o">(</span>string-match-p <span class="o">(</span>buffer-name <span class="o">(</span>current-buffer<span class="o">))</span> <span class="s2">&#34;mu4e-main&#34;</span><span class="o">)</span>
+                               <span class="o">(</span>revert-buffer<span class="o">)))</span>
+               :match-func <span class="o">(</span>lambda <span class="o">(</span>msg<span class="o">)</span>
+                             <span class="o">(</span>when msg
+                               <span class="o">(</span>or <span class="o">(</span>mu4e-message-contact-field-matches msg :to <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span><span class="o">)</span>
+                                   <span class="o">(</span>mu4e-message-contact-field-matches msg :from <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span><span class="o">)</span>
+                                   <span class="o">(</span>mu4e-message-contact-field-matches msg :cc <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span><span class="o">)</span>
+                                   <span class="o">(</span>mu4e-message-contact-field-matches msg :bcc <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span><span class="o">))))</span>
+
+               :vars <span class="err">&#39;</span><span class="o">(</span> <span class="o">(</span> user-mail-address       . <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span> <span class="o">)</span>
+                        <span class="o">(</span> smtpmail-smtp-user      . <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span> <span class="o">)</span>
+                        <span class="o">(</span> smtpmail-smtp-server    . <span class="s2">&#34;smtp.gmail.com&#34;</span> <span class="o">)</span>
+                        <span class="o">(</span> smtpmail-smtp-service   . <span class="m">587</span> <span class="o">)</span>
+                        <span class="o">(</span> mu4e-compose-signature  . <span class="s2">&#34;Mvh John&#34;</span> <span class="o">)</span>
+                        <span class="o">(</span> mu4e-maildir-shortcuts  . <span class="o">((</span>:maildir <span class="s2">&#34;/lnu/Inbox&#34;</span> :key ?i<span class="o">)))</span>
+                        <span class="o">(</span> mu4e-bookmarks
+                          .
+                          <span class="o">((</span> :name  <span class="s2">&#34;All school mails&#34;</span>
+                                     :query <span class="s2">&#34;maildir:/lnu/Inbox&#34;</span>
+                                     :key ?a<span class="o">)</span>
+                           <span class="o">(</span> :name  <span class="s2">&#34;Unread school messages&#34;</span>
+                                     :query <span class="s2">&#34;maildir:/lnu/Inbox AND flag:unread AND NOT flag:trashed&#34;</span>
+                                     :key ?u<span class="o">)))))))</span>
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+<p>
+   This is the structure of the smtp credentials file.
+</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>    gpg --decrypt ~/.password-store/smtp.gmail.com/jherrlin@gmail.com.gpg
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  &lt;PASSWORD&gt;
+  user: jherrlin@gmail.com
+  port: <span class="m">587</span>
+  host: smtp.gmail.com
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+
