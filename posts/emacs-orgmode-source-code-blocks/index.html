@@ -150,9 +150,9 @@ Intro
   be found <a href="https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code">here</a>.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">&lt;language&gt;</span><span class="c"> &lt;switches&gt; &lt;header arguments&gt;
-</span><span class="c"></span>    &lt;body&gt;
-<span class="c">  #+END_SRC</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">&lt;language&gt;</span><span class="c"> &lt;switches&gt; &lt;header arguments&gt;
+</span><span class="c"></span>  &lt;body&gt;
+<span class="c">#+END_SRC</span></code></pre></div>
 </div>
 <p>
   Header arguments differ for different languages and applications. Look in the
@@ -165,20 +165,20 @@ Versions
   … of Emacs and Org mode.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
-</span><span class="c"></span>    <span class="p">(</span><span class="nv">org-version</span><span class="p">)</span>
-<span class="c">  #+END_SRC</span>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
+</span><span class="c"></span>  <span class="p">(</span><span class="nv">org-version</span><span class="p">)</span>
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS:
-  : 9.3.7
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+: 9.3.7
 
-<span class="c">  #+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
-</span><span class="c"></span>  <span class="p">(</span><span class="nv">emacs-version</span><span class="p">)</span>
-<span class="c">  #+END_SRC</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
+</span><span class="c"></span><span class="p">(</span><span class="nv">emacs-version</span><span class="p">)</span>
+<span class="c">#+END_SRC</span>
 
-  #<span class="gd">+RESULTS:
-</span><span class="gd">  : GNU Emacs 26.3 (build 1, x86_64-pc-linux-gnu, GTK+</span> Version 3.24.20)
-  :  of 2020-05-19</code></pre></div>
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+: GNU Emacs 26.3 (build 1, x86_64-pc-linux-gnu, GTK+ Version 3.24.20)
+:  of 2020-05-19</code></pre></div>
 </div>
 <h2 id="headline-4">
 Emacs config
@@ -191,18 +191,18 @@ Emacs config
   <a href="https://code.orgmode.org/bzg/org-mode/src/master/lisp">repo</a>. Support for source blocks are available in files prefixed with <code class="verbatim">ob-</code>.
 </p>
 <div class="src src-emacs-lisp">
-<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp">  <span class="p">(</span><span class="nb">setq</span> <span class="nv">org-confirm-babel-evaluate</span> <span class="no">nil</span><span class="p">)</span>
+<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nb">setq</span> <span class="nv">org-confirm-babel-evaluate</span> <span class="no">nil</span><span class="p">)</span>
 
-  <span class="p">(</span><span class="nv">org-babel-do-load-languages</span>
-   <span class="ss">&#39;org-babel-load-languages</span>
-   <span class="o">&#39;</span><span class="p">((</span><span class="nv">emacs-lisp</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
-     <span class="p">(</span><span class="nv">shell</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>  <span class="c1">; in my case /bin/bash</span>
-     <span class="p">(</span><span class="nv">scheme</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
-     <span class="p">(</span><span class="nv">python</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
-     <span class="p">(</span><span class="nv">ledger</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
-     <span class="p">(</span><span class="nv">sed</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
-     <span class="p">(</span><span class="nv">awk</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
-     <span class="p">(</span><span class="nv">clojure</span> <span class="o">.</span> <span class="no">t</span><span class="p">)))</span></code></pre></div>
+<span class="p">(</span><span class="nv">org-babel-do-load-languages</span>
+ <span class="ss">&#39;org-babel-load-languages</span>
+ <span class="o">&#39;</span><span class="p">((</span><span class="nv">emacs-lisp</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">shell</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>  <span class="c1">; in my case /bin/bash</span>
+   <span class="p">(</span><span class="nv">scheme</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">python</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">ledger</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">sed</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">awk</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+   <span class="p">(</span><span class="nv">clojure</span> <span class="o">.</span> <span class="no">t</span><span class="p">)))</span></code></pre></div>
 </div>
 <h2 id="headline-5">
 Bash echo
@@ -212,14 +212,14 @@ Bash echo
   moving the pointer to the source block and press the key sequence <code class="verbatim">C-c C-c</code>.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  What shell am I using?
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">What shell am I using?
 
-<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>    <span class="nb">echo</span> <span class="nv">$SHELL</span>
-<span class="c">  #+END_SRC</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  <span class="nb">echo</span> <span class="nv">$SHELL</span>
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS:
-  : /bin/bash</code></pre></div>
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+: /bin/bash</code></pre></div>
 </div>
 <h2 id="headline-6">
 Echo input variables
@@ -229,12 +229,12 @@ Echo input variables
   <strong>ARG1</strong> and <strong>ARG2</strong>. The command get the arguments and uses them in the command.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :var ARG1=&#34;FOO&#34; ARG2=&#34;BAR&#34;
-</span><span class="c"></span>    <span class="nb">echo</span> <span class="nv">$ARG1</span> <span class="nv">$ARG2</span>
-<span class="c">  #+END_SRC</span>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :var ARG1=&#34;FOO&#34; ARG2=&#34;BAR&#34;
+</span><span class="c"></span>  <span class="nb">echo</span> <span class="nv">$ARG1</span> <span class="nv">$ARG2</span>
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS:
-  : FOO BAR</code></pre></div>
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+: FOO BAR</code></pre></div>
 </div>
 <h2 id="headline-7">
 Document variables
@@ -246,31 +246,32 @@ Document variables
   <code class="verbatim">lst</code>. When executed by Python the <code class="verbatim">lst</code> data structure is a vector with vectors.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: my-list
-  <span class="s">| A | 1 |</span>
-  <span class="s">| B | 2 |</span>
-  <span class="s">| C | 3 |</span>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="cs">#+NAME</span><span class="c">: my-list</span>
+<span class="s">| A | 1 |</span>
+<span class="s">| B | 2 |</span>
+<span class="s">| C | 3 |</span>
 
-  my-list is a variable in this org document and can be passed in as data to a source code
-  block.
+my-list is a variable in this org document and can be passed in as data to a
+source code block.
 
-<span class="c">  #+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results output :var lst=my-list
-</span><span class="c"></span>    <span class="k">print</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
-<span class="c">  #+END_SRC</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results output :var lst=my-list
+</span><span class="c"></span>  <span class="k">print</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+<span class="c">#+END_SRC</span>
 
-  The data structure that will be passed to the source block is a vector or vectors.
+The data structure that will be passed to the source block is a vector or
+vectors.
 
-  #+RESULTS:
-  : [[&#39;A&#39;, 1], [&#39;B&#39;, 2], [&#39;C&#39;, 3]]
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+: [[&#39;A&#39;, 1], [&#39;B&#39;, 2], [&#39;C&#39;, 3]]
 
-  Just like with a normal Python application you can manipulate the data.
+Just like with a normal Python application you can manipulate the data.
 
-<span class="c">  #+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results raw :var lst=my-list
-</span><span class="c"></span>    <span class="k">return</span> <span class="p">[[</span><span class="nb">chr</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)),</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span>
-<span class="c">  #+END_SRC</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results raw :var lst=my-list
+</span><span class="c"></span>  <span class="k">return</span> <span class="p">[[</span><span class="nb">chr</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)),</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">]</span>
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS:
-  [[&#39;B&#39;, 2], [&#39;C&#39;, 3], [&#39;D&#39;, 4]]</code></pre></div>
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+[[&#39;B&#39;, 2], [&#39;C&#39;, 3], [&#39;D&#39;, 4]]</code></pre></div>
 </div>
 <h2 id="headline-8">
 Result output
@@ -293,21 +294,21 @@ More on document variables
   document.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: text-example
-<span class="c">  #+BEGIN_EXAMPLE</span>
-    Item1 100
-    Item2 200
-    Item3 50
-<span class="c">  #+END_EXAMPLE</span>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="cs">#+NAME</span><span class="c">: text-example</span>
+<span class="c">#+BEGIN_EXAMPLE</span>
+  Item1 100
+  Item2 200
+  Item3 50
+<span class="c">#+END_EXAMPLE</span>
 
-  Sum field nr 2.
+Sum field nr 2.
 
-<span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results table :stdin text-example
-</span><span class="c"></span>    <span class="nb">BEGIN</span> <span class="p">{</span><span class="nb">OFS</span><span class="o">=</span><span class="s2">&#34;|&#34;</span><span class="p">};</span> <span class="p">{</span> <span class="nx">sum</span><span class="o">+=</span> <span class="o">$</span><span class="mi">2</span><span class="p">};</span> <span class="nb">END</span> <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;Sum&#34;</span><span class="p">,</span> <span class="nx">sum</span><span class="p">}</span>
-<span class="c">  #+END_SRC</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results table :stdin text-example
+</span><span class="c"></span>  <span class="nb">BEGIN</span> <span class="p">{</span><span class="nb">OFS</span><span class="o">=</span><span class="s2">&#34;|&#34;</span><span class="p">};</span> <span class="p">{</span> <span class="nx">sum</span><span class="o">+=</span> <span class="o">$</span><span class="mi">2</span><span class="p">};</span> <span class="nb">END</span> <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;Sum&#34;</span><span class="p">,</span> <span class="nx">sum</span><span class="p">}</span>
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS:
-  <span class="s">| Sum | 350 |</span></code></pre></div>
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+<span class="s">| Sum | 350 |</span></code></pre></div>
 </div>
 <h2 id="headline-10">
 File from file system
@@ -318,16 +319,16 @@ File from file system
   <strong>:in-file</strong> as an argument.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">   Get system users that have <span class="nc">=/bin/bash=</span> access.
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">Get system users that have <span class="nc">=/bin/bash=</span> access.
 
-<span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results table :in-file /etc/passwd
-</span><span class="c"></span>    <span class="nb">BEGIN</span> <span class="p">{</span> <span class="nb">FS</span><span class="o">=</span><span class="s2">&#34;:&#34;</span><span class="p">}</span>
-    <span class="o">$</span><span class="mi">7</span> <span class="o">==</span> <span class="s2">&#34;/bin/bash&#34;</span> <span class="p">{</span> <span class="kr">print</span> <span class="o">$</span><span class="mi">1</span><span class="p">}</span>
-<span class="c">  #+END_SRC</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results table :in-file /etc/passwd
+</span><span class="c"></span>  <span class="nb">BEGIN</span> <span class="p">{</span> <span class="nb">FS</span><span class="o">=</span><span class="s2">&#34;:&#34;</span><span class="p">}</span>
+  <span class="o">$</span><span class="mi">7</span> <span class="o">==</span> <span class="s2">&#34;/bin/bash&#34;</span> <span class="p">{</span> <span class="kr">print</span> <span class="o">$</span><span class="mi">1</span><span class="p">}</span>
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS:
-  <span class="s">| root |</span>
-  <span class="s">| john |</span></code></pre></div>
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+<span class="s">| root |</span>
+<span class="s">| john |</span></code></pre></div>
 </div>
 <h2 id="headline-11">
 Combine source blocks
@@ -343,42 +344,42 @@ Combine source blocks
   Docs on <code class="verbatim">:noweb</code> header argument can be found <a href="https://orgmode.org/manual/Noweb-Reference-Syntax.html">here</a>. Docs on ledger can be found <a href="https://www.ledger-cli.org/3.0/doc/ledger3.html#Org-mode-with-Babel">here</a>.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: income
-<span class="c">  #+BEGIN_SRC </span><span class="cs">ledger</span><span class="c">
-</span><span class="c"></span>    2020-06-24 * Sold old computer
-        Assets:Bank:Card                         5000.00
-        Income:Secondhand                       -5000.00
-    2020-06-25 * Salary
-        Assets:Bank:Card                        25000.00
-        Income:Work:Salary                     -25000.00
-<span class="c">  #+END_SRC</span>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="cs">#+NAME</span><span class="c">: income</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">ledger</span><span class="c">
+</span><span class="c"></span>  2020-06-24 * Sold old computer
+      Assets:Bank:Card                         5000.00
+      Income:Secondhand                       -5000.00
+  2020-06-25 * Salary
+      Assets:Bank:Card                        25000.00
+      Income:Work:Salary                     -25000.00
+<span class="c">#+END_SRC</span>
 
-  #+NAME: expenses
-<span class="c">  #+BEGIN_SRC </span><span class="cs">ledger</span><span class="c">
-</span><span class="c"></span>    2020-06-23 * Rent
-        Expenses:Rent                            3000.00
-        Assets:Bank:Card                        -3000.00
-    2020-06-24 * Gas
-        Expenses:Cas:Gas                         3000.00
-        Assets:Bank:Card                        -3000.00
-<span class="c">  #+END_SRC</span>
+<span class="cs">#+NAME</span><span class="c">: expenses</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">ledger</span><span class="c">
+</span><span class="c"></span>  2020-06-23 * Rent
+      Expenses:Rent                            3000.00
+      Assets:Bank:Card                        -3000.00
+  2020-06-24 * Gas
+      Expenses:Cas:Gas                         3000.00
+      Assets:Bank:Card                        -3000.00
+<span class="c">#+END_SRC</span>
 
-  #+NAME: balance
-<span class="c">  #+BEGIN_SRC </span><span class="cs">ledger</span><span class="c"> :noweb yes
-</span><span class="c"></span>    &lt;&lt;income&gt;&gt;
-    &lt;&lt;expenses&gt;&gt;
-<span class="c">  #+END_SRC</span>
+<span class="cs">#+NAME</span><span class="c">: balance</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">ledger</span><span class="c"> :noweb yes
+</span><span class="c"></span>  &lt;&lt;income&gt;&gt;
+  &lt;&lt;expenses&gt;&gt;
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS: balance
-  :                24000  Assets:Bank:Card
-  :                 6000  Expenses
-  :                 3000    Cas:Gas
-  :                 3000    Rent
-  :               -30000  Income
-  :                -5000    Secondhand
-  :               -25000    Work:Salary
-  : --------------------
-  :                    0</code></pre></div>
+<span class="cs">#+RESULTS</span><span class="c">: balance</span>
+:                24000  Assets:Bank:Card
+:                 6000  Expenses
+:                 3000    Cas:Gas
+:                 3000    Rent
+:               -30000  Income
+:                -5000    Secondhand
+:               -25000    Work:Salary
+: --------------------
+:                    0</code></pre></div>
 </div>
 <h2 id="headline-12">
 Combine results and source blocks
@@ -395,44 +396,46 @@ Combine results and source blocks
   named source blocks will then be available as input to other source blocks.
 </p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  List files ending with .awk in <span class="ge">/tmp/</span> dir.
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">List files ending with .awk in <span class="ge">/tmp/</span> dir.
 
-  #+NAME: ls-output
-<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :dir /tmp :results output
-</span><span class="c"></span>    ls -la *.awk
-<span class="c">  #+END_SRC</span>
+<span class="cs">#+NAME</span><span class="c">: ls-output</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :dir /tmp :results output
+</span><span class="c"></span>  ls -la *.awk
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS: ls-output
-  : -rw-r--r-- 1 john users 492 Jun 15 11:46 awk-play.awk
-  : -rw-r--r-- 1 john users 396 Jun 15 13:10 copy-line-on-confirm.awk
-  : -rw-r--r-- 1 john users 412 Jun 15 12:25 filter-google-chromepasswords.awk
+<span class="cs">#+RESULTS</span><span class="c">: ls-output</span>
+: -rw-r--r-- 1 john users 492 Jun 15 11:46 awk-play.awk
+: -rw-r--r-- 1 john users 396 Jun 15 13:10 copy-line-on-confirm.awk
+: -rw-r--r-- 1 john users 412 Jun 15 12:25 filter-google-chromepasswords.awk
 
-  Take only size and filename and return a table.
+Take only size and filename and return a table.
 
-  #+NAME: ls-output-table
-<span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results table :stdin ls-output
-</span><span class="c"></span>    <span class="nb">BEGIN</span> <span class="p">{</span> <span class="nb">OFS</span><span class="o">=</span><span class="s2">&#34;|&#34;</span> <span class="p">};</span> <span class="p">{</span> <span class="kr">print</span> <span class="o">$</span><span class="mi">5</span><span class="p">,</span> <span class="o">$</span><span class="mi">9</span><span class="p">}</span>
-<span class="c">  #+END_SRC</span>
+<span class="cs">#+NAME</span><span class="c">: ls-output-table</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results table :stdin ls-output
+</span><span class="c"></span>  <span class="nb">BEGIN</span> <span class="p">{</span> <span class="nb">OFS</span><span class="o">=</span><span class="s2">&#34;|&#34;</span> <span class="p">};</span> <span class="p">{</span> <span class="kr">print</span> <span class="o">$</span><span class="mi">5</span><span class="p">,</span> <span class="o">$</span><span class="mi">9</span><span class="p">}</span>
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS: ls-output-table
-  <span class="s">| 492 | awk-play.awk                      |</span>
-  <span class="s">| 396 | copy-line-on-confirm.awk          |</span>
-  <span class="s">| 412 | filter-google-chromepasswords.awk |</span>
+<span class="cs">#+RESULTS</span><span class="c">: ls-output-table</span>
+<span class="s">| 492 | awk-play.awk                      |</span>
+<span class="s">| 396 | copy-line-on-confirm.awk          |</span>
+<span class="s">| 412 | filter-google-chromepasswords.awk |</span>
 
-  Process the table with Python.
+Process the table with Python.
 
-<span class="c">  #+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results output :var table=ls-output-table
-</span><span class="c"></span>    <span class="k">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>                              <span class="c1"># Biggest awk file</span>
-    <span class="k">print</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>                              <span class="c1"># Smallest awk file</span>
-    <span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="n">table</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1000</span> <span class="p">,</span> <span class="s2">&#34;kb&#34;</span><span class="p">)</span> <span class="c1"># Sum of all awk files</span>
-<span class="c">  #+END_SRC</span>
+<span class="c">#+BEGIN_SRC </span><span class="cs">python</span><span class="c"> :results output :var table=ls-output-table
+</span><span class="c"></span>  <span class="k">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>                              <span class="c1"># Biggest awk file</span>
+  <span class="k">print</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>                              <span class="c1"># Smallest awk file</span>
+  <span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="n">table</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1000</span> <span class="p">,</span> <span class="s2">&#34;kb&#34;</span><span class="p">)</span> <span class="c1"># Sum of all awk files</span>
+<span class="c">#+END_SRC</span>
 
-  #+RESULTS:
-  : [[492, &#39;awk-play.awk&#39;], [396, &#39;copy-line-on-confirm.awk&#39;], [412, &#39;filter-google-chromepasswords.awk&#39;]]
-  : [492, &#39;awk-play.awk&#39;]
-  : [396, &#39;copy-line-on-confirm.awk&#39;]
-  : 1.3 kb</code></pre></div>
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+: [[492, &#39;awk-play.awk&#39;],
+:  [396, &#39;copy-line-on-confirm.awk&#39;],
+:  [412, &#39;filter-google-chromepasswords.awk&#39;]]
+: [492, &#39;awk-play.awk&#39;]
+: [396, &#39;copy-line-on-confirm.awk&#39;]
+: 1.3 kb</code></pre></div>
 </div>
 <h2 id="headline-13">
 Nice things I didn&#39;t cover

@@ -6596,7 +6596,7 @@ code {
 
 .content pre code {
   font-size: 90%;
-  padding: 1em;
+  padding: 0.5em;  /* John's edit */
   line-height: 1.5;
 }
 
@@ -6668,4 +6668,9 @@ div.subtitle.tags {
 
 .highlight pre {
   margin: 0;
+}
+
+section.section {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
