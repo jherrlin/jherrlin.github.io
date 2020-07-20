@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>awk on jherrlin</title>
+    <link>https://jherrlin.github.io/tags/awk/</link>
+    <description>Recent content in awk on jherrlin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jherrlin.github.io/tags/awk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Learn AWK in Emacs</title>
+      <link>https://jherrlin.github.io/posts/learn-awk/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/learn-awk/</guid>
+      <description>Intro   This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&amp;#39;t cover details on how to use Emacs, Org mode or Org-drill. It&amp;#39;s intention is to provide a general overview of a workflow.  A git repo is available with flash cards, note book and some text files here. Content   I just read a few chapters in the &amp;#34;The AWK programming language&amp;#34; book and found AWK to be awesome and I want to learn more of the language.</description>
+    </item>
+    
+  </channel>
+</rss>

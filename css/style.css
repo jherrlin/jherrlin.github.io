@@ -6674,3 +6674,7 @@ section.section {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
+
+div.src {
+    padding-bottom: 2.5rem;
+}
