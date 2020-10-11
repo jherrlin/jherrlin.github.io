@@ -6,22 +6,49 @@
     <description>Recent content in Tags on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Jul 2020 11:14:05 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>emacs</title>
+      <link>https://jherrlin.github.io/tags/emacs/</link>
+      <pubDate>Wed, 22 Jul 2020 11:14:05 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GNU</title>
+      <link>https://jherrlin.github.io/tags/gnu/</link>
+      <pubDate>Wed, 22 Jul 2020 11:14:05 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/gnu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>org</title>
+      <link>https://jherrlin.github.io/tags/org/</link>
+      <pubDate>Wed, 22 Jul 2020 11:14:05 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/org/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://jherrlin.github.io/tags/programming/</link>
+      <pubDate>Wed, 22 Jul 2020 11:14:05 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>awk</title>
       <link>https://jherrlin.github.io/tags/awk/</link>
       <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jherrlin.github.io/tags/awk/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>emacs</title>
-      <link>https://jherrlin.github.io/tags/emacs/</link>
-      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jherrlin.github.io/tags/emacs/</guid>
       <description></description>
     </item>
     
@@ -44,29 +71,11 @@
     </item>
     
     <item>
-      <title>org</title>
-      <link>https://jherrlin.github.io/tags/org/</link>
-      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jherrlin.github.io/tags/org/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>org-drill</title>
       <link>https://jherrlin.github.io/tags/org-drill/</link>
       <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jherrlin.github.io/tags/org-drill/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>programming</title>
-      <link>https://jherrlin.github.io/tags/programming/</link>
-      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jherrlin.github.io/tags/programming/</guid>
       <description></description>
     </item>
     
@@ -121,15 +130,6 @@
       <pubDate>Fri, 10 Jul 2020 15:00:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GNU</title>
-      <link>https://jherrlin.github.io/tags/gnu/</link>
-      <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
-      
-      <guid>https://jherrlin.github.io/tags/gnu/</guid>
       <description></description>
     </item>
     

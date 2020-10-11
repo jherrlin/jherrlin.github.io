@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Emacs Orgmode Source Code Blocks 2 | jherrlin</title>
+
+<meta property='og:title' content='Emacs Orgmode Source Code Blocks 2 - jherrlin'>
+<meta property='og:description' content='Intro   This is the third post in a series about Emacs Org mode and the second about source code blocks.
+ The last post about source code blocks (blocks from now on) covered org document variables, named blocks and combining blocks.
+ This post will focus on how and where block result output will end up. It won&#39;t cover all of the arguments and features as I don&#39;t use all of them.'>
+<meta property='og:url' content='https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks2/'>
+<meta property='og:site_name' content='jherrlin'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='GNU'><meta property='article:tag' content='org'><meta property='article:tag' content='programming'><meta property='article:published_time' content='2020-07-22T11:14:05&#43;02:00'/><meta property='article:modified_time' content='2020-07-22T11:14:05&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
+
+
+<link href="https://jherrlin.github.io/index.xml" rel="alternate" type="application/rss+xml" title="jherrlin" />
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks2/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://jherrlin.github.io/">
+          <h1 id="nav-heading" class="title is-4">jherrlin</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:jherrlin@gmail.com'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/john-herrlin-63458280'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="rss" href='/index.xml'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/emacs/">#emacs</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/gnu/">#GNU</a>
+  
+  | <a class="subtitle is-6" href="/tags/org/">#org</a>
+  
+  | <a class="subtitle is-6" href="/tags/programming/">#programming</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">July 22, 2020</h2>
+    <h1 class="title">Emacs Orgmode Source Code Blocks 2</h1>
+    
+    <div class="content">
+      
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Intro
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+  This is the third post in a series about Emacs Org mode and the
+  second about source code blocks.</p>
+<p>
+  The last post about source code blocks (blocks from now on) covered
+  org document variables, named blocks and combining blocks.</p>
+<p>
+  This post will focus on how and where block result output will end
+  up. It won&#39;t cover all of the arguments and features as I don&#39;t use
+  all of them. If you wanna get the full picture, here is the <a href="https://orgmode.org/manual/Results-of-Evaluation.html#Results-of-Evaluation">docs</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Versions
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+  Since last post a new Emacs version 27.1 have been released! Here
+  are some about the release, <a href="https://lists.gnu.org/archive/html/emacs-devel/2020-08/msg00237.html">news</a>.</p>
+<p>
+  I haven&#39;t covered this type of blocks before. They are called &#34;inline
+  code block&#34; and is very useful when doing one liners that returns a
+  single value. The documentation on inline code blocks can be found
+  <a href="https://orgmode.org/manual/Structure-of-Code-Blocks.html">here</a>.</p>
+<p>
+  Here are the &#34;inline code blocks&#34; used to show what versions of the
+  software I am currently using.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  src_emacs-lisp{emacs-version} <span class="nb">{{{results(=27.1=)}}}</span>
+  src_emacs-lisp{org-version} <span class="nb">{{{results(=9.4=)}}}</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Default argument
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>
+  Results from source block evaluation can appear in many different
+  shapes. As list, as source block, as &#34;raw&#34;, to file and so on.</p>
+<p>
+  This is how it end up if no argument if provided.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  : Hello Emacs</code></pre></div>
+</div>
+<p>
+  This is the same as the argument <code class="verbatim">:results output</code>.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output
+</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  : Hello Emacs</code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Output code
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>
+  Lets output the result into a new source code block. By default the
+  new block gets the same language as the parent. In this case the
+  language is shell.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  Hello Emacs
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+<p>
+  If the output language is not the same as the parent. <code class="verbatim">:wrap</code> can be
+  used to tell what language the result block will get.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code :wrap src text
+</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">text</span><span class="c">
+</span><span class="c"></span>  Hello Emacs
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Append results
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>
+  Results can be appended into the org document. In this case the
+  block have been evaluated three times. I don&#39;t use this very often.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output append
+</span><span class="c"></span>    date +<span class="s1">&#39;%Y-%m-%d %H:%M:%S&#39;</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  : 2020-08-29 11:52:34
+  : 2020-08-29 11:52:36
+  : 2020-08-29 11:52:38</code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Table
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>
+  Results can end up in nicely formatted org tables</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results table
+</span><span class="c"></span>    ps -a
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  <span class="s">|     PID | TTY   |     TIME | CMD      |</span>
+  <span class="s">|    5456 | tty1  | 00:00:00 | swaybg   |</span>
+  <span class="s">|    5468 | tty1  | 00:00:49 | swaybar  |</span>
+  <span class="s">|    5479 | tty1  | 00:01:12 | sh       |</span>
+  <span class="s">|    5937 | tty1  | 00:07:14 | Xwayland |</span>
+  <span class="s">| 1279652 | pts/0 | 00:00:03 | hugo     |</span></code></pre></div>
+</div>
+<p>
+  Or what about a nice looking NetworkManager table.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>    nmcli -g name,type,device con <span class="p">|</span> awk <span class="s1">&#39;BEGIN{FS=&#34;:&#34;; OFS=&#34;\t&#34;};{print $1, $2, $3}&#39;</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  <span class="s">| iPhone             | 802-11-wireless | wlp0s20f3     |</span>
+  <span class="s">| integrity_vpn      | wireguard       | integrity_vpn |</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+File
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>
+  Results can be written to a file. In the results area a org link to
+  the file containing the results is provided.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results file :file script.sh
+</span><span class="c"></span>  <span class="nb">echo</span> <span class="s2">&#34;#!/bin/bash&#34;</span>
+  <span class="nb">echo</span> <span class="s2">&#34;echo Hey&#34;</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  [[<span class="na">file:script.sh</span>]]</code></pre></div>
+</div>
+<p>
+  Here is a larger case. Write the results to a file. The filename
+  should be <code class="verbatim">script.sh</code> and be written in folder <code class="verbatim">/tmp</code>. The file
+  should also have execute permissions for all three user types. This
+  <code class="verbatim">:file-mode</code> argument came in Org version 9.4.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+HEADER: :results file
+  #+HEADER: :file script.sh
+  #+HEADER: :output-dir /tmp
+  #+HEADER: :file-mode (identity #o777)
+<span class="c">  #+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
+</span><span class="c"></span>    <span class="s">&#34;#!/bin/bash\necho Hello World&#34;</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  [[<span class="na">file:/tmp/script.sh</span>]]</code></pre></div>
+</div>
+<p>
+  Let&#39;s look on the attributes of the <code class="verbatim">script.sh</code> file.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code :dir /tmp
+</span><span class="c"></span>    ls -la <span class="p">|</span> grep script.sh
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  -r-xr-xr-x  <span class="m">1</span> nils users   <span class="m">28</span> Aug <span class="m">29</span> 11:59 script.sh
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Pass result on
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>
+  Result data from one source block can be passed to another in the
+  same execution. You don&#39;t need to run <code class="verbatim">C-c C-c</code> two times and have
+  results stored in variables. In the example on bash block generates
+  a string and numbers from 1 to 20. Those two lines are then passed
+  on to the <code class="verbatim">attr_wrap</code> named source block. This block takes data from
+  the previous block and append two more lines. One with a string and
+  the other with numbers from 20 to 30.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: attr_wrap
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :var data=&#34;&#34; :results raw
+</span><span class="c"></span>    <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$data</span><span class="s2">&#34;</span>
+    <span class="nb">echo</span> <span class="s2">&#34;... and this appends this&#34;</span>
+    <span class="nb">echo</span> <span class="o">{</span>20..30<span class="o">}</span>
+<span class="c">  #+END_SRC</span>
+
+  Evaluate the block below, the upper block will be called
+  automatically.
+
+  #+HEADER: :post attr_wrap(data=<span class="gs">*this*</span>)
+  #+HEADER: :file /tmp/a.txt
+  #+HEADER: :results output code
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;This blocks generates this data&#34;</span>
+    <span class="nb">echo</span> <span class="o">{</span>01..10<span class="o">}</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  This blocks generates this data
+  <span class="m">01</span> <span class="m">02</span> <span class="m">03</span> <span class="m">04</span> <span class="m">05</span> <span class="m">06</span> <span class="m">07</span> <span class="m">08</span> <span class="m">09</span> <span class="m">10</span>
+  ... and this appends this
+  <span class="m">20</span> <span class="m">21</span> <span class="m">22</span> <span class="m">23</span> <span class="m">24</span> <span class="m">25</span> <span class="m">26</span> <span class="m">27</span> <span class="m">28</span> <span class="m">29</span> <span class="m">30</span>
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Tangle
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>
+  This is a sidestep from source code block results, but it&#39;s related.
+  Text within a source code block can be written to a file. Using the
+  <code class="verbatim">(org-babel-tangle)</code> function. <code class="verbatim">(org-babel-tangle)</code> will look
+  through all of the document and find all of the source code blocks
+  with <code class="verbatim">:tangle</code> arguments and write all of them to the local file
+  system.</p>
+<p>
+  This example writes some text from a source code block to a file.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">text</span><span class="c"> :tangle /tmp/hey-from-org.txt
+</span><span class="c"></span>    This is some text
+<span class="c">  #+END_SRC</span>
+
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>    cat /tmp/hey-from-org.txt
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  This is some text
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+Tangled file permissions
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>
+  Just lite <code class="verbatim">:file-mode</code> we have <code class="verbatim">:tangle-mode</code> to set file
+  permissions when writing a file to the file system. This example is a
+  small bash script written to the file system and set to be executable
+  for all users.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+HEADER: :tangle /tmp/hey-org-mode.sh
+  #+HEADER: :tangle-mode (identity #o777)
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>    <span class="c1">#!/bin/bash</span>
+    <span class="nb">echo</span> <span class="s2">&#34;Hello World&#34;</span>
+<span class="c">  #+END_SRC</span>
+
+  Lets check what permissions the file got after tangled.
+
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>    ls -la /tmp <span class="p">|</span> grep hey-org-mode.sh
+<span class="c">  #+END_SRC</span>
+
+  The file got <span class="gs">*read*</span>, <span class="gs">*write*</span> and <span class="gs">*execute*</span> for everyone. That&#39;s what
+  we told in the <span class="nc">=:tange-mode=</span> header.
+
+  #+RESULTS:
+<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>    -rwxrwxrwx  <span class="m">1</span> john users      <span class="m">31</span> Jul <span class="m">22</span> 11:40 hey-org-mode.sh
+<span class="c">  #+end_src</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+Bigger example
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>
+  This example combines many of the features. And in the end it
+  generates a nicely formatted system report with a org structure.</p>
+<p>
+  Lets start by specifying the commands to run in the report.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: report-commands
+  <span class="s">| Disk usage    | df -h      |</span>
+  <span class="s">| Memory usage  | free -h    |</span>
+  <span class="s">| Network       | nmcli conn |</span>
+  <span class="s">| System time   | date       |</span>
+  <span class="s">| System uptime | uptime     |</span>
+  <span class="s">| System kernel | uname -a   |</span></code></pre></div>
+</div>
+<p>
+  Run the table into a <code class="verbatim">awk</code> source code block to format it into a
+  bash script. The result is written to a file and execute permissions
+  are set on the file.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+HEADER: :stdin report-commands
+  #+HEADER: :results file
+  #+HEADER: :file /tmp/system-report.sh
+  #+HEADER: :file-mode (identity #o744)&#34;
+<span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c">
+</span><span class="c"></span>    <span class="nb">BEGIN</span> <span class="p">{</span>
+        <span class="nb">FS</span><span class="o">=</span><span class="s2">&#34;\t&#34;</span>
+        <span class="kr">print</span> <span class="s2">&#34;#!/bin/bash\n&#34;</span>
+        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;#+TITLE: $1\&#34;&#34;</span>
+        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;#+DATE: $(date +&#39;%m-%d-%Y %H:%M:%S&#39;)\&#34;&#34;</span>
+        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;#+STARTUP: overview\&#34;&#34;</span>
+        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;\&#34;&#34;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;* %s\&#34;\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">1</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;\&#34;\n&#34;</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+BEGIN_SRC shell\&#34;\n&#34;</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;%s\&#34;\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">2</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+END_SRC\&#34;\n&#34;</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;\&#34;\n&#34;</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+RESULTS:\&#34;\n&#34;</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+BEGIN_SRC text\&#34;\n&#34;</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;$(%s)\&#34;\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">2</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+END_SRC\&#34;\n&#34;</span><span class="p">)</span>
+        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;\&#34;\n&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  [[<span class="na">file:/tmp/system-report.sh</span>]]</code></pre></div>
+</div>
+<p>
+  The output of the <code class="verbatim">system-report.sh</code> will be pretty flat and will
+  not look nice even in org. Lets format it with some level of
+  indentation depending on context. This source block is only
+  responsible for formatting and cant do anything on it&#39;s own.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: org_format
+  #+HEADER: :var data=&#34;&#34;
+  #+HEADER: :results raw
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>    <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$data</span><span class="s2">&#34;</span> <span class="se">\
+</span><span class="se"></span>        <span class="p">|</span> awk <span class="s1">&#39;$1~/BEGIN_SRC|RESULTS/,$1~/END_SRC/ { print &#34;   &#34;, $0; next }; { print }&#39;</span> <span class="se">\
+</span><span class="se"></span>        <span class="p">|</span> awk <span class="s1">&#39;$1~/^#+/ {gsub(/^[ \t]+/, &#34;  &#34;, $0) ; print; next}; { print }&#39;</span>
+<span class="c">  #+END_SRC</span></code></pre></div>
+</div>
+<p>
+  Let run the script and pass it though the format source code block.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+HEADER: :dir /tmp
+  #+HEADER: :post org_format(data=<span class="gs">*this*</span>)
+  #+HEADER: :results output code
+  #+HEADER: :wrap src org
+<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>    ./system-report.sh <span class="s2">&#34;Daily system report&#34;</span>
+<span class="c">  #+END_SRC</span></code></pre></div>
+</div>
+<p>
+  And voila, here is the result! The report is well formatted and looks
+  very good.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+TITLE: Daily system report
+  #+DATE: 10-11-2020 21:06:41
+  #+STARTUP: overview
+
+  <span class="k">* </span>Disk usage
+
+<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>      df -h
+<span class="c">    #+END_SRC</span>
+
+    #+RESULTS:
+<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span><span class="c"></span>      Filesystem             Size  Used Avail Use% Mounted on
+      dev                     16G     0   16G   0% /dev
+      run                     16G  1.2M   16G   1% /run
+      /dev/mapper/cryptroot  468G   27G  418G   6% /
+      tmpfs                   16G  187M   16G   2% /dev/shm
+      tmpfs                  4.0M     0  4.0M   0% /sys/fs/cgroup
+      tmpfs                   16G  2.4M   16G   1% /tmp
+      tmpfs                  3.2G  8.7M  3.1G   1% /run/user/1000
+<span class="c">    #+END_SRC</span>
+
+  <span class="k">* </span>Memory usage
+
+<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>      free -h
+<span class="c">    #+END_SRC</span>
+
+    #+RESULTS:
+<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span><span class="c"></span>      total        used        free      shared  buff/cache   available
+      Mem:           31Gi       1.7Gi        25Gi       621Mi       3.8Gi        28Gi
+      Swap:            0B          0B          0B
+<span class="c">    #+END_SRC</span>
+
+  <span class="k">* </span>Network
+
+<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>      nmcli conn
+<span class="c">    #+END_SRC</span>
+
+    #+RESULTS:
+<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span><span class="c"></span>      NAME                UUID                                  TYPE       DEVICE
+      iPhone              22f467bf-5d07-41d1-a394-a7b778c4ceb2  wifi       wlp0s20f3
+      integrity_vpn       da1a14fe-ba3e-4251-bc98-03d604ec4fe0  wireguard  integrity_vpn
+<span class="c">    #+END_SRC</span>
+
+  <span class="k">* </span>System time
+
+<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>      date
+<span class="c">    #+END_SRC</span>
+
+    #+RESULTS:
+<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span><span class="c"></span>      Sun Oct 11 09:06:42 PM CEST 2020
+<span class="c">    #+END_SRC</span>
+
+  <span class="k">* </span>System uptime
+
+<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>      uptime
+<span class="c">    #+END_SRC</span>
+
+    #+RESULTS:
+<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span><span class="c"></span>      21:06:42 up 1 day,  2:26,  1 user,  load average: 0.56, 0.63, 0.58
+<span class="c">    #+END_SRC</span>
+
+  <span class="k">* </span>System kernel
+
+<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>      uname -a
+<span class="c">    #+END_SRC</span>
+
+    #+RESULTS:
+<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span><span class="c"></span>      Linux arch 5.8.14-arch1-1 #1 SMP PREEMPT Wed, 07 Oct 2020 23:59:46 +0000 x86_64 GNU/Linux
+<span class="c">    #+END_SRC</span></code></pre></div>
+</div>
+</div>
+</div>
+
+      
+      <div class="related">
+
+<h3>Similar articles:</h3>
+<ul>
+	
+	<li><a href="/posts/emacs-orgmode-tables/">Emacs Org mode tables</a></li>
+	
+	<li><a href="/posts/emacs-orgmode-source-code-blocks/">Emacs Org mode source blocks</a></li>
+	
+	<li><a href="/posts/learn-awk/">Learn AWK with Emacs</a></li>
+	
+	<li><a href="/posts/emacs-mu4e/">Mail in Emacs with mu4e and mbsync</a></li>
+	
+	<li><a href="/posts/emacs-gnupg-and-pass/">Emacs, GnuPG and Pass</a></li>
+	
+</ul>
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+
