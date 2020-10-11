@@ -122,9 +122,11 @@
     
     <div class="content">
       
+<div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 Intro
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
 <p>
   This post is the second part about GnuPG, password management, email, signing and
   encrypting emails and git commit signing. The first posts talked about GnuPG key
@@ -133,45 +135,37 @@ Intro
   and how to signing and encrypting messages with GnuPG. As the posts cover a lot of
   ground step by step instructions are not desirable. Links to more detailed resources can
   be found in each section. The main goal is to provide a quick but informative overview
-  and give inspiration for further research.
-</p>
+  and give inspiration for further research.</p>
 <p>
   The big picture is. Use <code class="verbatim">mbsync</code> to retrieve mails using imap. Mu4e for &#34;Maildir
   indexer/searcher and Emacs client (mu4e)&#34;. All cridentials that are related to imap and
   SMTP are stored in <code class="verbatim">pass</code>&#39;s password store and are version controlled using git. GnuPG
-  keys are used to encrypt the password store and to signing and encryting emails.
-</p>
+  keys are used to encrypt the password store and to signing and encryting emails.</p>
 <p>
-  The layout of the post:
-</p>
+  The layout of the post:</p>
 <ul>
 <li>
-<p>
-Environment; versions of the software (minus the ones already described in the first
-post).
-</p>
+<p>Environment; versions of the software (minus the ones already described in the first
+post).</p>
 </li>
 <li>
-<p>
-Mbsync; how to configure mbsync and how to take advantage of pass.
-</p>
+<p>Mbsync; how to configure mbsync and how to take advantage of pass.</p>
 </li>
 <li>
-<p>
-Mu4e; Emacs config and how to sign and encrypt emails.
-</p>
+<p>Mu4e; Emacs config and how to sign and encrypt emails.</p>
 </li>
 </ul>
-<p>
-If things are unclear, please contact me via twitter!
-</p>
+<p>If things are unclear, please contact me via twitter!</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
 Environment
 </h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <p>
   Version of the software in use. OS, GnuPG, Pass and Emacs versions can be found in the
-  first post.
-</p>
+  first post.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  mbsync --version
@@ -195,53 +189,51 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 <span class="c">#+end_src</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
 <h2 id="headline-3">
 Mbsync
 </h2>
+<div id="outline-text-headline-3" class="outline-text-2">
 <p>
-  More details about isync/mbsync can be found here:
-</p>
+  More details about isync/mbsync can be found here:</p>
 <ul>
 <li>
-<p>
-<a href="https://wiki.archlinux.org/index.php/isync">https://wiki.archlinux.org/index.php/isync</a>
-</p>
+<p><a href="https://wiki.archlinux.org/index.php/isync">https://wiki.archlinux.org/index.php/isync</a></p>
 </li>
 <li>
-<p>
-<a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">https://www.djcbsoftware.nl/code/mu/mu4e.html</a>
-</p>
+<p><a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">https://www.djcbsoftware.nl/code/mu/mu4e.html</a></p>
 </li>
 <li>
-<p>
-<a href="https://cestlaz.github.io/posts/using-emacs-39-mu4e/">https://cestlaz.github.io/posts/using-emacs-39-mu4e/</a>
-</p>
+<p><a href="https://cestlaz.github.io/posts/using-emacs-39-mu4e/">https://cestlaz.github.io/posts/using-emacs-39-mu4e/</a></p>
 </li>
 <li>
-<p>
-<a href="http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html">http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html</a>
-</p>
+<p><a href="http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html">http://www.macs.hw.ac.uk/~rs46/posts/2014-01-13-mu4e-email-client.html</a></p>
 </li>
 </ul>
+<div id="outline-container-headline-4" class="outline-3">
 <h3 id="headline-4">
 Install
 </h3>
+<div id="outline-text-headline-4" class="outline-text-3">
 <p>
-   mbsync/isync exists in Arch standard repos.
-</p>
+   mbsync/isync exists in Arch standard repos.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pacman -S isync</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
 <h3 id="headline-5">
 Config files
 </h3>
+<div id="outline-text-headline-5" class="outline-text-3">
 <p>
    The config is more or less stolen from the <a href="https://wiki.archlinux.org/index.php/isync">Arch Wiki</a>. PassCmd is using long arguments
-   instead of short ones. Just to make things more describing.
-</p>
+   instead of short ones. Just to make things more describing.</p>
 <p>
-   Note that &#34;PassCmd&#34; gpg files is located in the <code class="verbatim">pass</code> password store.
-</p>
+   Note that &#34;PassCmd&#34; gpg files is located in the <code class="verbatim">pass</code> password store.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  cat ~/.mbsyncrc
@@ -295,15 +287,13 @@ SyncState *
 <span class="c">#+end_src</span></code></pre></div>
 </div>
 <p>
-   Lets create the mbsync/gmail and mbsync/lnu files.
-</p>
+   Lets create the mbsync/gmail and mbsync/lnu files.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pass insert mbsync/gmail
 pass insert mbsync/lnu</code></pre></div>
 </div>
 <p>
-   The layout of the file should be just the password on the first row and nothing more.
-</p>
+   The layout of the file should be just the password on the first row and nothing more.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  gpg --decrypt ~/.password-store/mbsync/gmail.gpg
@@ -315,39 +305,40 @@ pass insert mbsync/lnu</code></pre></div>
 <span class="c">#+end_src</span></code></pre></div>
 </div>
 <p>
-   Create needed folders.
-</p>
+   Create needed folders.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p ~/.mail/gmail ~/.mail/lnu</code></pre></div>
 </div>
 <p>
-   And sync all configs.
-</p>
+   And sync all configs.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mbsync -a</code></pre></div>
 </div>
 <p>
-   Now all of your emails should be in your <code class="verbatim">~/.mail</code> dir.
-</p>
+   Now all of your emails should be in your <code class="verbatim">~/.mail</code> dir.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
 <h2 id="headline-6">
 Mu4e
 </h2>
+<div id="outline-text-headline-6" class="outline-text-2">
 <p>
-  Here are some resources.
-</p>
+  Here are some resources.</p>
 <ul>
 <li>
-<p>
-<a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">https://www.djcbsoftware.nl/code/mu/mu4e.html</a>
-</p>
+<p><a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">https://www.djcbsoftware.nl/code/mu/mu4e.html</a></p>
 </li>
 </ul>
+<div id="outline-container-headline-7" class="outline-3">
 <h3 id="headline-7">
 Install
 </h3>
+<div id="outline-text-headline-7" class="outline-text-3">
 <p>
-   Mu4e is installed from <a href="https://aur.archlinux.org/packages/mu/">aur</a> using:
-</p>
+   Mu4e is installed from <a href="https://aur.archlinux.org/packages/mu/">aur</a> using:</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p ~/aur
 <span class="nb">cd</span> <span class="nv">$_</span>
@@ -355,189 +346,179 @@ git clone https://aur.archlinux.org/mu.git
 <span class="nb">cd</span> mu
 makepkg -si</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
 <h3 id="headline-8">
 Init
 </h3>
+<div id="outline-text-headline-8" class="outline-text-3">
 <p>
-   Mu points to the same directory as mbsync. Before usage indexing needs to be done.
-</p>
+   Mu points to the same directory as mbsync. Before usage indexing needs to be done.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mu init --maildir<span class="o">=</span>~/.mail --my-address<span class="o">=</span>jherrlin@gmail.com --my-address<span class="o">=</span>jh222jx@student.lnu.se
 mu index</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
 <h3 id="headline-9">
 Emacs config
 </h3>
+<div id="outline-text-headline-9" class="outline-text-3">
 <p>
-   This is more or less all of the config for using mu4e in Emacs.
-</p>
+   This is more or less all of the config for using mu4e in Emacs.</p>
 <p>
-   I will only cover the parts important to this post.
-</p>
+   I will only cover the parts important to this post.</p>
 <p>
    <code class="verbatim">(setq auth-sources &#39;(password-store))</code> and <code class="verbatim">(auth-source-pass-enable)</code> tells Emacs
    that passwords for smtp is in the <code class="verbatim">pass</code> password store. <code class="verbatim">auth-source-pass</code> looks for
    credentials in a certain order within the password store. The file that is found for
    the gmail account is <code class="verbatim">~/.password-store/smtp.gmail.com/jherrlin@gmail.com.gpg</code>. It&#39;s
    the <code class="verbatim">smtpmail-smtp-server</code> and <code class="verbatim">smtpmail-smtp-user</code> vars that points it to that
-   location.
-</p>
+   location.</p>
 <p>
    There is a function on <code class="verbatim">message-send-hook</code> that asks to sign or encrypt the message
    before sending. <code class="verbatim">mml-secure-message-sign-pgpmime</code> and
    <code class="verbatim">mml-secure-message-encrypt-pgpmime</code> will automatically pick up your gpg keys and add
-   correct data to the message before sending.
-</p>
-<div class="src src-emacs-lisp">
-<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;mu4e</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;org-mu4e</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;mu4e-contrib</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;smtpmail</span><span class="p">)</span>
+   correct data to the message before sending.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span><span class="c"></span>   cat ~/.emacs.d/mail.el
+<span class="c">#+END_SRC</span>
 
+<span class="cs">#+RESULTS</span><span class="c">:</span>
+<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span><span class="c"></span>  <span class="o">(</span>require <span class="s1">&#39;mu4e)
+</span><span class="s1">  (require &#39;</span>org-mu4e<span class="o">)</span>
+  <span class="o">(</span>require <span class="s1">&#39;mu4e-contrib)
+</span><span class="s1">  (require &#39;</span>smtpmail<span class="o">)</span>
 
-<span class="p">(</span><span class="nv">auth-source-pass-enable</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">auth-source-debug</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">auth-source-do-cache</span> <span class="no">nil</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">auth-sources</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">password-store</span><span class="p">))</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">message-kill-buffer-on-exit</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">message-send-mail-function</span> <span class="ss">&#39;smtpmail-send-it</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-attachment-dir</span> <span class="s">&#34;~/Downloads&#34;</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-change-filenames-when-moving</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-completing-read-function</span> <span class="ss">&#39;completing-read</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-compose-complete-addresses</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-compose-context-policy</span> <span class="no">nil</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-compose-dont-reply-to-self</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-compose-keep-self-cc</span> <span class="no">nil</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-context-policy</span> <span class="ss">&#39;pick-first</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-get-mail-command</span> <span class="s">&#34;mbsync -a&#34;</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-headers-date-format</span> <span class="s">&#34;%d-%m-%Y %H:%M&#34;</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-headers-fields</span> <span class="o">&#39;</span><span class="p">((</span><span class="nb">:human-date</span> <span class="o">.</span> <span class="mi">20</span><span class="p">)</span>
-                            <span class="p">(</span><span class="nb">:flags</span> <span class="o">.</span> <span class="mi">6</span><span class="p">)</span>
-                            <span class="p">(</span><span class="nb">:mailing-list</span> <span class="o">.</span> <span class="mi">10</span><span class="p">)</span>
-                            <span class="p">(</span><span class="nb">:from</span> <span class="o">.</span> <span class="mi">22</span><span class="p">)</span>
-                            <span class="p">(</span><span class="nb">:subject</span><span class="p">)))</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-headers-include-related</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-sent-messages-behavior</span> <span class="ss">&#39;delete</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-view-show-addresses</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-view-show-images</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">smtpmail-debug-info</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">smtpmail-stream-type</span> <span class="ss">&#39;starttls</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mm-sign-option</span> <span class="ss">&#39;guided</span><span class="p">)</span>
+  <span class="o">(</span>auth-source-pass-enable<span class="o">)</span>
+  <span class="o">(</span>setq auth-source-debug t<span class="o">)</span>
+  <span class="o">(</span>setq auth-source-do-cache nil<span class="o">)</span>
+  <span class="o">(</span>setq auth-sources <span class="s1">&#39;(password-store))
+</span><span class="s1">  (setq message-kill-buffer-on-exit t)
+</span><span class="s1">  (setq message-send-mail-function &#39;</span>smtpmail-send-it<span class="o">)</span>
+  <span class="o">(</span>setq mu4e-attachment-dir <span class="s2">&#34;~/Downloads&#34;</span><span class="o">)</span>
+  <span class="o">(</span>setq mu4e-change-filenames-when-moving t<span class="o">)</span>
+  <span class="o">(</span>setq mu4e-completing-read-function <span class="s1">&#39;completing-read)
+</span><span class="s1">  (setq mu4e-compose-complete-addresses t)
+</span><span class="s1">  (setq mu4e-compose-context-policy nil)
+</span><span class="s1">  (setq mu4e-compose-dont-reply-to-self t)
+</span><span class="s1">  (setq mu4e-compose-keep-self-cc nil)
+</span><span class="s1">  (setq mu4e-context-policy &#39;</span>pick-first<span class="o">)</span>
+  <span class="o">(</span>setq mu4e-get-mail-command <span class="s2">&#34;mbsync -a&#34;</span><span class="o">)</span>
+  <span class="o">(</span>setq mu4e-headers-date-format <span class="s2">&#34;%d-%m-%Y %H:%M&#34;</span><span class="o">)</span>
+  <span class="o">(</span>setq mu4e-headers-fields <span class="s1">&#39;((:human-date . 20)
+</span><span class="s1">                              (:flags . 6)
+</span><span class="s1">                              (:mailing-list . 10)
+</span><span class="s1">                              (:from . 22)
+</span><span class="s1">                              (:subject)))
+</span><span class="s1">  (setq mu4e-headers-include-related t)
+</span><span class="s1">  (setq mu4e-sent-messages-behavior &#39;</span>delete<span class="o">)</span>
+  <span class="o">(</span>setq mu4e-view-show-addresses t<span class="o">)</span>
+  <span class="o">(</span>setq mu4e-view-show-images t<span class="o">)</span>
+  <span class="o">(</span>setq smtpmail-debug-info t<span class="o">)</span>
+  <span class="o">(</span>setq smtpmail-stream-type <span class="s1">&#39;starttls)
+</span><span class="s1">  (setq mm-sign-option &#39;</span>guided<span class="o">)</span>
 
-<span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nf">fboundp</span> <span class="ss">&#39;imagemagick-register-types</span><span class="p">)</span>
-  <span class="p">(</span><span class="nv">imagemagick-register-types</span><span class="p">))</span>
+  <span class="o">(</span>when <span class="o">(</span>fboundp <span class="s1">&#39;imagemagick-register-types)
+</span><span class="s1">    (imagemagick-register-types))
+</span><span class="s1">
+</span><span class="s1">  (defun sign-or-encrypt-message ()
+</span><span class="s1">    (let ((answer (read-from-minibuffer &#34;Sign or encrypt?\nEmpty to do nothing.\n[s/e]: &#34;)))
+</span><span class="s1">      (cond
+</span><span class="s1">       ((string-equal answer &#34;s&#34;) (progn
+</span><span class="s1">                                    (message &#34;Signing message.&#34;)
+</span><span class="s1">                                    (mml-secure-message-sign-pgpmime)))
+</span><span class="s1">       ((string-equal answer &#34;e&#34;) (progn
+</span><span class="s1">                                    (message &#34;Encrypt and signing message.&#34;)
+</span><span class="s1">                                    (mml-secure-message-encrypt-pgpmime)))
+</span><span class="s1">       (t (progn
+</span><span class="s1">            (message &#34;Dont signing or encrypting message.&#34;)
+</span><span class="s1">            nil)))))
+</span><span class="s1">
+</span><span class="s1">  (add-hook &#39;</span>message-send-hook <span class="s1">&#39;sign-or-encrypt-message)
+</span><span class="s1">
+</span><span class="s1">  (setq mu4e-contexts
+</span><span class="s1">        `( ,(make-mu4e-context
+</span><span class="s1">             :name &#34;gmail&#34;
+</span><span class="s1">             :enter-func (lambda ()
+</span><span class="s1">                           (mu4e-message &#34;Entering gmail context&#34;)
+</span><span class="s1">                           (when (string-match-p (buffer-name (current-buffer)) &#34;mu4e-main&#34;)
+</span><span class="s1">                             (revert-buffer)))
+</span><span class="s1">             :leave-func (lambda ()
+</span><span class="s1">                           (mu4e-message &#34;Leaving gmail context&#34;)
+</span><span class="s1">                           (when (string-match-p (buffer-name (current-buffer)) &#34;mu4e-main&#34;)
+</span><span class="s1">                             (revert-buffer)))
+</span><span class="s1">             :match-func (lambda (msg)
+</span><span class="s1">                           (when msg
+</span><span class="s1">                             (or (mu4e-message-contact-field-matches msg :to &#34;jherrlin@gmail.com&#34;)
+</span><span class="s1">                                 (mu4e-message-contact-field-matches msg :from &#34;jherrlin@gmail.com&#34;)
+</span><span class="s1">                                 (mu4e-message-contact-field-matches msg :cc &#34;jherrlin@gmail.com&#34;)
+</span><span class="s1">                                 (mu4e-message-contact-field-matches msg :bcc &#34;jherrlin@gmail.com&#34;)
+</span><span class="s1">                                 (string-match-p &#34;^/gmail/Inbox&#34; (mu4e-message-field msg :maildir)))))
+</span><span class="s1">             :vars &#39;</span><span class="o">(</span> <span class="o">(</span> user-mail-address            . <span class="s2">&#34;jherrlin@gmail.com&#34;</span> <span class="o">)</span>
+                      <span class="o">(</span> smtpmail-smtp-user           . <span class="s2">&#34;jherrlin@gmail.com&#34;</span> <span class="o">)</span>
+                      <span class="o">(</span> mu4e-compose-signature       . <span class="s2">&#34;Mvh John&#34;</span> <span class="o">)</span>
+                      <span class="o">(</span> smtpmail-smtp-server         . <span class="s2">&#34;smtp.gmail.com&#34;</span> <span class="o">)</span>
+                      <span class="o">(</span> smtpmail-smtp-service        . <span class="m">587</span> <span class="o">)</span>
+                      <span class="o">(</span> mu4e-maildir-shortcuts       . <span class="o">((</span>:maildir <span class="s2">&#34;/gmail/Inbox&#34;</span> :key ?i<span class="o">)))</span>
+                      <span class="o">(</span> mu4e-bookmarks
+                        .
+                        <span class="o">((</span> :name  <span class="s2">&#34;Unread messages&#34;</span>
+                                   :query <span class="s2">&#34;maildir:/gmail/Inbox AND flag:unread AND NOT flag:trashed AND NOT outdoorexperten&#34;</span>
+                                   :key ?u<span class="o">)</span>
+                          <span class="o">(</span> :name <span class="s2">&#34;Today&#39;s messages&#34;</span>
+                                  :query <span class="s2">&#34;maildir:/gmail/Inbox AND date:today..now&#34;</span>
+                                  :key ?t<span class="o">)</span>
+                          <span class="o">(</span> :name <span class="s2">&#34;Last 7 days&#34;</span>
+                                  :query <span class="s2">&#34;maildir:/gmail/Inbox AND date:7d..now&#34;</span>
+                                  :hide-unread t
+                                  :key ?w<span class="o">)</span>
+                          <span class="o">(</span> :name <span class="s2">&#34;Deleted&#34;</span>
+                                  :query <span class="s2">&#34;flag:trashed&#34;</span>
+                                  :key ?d<span class="o">)</span>
+                          <span class="o">(</span> :name <span class="s2">&#34;Possibly garbage&#34;</span>
+                                  :query <span class="s2">&#34;bokio OR outdoorexperten&#34;</span>
+                                  :key ?g<span class="o">)))))</span>
 
-<span class="p">(</span><span class="nb">defun</span> <span class="nv">sign-or-encrypt-message</span> <span class="p">()</span>
-  <span class="p">(</span><span class="nb">let</span> <span class="p">((</span><span class="nv">answer</span> <span class="p">(</span><span class="nf">read-from-minibuffer</span>
-                 <span class="s">&#34;Sign or encrypt?\nEmpty to do nothing.\n[s/e]: &#34;</span><span class="p">)))</span>
-    <span class="p">(</span><span class="nb">cond</span>
-     <span class="p">((</span><span class="nf">string-equal</span> <span class="nv">answer</span> <span class="s">&#34;s&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nb">progn</span>
-                                  <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;Signing message.&#34;</span><span class="p">)</span>
-                                  <span class="p">(</span><span class="nv">mml-secure-message-sign-pgpmime</span><span class="p">)))</span>
-     <span class="p">((</span><span class="nf">string-equal</span> <span class="nv">answer</span> <span class="s">&#34;e&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nb">progn</span>
-                                  <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;Encrypt and signing message.&#34;</span><span class="p">)</span>
-                                  <span class="p">(</span><span class="nv">mml-secure-message-encrypt-pgpmime</span><span class="p">)))</span>
-     <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">progn</span>
-          <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;Dont signing or encrypting message.&#34;</span><span class="p">)</span>
-          <span class="no">nil</span><span class="p">)))))</span>
+           ,<span class="o">(</span>make-mu4e-context
+             :name <span class="s2">&#34;school&#34;</span>
+             :enter-func <span class="o">(</span>lambda <span class="o">()</span>
+                           <span class="o">(</span>mu4e-message <span class="s2">&#34;Entering school context&#34;</span><span class="o">)</span>
+                           <span class="o">(</span>when <span class="o">(</span>string-match-p <span class="o">(</span>buffer-name <span class="o">(</span>current-buffer<span class="o">))</span> <span class="s2">&#34;mu4e-main&#34;</span><span class="o">)</span>
+                             <span class="o">(</span>revert-buffer<span class="o">)))</span>
+             :leave-func <span class="o">(</span>lambda <span class="o">()</span>
+                           <span class="o">(</span>mu4e-message <span class="s2">&#34;Leaving school context&#34;</span><span class="o">)</span>
+                           <span class="o">(</span>when <span class="o">(</span>string-match-p <span class="o">(</span>buffer-name <span class="o">(</span>current-buffer<span class="o">))</span> <span class="s2">&#34;mu4e-main&#34;</span><span class="o">)</span>
+                             <span class="o">(</span>revert-buffer<span class="o">)))</span>
+             :match-func <span class="o">(</span>lambda <span class="o">(</span>msg<span class="o">)</span>
+                           <span class="o">(</span>when msg
+                             <span class="o">(</span>or <span class="o">(</span>mu4e-message-contact-field-matches msg :to <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span><span class="o">)</span>
+                                 <span class="o">(</span>mu4e-message-contact-field-matches msg :from <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span><span class="o">)</span>
+                                 <span class="o">(</span>mu4e-message-contact-field-matches msg :cc <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span><span class="o">)</span>
+                                 <span class="o">(</span>mu4e-message-contact-field-matches msg :bcc <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span><span class="o">))))</span>
 
-<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;message-send-hook</span> <span class="ss">&#39;sign-or-encrypt-message</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nb">defun</span> <span class="nv">my-msg-match</span> <span class="p">(</span><span class="nv">msg</span> <span class="nv">arg</span> <span class="nv">address</span><span class="p">)</span>
-  <span class="s">&#34;Match message on headers.&#34;</span>
-  <span class="p">(</span><span class="nv">mu4e-message-contact-field-matches</span> <span class="nv">msg</span> <span class="nv">arg</span> <span class="nv">address</span><span class="p">))</span>
-
-<span class="p">(</span><span class="nb">defun</span> <span class="nv">revert-if-mu4e-main</span> <span class="p">()</span>
-  <span class="s">&#34;Revert/update buffer if it&#39;s mu4e-main.&#34;</span>
-  <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nv">string-match-p</span> <span class="p">(</span><span class="nf">buffer-name</span> <span class="p">(</span><span class="nf">current-buffer</span><span class="p">))</span> <span class="s">&#34;mu4e-main&#34;</span><span class="p">)</span>
-    <span class="p">(</span><span class="nv">revert-buffer</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-contexts</span>
-      <span class="o">`</span><span class="p">(</span> <span class="o">,</span><span class="p">(</span><span class="nv">make-mu4e-context</span>
-           <span class="nb">:name</span> <span class="s">&#34;gmail&#34;</span>
-           <span class="nb">:enter-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">()</span>
-                         <span class="p">(</span><span class="nv">mu4e-message</span> <span class="s">&#34;Entering gmail context&#34;</span><span class="p">)</span>
-                         <span class="p">(</span><span class="nv">revert-if-mu4e-main</span><span class="p">))</span>
-           <span class="nb">:leave-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">()</span>
-                         <span class="p">(</span><span class="nv">mu4e-message</span> <span class="s">&#34;Leaving gmail context&#34;</span><span class="p">)</span>
-                         <span class="p">(</span><span class="nv">revert-if-mu4e-main</span><span class="p">))</span>
-           <span class="nb">:match-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">(</span><span class="nv">msg</span><span class="p">)</span>
-                         <span class="p">(</span><span class="nb">when</span> <span class="nv">msg</span>
-                           <span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nv">my-msg-match</span> <span class="nv">msg</span> <span class="nb">:to</span> <span class="s">&#34;jherrlin@gmail.com&#34;</span><span class="p">)</span>
-                               <span class="p">(</span><span class="nv">my-msg-match</span> <span class="nv">msg</span> <span class="nb">:from</span> <span class="s">&#34;jherrlin@gmail.com&#34;</span><span class="p">)</span>
-                               <span class="p">(</span><span class="nv">my-msg-match</span> <span class="nv">msg</span> <span class="nb">:cc</span> <span class="s">&#34;jherrlin@gmail.com&#34;</span><span class="p">)</span>
-                               <span class="p">(</span><span class="nv">my-msg-match</span> <span class="nv">msg</span> <span class="nb">:bcc</span> <span class="s">&#34;jherrlin@gmail.com&#34;</span><span class="p">)</span>
-                               <span class="p">(</span><span class="nv">string-match-p</span> <span class="s">&#34;^/gmail/Inbox&#34;</span>
-                                               <span class="p">(</span><span class="nv">mu4e-message-field</span> <span class="nv">msg</span> <span class="nb">:maildir</span><span class="p">)))))</span>
-           <span class="nb">:vars</span> <span class="o">&#39;</span><span class="p">(</span> <span class="p">(</span> <span class="nv">user-mail-address</span>            <span class="o">.</span> <span class="s">&#34;jherrlin@gmail.com&#34;</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">smtpmail-smtp-user</span>           <span class="o">.</span> <span class="s">&#34;jherrlin@gmail.com&#34;</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">mu4e-compose-signature</span>       <span class="o">.</span> <span class="s">&#34;Mvh John&#34;</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">smtpmail-smtp-server</span>         <span class="o">.</span> <span class="s">&#34;smtp.gmail.com&#34;</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">smtpmail-smtp-service</span>        <span class="o">.</span> <span class="mi">587</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">mu4e-maildir-shortcuts</span>       <span class="o">.</span> <span class="p">((</span><span class="nb">:maildir</span> <span class="s">&#34;/gmail/Inbox&#34;</span> <span class="nb">:key</span> <span class="sc">?i</span><span class="p">)))</span>
-                    <span class="p">(</span> <span class="nv">mu4e-bookmarks</span>
-                      <span class="o">.</span>
-                      <span class="p">((</span> <span class="nb">:name</span>  <span class="s">&#34;Unread messages&#34;</span>
-                                <span class="nb">:query</span> <span class="p">(</span><span class="nf">concat</span> <span class="s">&#34;maildir:/gmail/Inbox &#34;</span>
-                                               <span class="s">&#34;AND flag:unread &#34;</span>
-                                               <span class="s">&#34;AND NOT flag:trashed &#34;</span>
-                                               <span class="s">&#34;AND NOT outdoorexperten &#34;</span>
-                                               <span class="s">&#34;AND NOT bokio &#34;</span>
-                                               <span class="s">&#34;AND NOT from:studentkortet &#34;</span>
-                                               <span class="s">&#34;AND NOT from:feedback@slack.com &#34;</span>
-                                               <span class="s">&#34;AND NOT from:mail.goodreads.com&#34;</span><span class="p">)</span>
-                                 <span class="nb">:key</span> <span class="sc">?u</span><span class="p">)</span>
-                        <span class="p">(</span> <span class="nb">:name</span> <span class="s">&#34;Today&#39;s messages&#34;</span>
-                                <span class="nb">:query</span> <span class="s">&#34;maildir:/gmail/Inbox AND date:today..now&#34;</span>
-                                <span class="nb">:key</span> <span class="sc">?t</span><span class="p">)</span>
-                        <span class="p">(</span> <span class="nb">:name</span> <span class="s">&#34;Last 7 days&#34;</span>
-                                <span class="nb">:query</span> <span class="s">&#34;maildir:/gmail/Inbox AND date:7d..now&#34;</span>
-                                <span class="nb">:hide-unread</span> <span class="no">t</span>
-                                <span class="nb">:key</span> <span class="sc">?w</span><span class="p">)</span>
-                        <span class="p">(</span> <span class="nb">:name</span> <span class="s">&#34;Deleted&#34;</span>
-                                <span class="nb">:query</span> <span class="s">&#34;flag:trashed&#34;</span>
-                                <span class="nb">:key</span> <span class="sc">?d</span><span class="p">)</span>
-                        <span class="p">(</span> <span class="nb">:name</span> <span class="s">&#34;Possibly garbage&#34;</span>
-                                <span class="nb">:query</span> <span class="p">(</span><span class="nf">concat</span> <span class="s">&#34;bokio &#34;</span>
-                                               <span class="s">&#34;OR from:studentkortet &#34;</span>
-                                               <span class="s">&#34;OR outdoorexperten &#34;</span>
-                                               <span class="s">&#34;OR from:feedback@slack.com &#34;</span>
-                                               <span class="s">&#34;OR from:mail.goodreads.com&#34;</span><span class="p">)</span>
-                                <span class="nb">:key</span> <span class="sc">?g</span><span class="p">)))))</span>
-
-         <span class="o">,</span><span class="p">(</span><span class="nv">make-mu4e-context</span>
-           <span class="nb">:name</span> <span class="s">&#34;school&#34;</span>
-           <span class="nb">:enter-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">()</span>
-                         <span class="p">(</span><span class="nv">mu4e-message</span> <span class="s">&#34;Entering school context&#34;</span><span class="p">)</span>
-                         <span class="p">(</span><span class="nv">revert-if-mu4e-main</span><span class="p">))</span>
-           <span class="nb">:leave-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">()</span>
-                         <span class="p">(</span><span class="nv">mu4e-message</span> <span class="s">&#34;Leaving school context&#34;</span><span class="p">)</span>
-                         <span class="p">(</span><span class="nv">revert-if-mu4e-main</span><span class="p">))</span>
-           <span class="nb">:match-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">(</span><span class="nv">msg</span><span class="p">)</span>
-                         <span class="p">(</span><span class="nb">when</span> <span class="nv">msg</span>
-                           <span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nv">my-msg-match</span> <span class="nv">msg</span> <span class="nb">:to</span> <span class="s">&#34;jh222jx@student.lnu.se&#34;</span><span class="p">)</span>
-                               <span class="p">(</span><span class="nv">my-msg-match</span> <span class="nv">msg</span> <span class="nb">:from</span> <span class="s">&#34;jh222jx@student.lnu.se&#34;</span><span class="p">)</span>
-                               <span class="p">(</span><span class="nv">my-msg-match</span> <span class="nv">msg</span> <span class="nb">:cc</span> <span class="s">&#34;jh222jx@student.lnu.se&#34;</span><span class="p">)</span>
-                               <span class="p">(</span><span class="nv">my-msg-match</span> <span class="nv">msg</span> <span class="nb">:bcc</span> <span class="s">&#34;jh222jx@student.lnu.se&#34;</span><span class="p">))))</span>
-
-           <span class="nb">:vars</span> <span class="o">&#39;</span><span class="p">(</span> <span class="p">(</span> <span class="nv">user-mail-address</span>       <span class="o">.</span> <span class="s">&#34;jh222jx@student.lnu.se&#34;</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">smtpmail-smtp-user</span>      <span class="o">.</span> <span class="s">&#34;jh222jx@student.lnu.se&#34;</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">smtpmail-smtp-server</span>    <span class="o">.</span> <span class="s">&#34;smtp.gmail.com&#34;</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">smtpmail-smtp-service</span>   <span class="o">.</span> <span class="mi">587</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">mu4e-compose-signature</span>  <span class="o">.</span> <span class="s">&#34;Mvh John&#34;</span> <span class="p">)</span>
-                    <span class="p">(</span> <span class="nv">mu4e-maildir-shortcuts</span>  <span class="o">.</span> <span class="p">((</span><span class="nb">:maildir</span> <span class="s">&#34;/lnu/Inbox&#34;</span> <span class="nb">:key</span> <span class="sc">?i</span><span class="p">)))</span>
-                    <span class="p">(</span> <span class="nv">mu4e-bookmarks</span>
-                      <span class="o">.</span>
-                      <span class="p">((</span> <span class="nb">:name</span>  <span class="s">&#34;All school mails&#34;</span>
-                                 <span class="nb">:query</span> <span class="s">&#34;maildir:/lnu/Inbox&#34;</span>
-                                 <span class="nb">:key</span> <span class="sc">?a</span><span class="p">)</span>
-                       <span class="p">(</span> <span class="nb">:name</span>  <span class="s">&#34;Unread school messages&#34;</span>
-                                 <span class="nb">:query</span> <span class="s">&#34;maildir:/lnu/Inbox AND flag:unread AND NOT flag:trashed&#34;</span>
-                                 <span class="nb">:key</span> <span class="sc">?u</span><span class="p">)))))))</span></code></pre></div>
+             :vars <span class="err">&#39;</span><span class="o">(</span> <span class="o">(</span> user-mail-address       . <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span> <span class="o">)</span>
+                      <span class="o">(</span> smtpmail-smtp-user      . <span class="s2">&#34;jh222jx@student.lnu.se&#34;</span> <span class="o">)</span>
+                      <span class="o">(</span> smtpmail-smtp-server    . <span class="s2">&#34;smtp.gmail.com&#34;</span> <span class="o">)</span>
+                      <span class="o">(</span> smtpmail-smtp-service   . <span class="m">587</span> <span class="o">)</span>
+                      <span class="o">(</span> mu4e-compose-signature  . <span class="s2">&#34;Mvh John&#34;</span> <span class="o">)</span>
+                      <span class="o">(</span> mu4e-maildir-shortcuts  . <span class="o">((</span>:maildir <span class="s2">&#34;/lnu/Inbox&#34;</span> :key ?i<span class="o">)))</span>
+                      <span class="o">(</span> mu4e-bookmarks
+                        .
+                        <span class="o">((</span> :name  <span class="s2">&#34;All school mails&#34;</span>
+                                   :query <span class="s2">&#34;maildir:/lnu/Inbox&#34;</span>
+                                   :key ?a<span class="o">)</span>
+                         <span class="o">(</span> :name  <span class="s2">&#34;Unread school messages&#34;</span>
+                                   :query <span class="s2">&#34;maildir:/lnu/Inbox AND flag:unread AND NOT flag:trashed&#34;</span>
+                                   :key ?u<span class="o">)))))))</span>
+<span class="c">#+end_src</span></code></pre></div>
 </div>
 <p>
-   This is the structure of the smtp credentials file.
-</p>
+   This is the structure of the smtp credentials file.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  gpg --decrypt ~/.password-store/smtp.gmail.com/jherrlin@gmail.com.gpg
@@ -550,6 +531,10 @@ user: jherrlin@gmail.com
 port: <span class="m">587</span>
 host: smtp.gmail.com
 <span class="c">#+end_src</span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
       

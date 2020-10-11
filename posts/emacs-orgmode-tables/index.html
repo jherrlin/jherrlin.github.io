@@ -7,7 +7,8 @@
 <title>Emacs Org mode tables | jherrlin</title>
 
 <meta property='og:title' content='Emacs Org mode tables - jherrlin'>
-<meta property='og:description' content='Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.  Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &#34;Emacs Org mode source blocks&#34;) or used in calculations.'>
+<meta property='og:description' content='Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
+ Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &#34;Emacs Org mode source blocks&#34;) or used in calculations.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/emacs-orgmode-tables/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='GNU'><meta property='article:tag' content='org'><meta property='article:tag' content='programming'><meta property='article:published_time' content='2020-06-21T16:16:30&#43;02:00'/><meta property='article:modified_time' content='2020-06-21T16:16:30&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -118,29 +119,31 @@
     
     <div class="content">
       
+<div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 Intro
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
 <p>
   This is the second post in the serie of how I use Emacs <a href="https://orgmode.org/">Org mode</a> (from now on org) and
   it will cover usage of <a href="https://orgmode.org/manual/Tables.html#Tables">org tables</a>. Some of the content assumes basic knowledge about
-  org. If you are new to org I can recommend this two videos; <a href="https://www.youtube.com/watch?v=SzA2YODtgK4">hrs</a> and <a href="https://www.youtube.com/watch?v=fgizHHd7nOo">kitchin</a>.
-</p>
+  org. If you are new to org I can recommend this two videos; <a href="https://www.youtube.com/watch?v=SzA2YODtgK4">hrs</a> and <a href="https://www.youtube.com/watch?v=fgizHHd7nOo">kitchin</a>.</p>
 <p>
   Org tables are like spreadsheets with super powers. Tables can be used to keep
   information organized, as input to source blocks (more about that in the first post,
-  &#34;Emacs Org mode source blocks&#34;) or used in calculations.
-</p>
+  &#34;Emacs Org mode source blocks&#34;) or used in calculations.</p>
 <p>
   My main usage of tables is to calculate work time. I sum up the time I should work and
-  the time I have been working and calc the diff.
-</p>
+  the time I have been working and calc the diff.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
 Versions
 </h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <p>
-  … of Emacs and Org mode.
-</p>
+  … of Emacs and Org mode.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
 </span><span class="c"></span>  <span class="p">(</span><span class="nv">org-version</span><span class="p">)</span>
@@ -157,16 +160,19 @@ Versions
 : GNU Emacs 26.3 (build 1, x86_64-pc-linux-gnu, GTK+ Version 3.24.20)
 :  of 2020-05-19</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
 <h2 id="headline-3">
 Emacs config
 </h2>
+<div id="outline-text-headline-3" class="outline-text-2">
 <p>
   Without config Emacs don&#39;t know how to execute source blocks. This following snippet
   provides Emacs with the ability to understand a set of languages/applications. The set
   of languages/applications need to be available in the underlying OS. To get a complete
   list of languages/applications available in org. A complete list can be found here:
-  <a href="https://code.orgmode.org/bzg/org-mode/src/master/lisp">repo</a>. Support for source blocks are available in files prefixed with <code class="verbatim">ob-</code>.
-</p>
+  <a href="https://code.orgmode.org/bzg/org-mode/src/master/lisp">repo</a>. Support for source blocks are available in files prefixed with <code class="verbatim">ob-</code>.</p>
 <div class="src src-emacs-lisp">
 <div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nb">setq</span> <span class="nv">org-confirm-babel-evaluate</span> <span class="no">nil</span><span class="p">)</span>
 
@@ -179,14 +185,17 @@ Emacs config
    <span class="p">(</span><span class="nv">awk</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
    <span class="p">(</span><span class="nv">clojure</span> <span class="o">.</span> <span class="no">t</span><span class="p">)))</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
 <h2 id="headline-4">
 Table with a name
 </h2>
+<div id="outline-text-headline-4" class="outline-text-2">
 <p>
   This example names the table via the <code class="verbatim">#+NAME:</code> command. This named table is then used as
   input to a source block. Here we use <code class="verbatim">awk</code> to sum the population in Europe. More about
-  this can be found in the first post, &#34;Emacs Org mode source blocks&#34;.
-</p>
+  this can be found in the first post, &#34;Emacs Org mode source blocks&#34;.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="cs">#+NAME</span><span class="c">: countries</span>
 <span class="s">| Country name | Area | Population | Region        |</span>
@@ -212,25 +221,25 @@ Table with a name
 : Sum of the population in Europe is 172</code></pre></div>
 </div>
 <p>
-  Data is taken from the book <a href="https://ia802309.us.archive.org/25/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf">The AWK Programming Language</a>.
-</p>
+  Data is taken from the book <a href="https://ia802309.us.archive.org/25/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf">The AWK Programming Language</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
 <h2 id="headline-5">
 Calculate sums
 </h2>
+<div id="outline-text-headline-5" class="outline-text-2">
 <p>
   Just like the previous example this one will do calculations based on data in a table.
   But this on will use table formulas (<code class="verbatim">TBLFM</code>) to do the calculations. This time the
   table wont be passed to a programming language outside of Emacs. In the &#34;before&#34; we have
   some items with amount and cost data. We would like to know the amount * cost for each
-  row and the sum of all &#34;Total&#34; rows.
-</p>
+  row and the sum of all &#34;Total&#34; rows.</p>
 <p>
   By putting the pointer on the <code class="verbatim">TBLFM</code> formula and use the keyboard sequence <code class="verbatim">C-c C-c</code> the
-  calculations will be executed.
-</p>
+  calculations will be executed.</p>
 <p>
-  Org docs on <a href="https://orgmode.org/worg/org-tutorials/org-spreadsheet-lisp-formulas.html">table formulas</a> and <a href="https://orgmode.org/org.html#Advanced-features">advanced features</a>.
-</p>
+  Org docs on <a href="https://orgmode.org/worg/org-tutorials/org-spreadsheet-lisp-formulas.html">table formulas</a> and <a href="https://orgmode.org/org.html#Advanced-features">advanced features</a>.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">Before <span class="nc">=TBLFM=</span> is evaluated
 
@@ -256,14 +265,15 @@ After <span class="nc">=TBLFM=</span> is evaluated
 <span class="s">| Sum:        |         |      |  1305 |</span>
 <span class="cs">#+TBLFM</span><span class="c">: $4=$2*$3::@&gt;$4=vsum(@&lt;&lt;$4..@&gt;&gt;$4)</span></code></pre></div>
 </div>
+<div id="outline-container-headline-6" class="outline-3">
 <h3 id="headline-6">
 Calculate with time
 </h3>
+<div id="outline-text-headline-6" class="outline-text-3">
 <p>
    This is more or less the same as in previous example but this time we have a <code class="verbatim">U</code> in the
    <code class="verbatim">TBLFM</code> and that tells org to calculate time. Org have many different ways of manage
-   time, more about that <a href="https://orgmode.org/manual/Durations-and-time-values.html">here</a>.
-</p>
+   time, more about that <a href="https://orgmode.org/manual/Durations-and-time-values.html">here</a>.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">Before <span class="nc">=TBLFM=</span> is evaluated
 
@@ -287,12 +297,17 @@ After <span class="nc">=TBLFM=</span> is evaluated
 <span class="s">| Total | 10:30 |</span>
 <span class="cs">#+TBLFM</span><span class="c">: @&gt;$2=vsum(@&lt;&lt;$2..@&gt;&gt;$2);U</span></code></pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
 <h2 id="headline-7">
 Calculate work time
 </h2>
+<div id="outline-text-headline-7" class="outline-text-2">
 <p>
-  This is an example on how I use tables to make sure that I work my hours.
-</p>
+  This is an example on how I use tables to make sure that I work my hours.</p>
 <p>
   At my current work we have 40 hours a week freely distributed, no 8-17. As I am a person
   that like routines I often try to do 8-17 but I am not to strict about it. Working some
@@ -301,8 +316,7 @@ Calculate work time
   together with some Emacs LiSP code and a <code class="verbatim">TBLFM</code> formula. If I am sick or on vacation I
   put &#34;0:00&#34; in &#34;Worked&#34;. This tells the LiSP code to not add &#34;8:00&#34; hours in the &#34;Should
   work&#34; spot. And if I work hours on a weekend that day should not add extra &#34;8:00&#34; to
-  &#34;Should work&#34;.
-</p>
+  &#34;Should work&#34;.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c"> :results none
 </span><span class="c"></span>  <span class="p">(</span><span class="nb">defun</span> <span class="nv">jh/hours-a-day</span> <span class="p">(</span><span class="nv">date</span> <span class="nv">time</span><span class="p">)</span>
@@ -317,8 +331,7 @@ Calculate work time
 <span class="c">#+END_SRC</span></code></pre></div>
 </div>
 <p>
-  The example contains multiple <code class="verbatim">TBLFM</code>, eval them one by one from the top to the bottom.
-</p>
+  The example contains multiple <code class="verbatim">TBLFM</code>, eval them one by one from the top to the bottom.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="s">| Day              | Worked | Should work |</span>
 <span class="s">|------------------+--------+-------------|</span>
@@ -336,29 +349,29 @@ Calculate work time
 <span class="cs">#+TBLFM</span><span class="c">: @&gt;&gt;$3=vsum(@&lt;&lt;$3..@&gt;&gt;&gt;$3);U</span>
 <span class="cs">#+TBLFM</span><span class="c">: @&gt;$3=(@&gt;&gt;$2-@&gt;&gt;$3);U</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
 <h2 id="headline-8">
 Logbook and clocktable
 </h2>
+<div id="outline-text-headline-8" class="outline-text-2">
 <p>
   This example is not about tables but headlines, drawers and clocktable will be part of a
-  bigger example later.
-</p>
+  bigger example later.</p>
 <p>
   So, org have headlines. A headline is a row that starts with one or more <code class="verbatim">*</code>. The number
   of <code class="verbatim">*</code> declares the depth of the sub headline. In this example <code class="verbatim">Work</code> is headline,
   <code class="verbatim">[2020-06-10 Wed] Deployed server</code> and <code class="verbatim">[2020-06-11 Thu] Updated deps</code> are sub
-  headlines. Here is headline <a href="https://orgmode.org/manual/Headlines.html">docs</a>.
-</p>
+  headlines. Here is headline <a href="https://orgmode.org/manual/Headlines.html">docs</a>.</p>
 <p>
   Drawers are values associated with a headline. In this case we use <code class="verbatim">LOGBOOK</code> drawer and
-  each <code class="verbatim">LOGBOOK</code> have one or more <code class="verbatim">CLOCK</code> entries. Each <code class="verbatim">CLOCK</code> entry is a datetime range.
-</p>
+  each <code class="verbatim">LOGBOOK</code> have one or more <code class="verbatim">CLOCK</code> entries. Each <code class="verbatim">CLOCK</code> entry is a datetime range.</p>
 <p>
   Clocktable is a report on <code class="verbatim">CLOCK</code> entries. It asks for a <code class="verbatim">scope</code> and finds clocking
   information from it. In this case the <code class="verbatim">scope</code> is the current buffer. To eval a
   clocktable, put the pointer on <code class="verbatim">#+BEGIN:</code> row and use <code class="verbatim">C-c C-c</code>. Here is the doc on
-  <a href="https://orgmode.org/manual/The-clock-table.html#The-clock-table">clocktable</a>.
-</p>
+  <a href="https://orgmode.org/manual/The-clock-table.html#The-clock-table">clocktable</a>.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN: </span><span class="cs">clocktable</span><span class="c"> :scope file :maxlevel 2
 </span><span class="c"></span>#<span class="gd">+CAPTION: Clock summary at [2020-06-21 Sun 21:03]
@@ -384,11 +397,14 @@ Logbook and clocktable
 </span><span class="cs"></span><span class="c">   :END:</span></code></pre></div>
 </div>
 <p>
-  HINT: <strong>Total time</strong> format may differ. Look here: <a href="https://stackoverflow.com/questions/22720526/set-clock-table-duration-format-for-emacs-org-mode">how to change <strong>Total time</strong> format</a>.
-</p>
+  HINT: <strong>Total time</strong> format may differ. Look here: <a href="https://stackoverflow.com/questions/22720526/set-clock-table-duration-format-for-emacs-org-mode">how to change <strong>Total time</strong> format</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
 <h2 id="headline-9">
 Composed example
 </h2>
+<div id="outline-text-headline-9" class="outline-text-2">
 <p>
   This example combines many of the features we have gone through. The main idea here is a
   headline with sub headlines. Each sub headline contains a date and a optional text
@@ -396,15 +412,12 @@ Composed example
   report. After the report is generated a formula is executed on the table. This formula
   is pretty extensive. But the main things is to calculate the &#34;Worked&#34; and &#34;Should work&#34;
   columns and subtract &#34;Should work&#34; with &#34;Worked&#34; to show how many hours I have left to
-  work.
-</p>
+  work.</p>
 <p>
-  This example depends on the <code class="verbatim">jh/hours-a-day</code> LiSP snippet.
-</p>
+  This example depends on the <code class="verbatim">jh/hours-a-day</code> LiSP snippet.</p>
 <p>
   The example below states that I have one more hour to work before I have completed my 40
-  hours.
-</p>
+  hours.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="gh">*</span><span class="gs"> Timetable</span>
 
@@ -459,17 +472,21 @@ Composed example
 </span><span class="cs">   CLOCK: [2020-06-08 Mon 13:00]--[2020-06-08 Mon 17:00] =&gt;  4:00
 </span><span class="cs"></span><span class="c">   :END:</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
 <h2 id="headline-10">
 Nice things I didn&#39;t cover
 </h2>
+<div id="outline-text-headline-10" class="outline-text-2">
 <p>
   Sub headlines with logbook entries can be created really fast from custom templates.
-  Take a look at <a href="https://orgmode.org/manual/Capture-templates.html">capture templates</a>.
-</p>
+  Take a look at <a href="https://orgmode.org/manual/Capture-templates.html">capture templates</a>.</p>
 <p>
   Clocking commands can be used on sub headlines to start and stop timing. More info
-  <a href="https://orgmode.org/manual/Clocking-commands.html">here</a>.
-</p>
+  <a href="https://orgmode.org/manual/Clocking-commands.html">here</a>.</p>
+</div>
+</div>
 
       
       <div class="related">

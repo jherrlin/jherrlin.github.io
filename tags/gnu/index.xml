@@ -6,18 +6,15 @@
     <description>Recent content in GNU on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Jun 2020 16:16:30 +0200</lastBuildDate>
-    
-	<atom:link href="https://jherrlin.github.io/tags/gnu/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 21 Jun 2020 16:16:30 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/gnu/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Emacs Org mode tables</title>
       <link>https://jherrlin.github.io/posts/emacs-orgmode-tables/</link>
       <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-tables/</guid>
-      <description>Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.  Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &amp;#34;Emacs Org mode source blocks&amp;#34;) or used in calculations.</description>
+      <description>Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
+ Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &amp;#34;Emacs Org mode source blocks&amp;#34;) or used in calculations.</description>
     </item>
     
     <item>
@@ -26,7 +23,8 @@
       <pubDate>Mon, 15 Jun 2020 13:18:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/</guid>
-      <description>Post updates     [2020-06-23] New section. &amp;#34;Combine source blocks&amp;#34;   Intro   It&amp;#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.</description>
+      <description>Post updates    [2020-06-23] New section. &amp;#34;Combine source blocks&amp;#34;
+    Intro   It&amp;#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.</description>
     </item>
     
   </channel>

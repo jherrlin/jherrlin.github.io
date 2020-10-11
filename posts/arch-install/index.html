@@ -7,7 +7,9 @@
 <title>Arch install with LUKS and systemd-boot | jherrlin</title>
 
 <meta property='og:title' content='Arch install with LUKS and systemd-boot - jherrlin'>
-<meta property='og:description' content='Into   Recently made a fresh Arch Linux install.  The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.  The LUKS device contains a header with data about the device.'>
+<meta property='og:description' content='Into   Recently made a fresh Arch Linux install.
+ The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.
+ The LUKS device contains a header with data about the device.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/arch-install/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='arch'><meta property='article:tag' content='install'><meta property='article:tag' content='system'><meta property='article:tag' content='encryption'><meta property='article:published_time' content='2020-06-01T16:44:47&#43;02:00'/><meta property='article:modified_time' content='2020-06-01T16:44:47&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -118,40 +120,43 @@
     
     <div class="content">
       
+<div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 Into
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
 <p>
-  Recently made a fresh Arch Linux install.
-</p>
+  Recently made a fresh Arch Linux install.</p>
 <p>
   The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted
   and contains EFI and boot. Second contains the system and user home. This partition will
   be encrypted with LUKS and contain a EXT4 file system. For boot <strong>systemd-boot</strong> will be
-  used.
-</p>
+  used.</p>
 <p>
   The LUKS device contains a header with data about the device. If something would happen
-  to the device this header data is crucial when restoring. So take a backup of that data.
-</p>
+  to the device this header data is crucial when restoring. So take a backup of that data.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
 Thanks to
 </h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <ul>
 <li>
-<p>
-<a href="https://wiki.archlinux.org/">https://wiki.archlinux.org/</a>
-</p>
+<p><a href="https://wiki.archlinux.org/">https://wiki.archlinux.org/</a></p>
 </li>
 <li>
-<p>
-<a href="https://gist.github.com/mattiaslundberg/8620837">https://gist.github.com/mattiaslundberg/8620837</a>
-</p>
+<p><a href="https://gist.github.com/mattiaslundberg/8620837">https://gist.github.com/mattiaslundberg/8620837</a></p>
 </li>
 </ul>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
 <h2 id="headline-3">
 Install
 </h2>
+<div id="outline-text-headline-3" class="outline-text-2">
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  gdisk /dev/nvme0n1 <span class="c1"># Disk for</span>
   <span class="c1"># Remove all partitions</span>
@@ -253,20 +258,22 @@ Install
   shutdown -r now</code></pre></div>
 </div>
 <p>
-  Start NetworkManager and connect to a wifi in the new system.
-</p>
+  Start NetworkManager and connect to a wifi in the new system.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">systemctl start NetworkManager
 systemctl <span class="nb">enable</span> NetworkManager
 nmcli device wifi connect &lt;SSID<span class="p">|</span>BSSID&gt; password &lt;password&gt;</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
 <h2 id="headline-4">
 Extra
 </h2>
+<div id="outline-text-headline-4" class="outline-text-2">
 <p>
   Small set of packages to get up and running with a desktop environment plus some good to
-  have.
-</p>
+  have.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  alacritty
   acpi
@@ -283,6 +290,8 @@ Extra
   wofi
   xorg-server-xwayland
   pass</code></pre></div>
+</div>
+</div>
 </div>
 
       

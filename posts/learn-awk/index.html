@@ -7,7 +7,8 @@
 <title>Learn AWK with Emacs | jherrlin</title>
 
 <meta property='og:title' content='Learn AWK with Emacs - jherrlin'>
-<meta property='og:description' content='Intro   This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&#39;t cover details on how to use Emacs, Org mode or Org-drill. It&#39;s intention is to provide a general overview of a workflow.  A git repo is available with flash cards, note book and some text files here. Content   I just read a few chapters in the &#34;The AWK programming language&#34; book and found AWK to be awesome and I want to learn more of the language.'>
+<meta property='og:description' content='Intro   This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&#39;t cover details on how to use Emacs, Org mode or Org-drill. It&#39;s intention is to provide a general overview of a workflow.
+ A git repo is available with flash cards, note book and some text files here.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/learn-awk/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='awk'><meta property='article:tag' content='learning'><meta property='article:tag' content='org'><meta property='article:tag' content='org-drill'><meta property='article:tag' content='programming'><meta property='article:tag' content='language'><meta property='article:published_time' content='2020-07-20T00:00:00Z'/><meta property='article:modified_time' content='2020-07-20T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -124,21 +125,25 @@
     
     <div class="content">
       
+<div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 Intro
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
 <p>
   This post describes my workflow for learning the AWK programming language using Emacs,
   Org mode and Org-drill. The workflow may work for other programming languages. The post
   won&#39;t cover details on how to use Emacs, Org mode or Org-drill. It&#39;s intention is to
-  provide a general overview of a workflow.
-</p>
+  provide a general overview of a workflow.</p>
 <p>
-  A git repo is available with flash cards, note book and some text files <a href="https://github.com/jherrlin/learn-awk">here</a>.
-</p>
+  A git repo is available with flash cards, note book and some text files <a href="https://github.com/jherrlin/learn-awk">here</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
 Content
 </h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <p>
   I just read a few chapters in the &#34;The AWK programming language&#34; book and found AWK to be
   awesome and I want to learn more of the language. I begin to think about my approach for
@@ -149,68 +154,50 @@ Content
   search for patterns in files, reduce a couple of files, transform my accounting data or
   other things related to text with some kind of structure. And in combination with programs
   like <code class="verbatim">find</code>, <code class="verbatim">sed</code>, <code class="verbatim">grep</code> and <code class="verbatim">sort</code> AWK can be super powerful and efficient. This is
-  where AWK shines for me.
-</p>
+  where AWK shines for me.</p>
 <p>
   One reason why I started to think about my learning process is that I feel that I don&#39;t
   have the time to learn a new language in one go and keep the knowledge fresh. I wanna
   progress slowly and over time. If I forget something or is kept away from AWK for a while
   I quickly wanna get back on track fast without needing to read a book again or consult to
   much documentation. This is of course not completely possible, but if I can keep the most
-  essential parts of AWK in my second brain I am more than happy.
-</p>
+  essential parts of AWK in my second brain I am more than happy.</p>
 <p>
   What I came up with is a workflow combined of <a href="https://orgmode.org/worg/org-contrib/org-drill.html">Org-drill</a> and <a href="https://orgmode.org/">Org mode</a> source blocks
   together with provided text files. Org-drill is an Emacs mode that uses a spaced
   repetition algorithm together with flash cards to provide you with questions and then the
   answer. The questions and answers are written by me and most often based around &#34;famous&#34;
-  text files like Nginx access log, /etc/passwd or .ledger files.
-</p>
+  text files like Nginx access log, /etc/passwd or .ledger files.</p>
 <p>
   A typical workflow to fill my source with questions and answers is to read a chapter in a
   book or a documentation page. If I find something that I think is useful I write one or
   more flash cards. This way I can increase my knowledge source and when I feel I have some
-  time over I can run the learning workflow.
-</p>
+  time over I can run the learning workflow.</p>
 <p>
-  The learning workflow looks like this:
-</p>
+  The learning workflow looks like this:</p>
 <ol>
 <li>
-<p>
-Open 2 Emacs sessions
-</p>
+<p>Open 2 Emacs sessions</p>
 </li>
 <li>
-<p>
-Open the file containing the flash cards in one session
-</p>
+<p>Open the file containing the flash cards in one session</p>
 </li>
 <li>
-<p>
-Open a note book file in the other
-</p>
+<p>Open a note book file in the other</p>
 </li>
 <li>
-<p>
-Start org-drill in the flash cards session
-</p>
+<p>Start org-drill in the flash cards session</p>
 </li>
 <li>
-<p>
-Write your answers in the note book session
-</p>
+<p>Write your answers in the note book session</p>
 </li>
 </ol>
-<p>
-Together with the note book file and the flash cards are a couple of text files. The text
+<p>Together with the note book file and the flash cards are a couple of text files. The text
   files are examples of the &#34;famous&#34; files. The note book file contains Org mode source
   blocks for each of the files. And the questions states what source block to use for that
-  particular question.
-</p>
+  particular question.</p>
 <p>
-  A source block inside the note book file looks like this.
-</p>
+  A source block inside the note book file looks like this.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results output code :in-file ./text-files/access.log
 </span><span class="c"></span>  <span class="p">{</span> <span class="kr">print</span> <span class="p">}</span>
@@ -221,16 +208,14 @@ Together with the note book file and the flash cards are a couple of text files.
   book document just beneath the source block. The file that your AWK program have as input
   is in the <code class="verbatim">:in-file</code> argument. If <code class="verbatim">C-c C-c</code> is executed on this source block it will
   insert all of the content of <code class="verbatim">./text-files/access.log</code> file in the note book document. If
-  an error occurs, the error message is inserted into the document.
-</p>
+  an error occurs, the error message is inserted into the document.</p>
 <p>
   Below is an example on how it can look like when you develop your answer. You write your
   AWK answer and use <code class="verbatim">C-c C-c</code> to see the result. If you are satisfied and think you have
   the correct answer, tell that to the org-drill session and it will then provide you with
   the correct answer. You correct yourself by telling org-drill how good you did on a scale
   from 1-5. Depending how you rate your answer, org-drill will set a date for the next time
-  the question should appear.
-</p>
+  the question should appear.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results output code :in-file ./text-files/access.log
 </span><span class="c"></span>  <span class="p">{</span> <span class="nx">ips</span><span class="p">[</span><span class="o">$</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span> <span class="p">}</span>
@@ -250,8 +235,7 @@ Together with the note book file and the flash cards are a couple of text files.
   Below is an example on how the flash card looks. If you know basic with Org mode this
   structure will feel very familiar. One great benefit of this is that it&#39;s just text. No
   database or weird stuff. Just plain text that is easy to search in and easy to version
-  control.
-</p>
+  control.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="gu">**</span> Print line 7 to 10 of file                                    <span class="ge"> :awk:drill:</span>
 
@@ -280,52 +264,37 @@ Together with the note book file and the flash cards are a couple of text files.
   got all of the pieces together. Now it&#39;s time to fill my second brain with good
   questions and answers and continue my path to be a happy AWK user. If you wanna help me
   optimize any of the workflows or contribute with good flash cards, I am more than happy
-  to receive pull requests via GitHub or feedback via Twitter.
-</p>
+  to receive pull requests via GitHub or feedback via Twitter.</p>
 <p>
-  Here are a couple of resources related to the post:
-</p>
+  Here are a couple of resources related to the post:</p>
 <ul>
 <li>
-<p>
-<a href="https://ia802309.us.archive.org/25/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf">The AWK programming language book</a>
-</p>
+<p><a href="https://ia802309.us.archive.org/25/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf">The AWK programming language book</a></p>
 </li>
 <li>
-<p>
-<a href="https://www.gnu.org/software/gawk/">Gnus AWK implementation called GAWK</a>
-</p>
+<p><a href="https://www.gnu.org/software/gawk/">Gnus AWK implementation called GAWK</a></p>
 </li>
 <li>
-<p>
-<a href="https://github.com/jherrlin/learn-awk">GitHub project that implements the ideas</a>
-</p>
+<p><a href="https://github.com/jherrlin/learn-awk">GitHub project that implements the ideas</a></p>
 </li>
 <li>
-<p>
-<a href="https://www.gnu.org/software/emacs/">Emacs</a>
-</p>
+<p><a href="https://www.gnu.org/software/emacs/">Emacs</a></p>
 </li>
 <li>
-<p>
-<a href="https://orgmode.org/">Org mode</a>
-</p>
+<p><a href="https://orgmode.org/">Org mode</a></p>
 </li>
 <li>
-<p>
-<a href="https://orgmode.org/worg/org-contrib/org-drill.html">Org-drill</a>
-</p>
+<p><a href="https://orgmode.org/worg/org-contrib/org-drill.html">Org-drill</a></p>
 </li>
 </ul>
 <p>
-  Here is a gif showing the learning workflow.
-</p>
+  Here is a gif showing the learning workflow.</p>
 <p>
-  <img src="/learn-awk.gif" alt="/learn-awk.gif" title="/learn-awk.gif" />
-</p>
+  <img src="/learn-awk.gif" alt="/learn-awk.gif" title="/learn-awk.gif" /></p>
 <p>
-  A mp4 video with better quality can be found here <code class="verbatim">http://jherrlin.github.io/learn-awk.mp4</code> (11M).
-</p>
+  A mp4 video with better quality can be found here <code class="verbatim">http://jherrlin.github.io/learn-awk.mp4</code> (11M).</p>
+</div>
+</div>
 
       
       <div class="related">

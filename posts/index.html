@@ -129,7 +129,8 @@
   
 </a></h1>
       <div class="content">
-        Intro   This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&#39;t cover details on how to use Emacs, Org mode or Org-drill. It&#39;s intention is to provide a general overview of a workflow.  A git repo is available with flash cards, note book and some text files here. Content   I just read a few chapters in the &#34;The AWK programming language&#34; book and found AWK to be awesome and I want to learn more of the language.
+        Intro   This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&#39;t cover details on how to use Emacs, Org mode or Org-drill. It&#39;s intention is to provide a general overview of a workflow.
+ A git repo is available with flash cards, note book and some text files here.
         
         <a class="button is-link" href="https://jherrlin.github.io/posts/learn-awk/" style="height:28px">
           Read more
@@ -243,7 +244,8 @@
   
 </a></h1>
       <div class="content">
-        Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.  Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &#34;Emacs Org mode source blocks&#34;) or used in calculations.
+        Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
+ Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &#34;Emacs Org mode source blocks&#34;) or used in calculations.
         
         <a class="button is-link" href="https://jherrlin.github.io/posts/emacs-orgmode-tables/" style="height:28px">
           Read more
@@ -279,7 +281,8 @@
   
 </a></h1>
       <div class="content">
-        Post updates     [2020-06-23] New section. &#34;Combine source blocks&#34;   Intro   It&#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
+        Post updates    [2020-06-23] New section. &#34;Combine source blocks&#34;
+    Intro   It&#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
         
         <a class="button is-link" href="https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/" style="height:28px">
           Read more
@@ -315,7 +318,9 @@
   
 </a></h1>
       <div class="content">
-        Into   Recently made a fresh Arch Linux install.  The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.  The LUKS device contains a header with data about the device.
+        Into   Recently made a fresh Arch Linux install.
+ The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.
+ The LUKS device contains a header with data about the device.
         
         <a class="button is-link" href="https://jherrlin.github.io/posts/arch-install/" style="height:28px">
           Read more
@@ -355,7 +360,10 @@
   
 </a></h1>
       <div class="content">
-        Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.  Wont cover or explain details, instead show how it can be used.  Some examples where generated data can be used:    Provide generated data through a Rest API endpoint and serve it a JSON.
+        Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.
+ Wont cover or explain details, instead show how it can be used.
+ Some examples where generated data can be used:
+  Provide generated data through a Rest API endpoint and serve it a JSON.
         
         <a class="button is-link" href="https://jherrlin.github.io/posts/clojure-spec-test-transducers/" style="height:28px">
           Read more
@@ -391,9 +399,33 @@
   
 </a></h1>
       <div class="content">
-        TL;DR   Create an event log from Datomic transactions that&#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles. Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.
+        TL;DR   Create an event log from Datomic transactions that&#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles.
+  Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.
         
         <a class="button is-link" href="https://jherrlin.github.io/posts/datomic-entity-event-log/" style="height:28px">
+          Read more
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+      </div>
+      <h2 class="subtitle is-6 date">January 1, 0001</h2>
+      <h1 class="title"><a href="https://jherrlin.github.io/posts/deploy-clojure-on-prem/">
+
+  
+    
+  
+</a></h1>
+      <div class="content">
+        — title: &#34;Deploy Clojure on Prem&#34; date: 2020-07-21T20:39:09+02:00 draft: true —
+Intro   This post will be a detailed step by step guide on how to deploy a Clojure project on prem together with a simple continuous delivery process. The major parts of the setup is not specific for Clojure and could be used for other languages as well.
+ There is an example Clojure app used in this post, the app is a HTTP REST API that provides person entities generated by Clojure specs via JSON.
+        
+        <a class="button is-link" href="https://jherrlin.github.io/posts/deploy-clojure-on-prem/" style="height:28px">
           Read more
         </a>
         

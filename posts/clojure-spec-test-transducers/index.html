@@ -7,7 +7,10 @@
 <title>Quick overview of Clojure spec, test.check and transducers | jherrlin</title>
 
 <meta property='og:title' content='Quick overview of Clojure spec, test.check and transducers - jherrlin'>
-<meta property='og:description' content='Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.  Wont cover or explain details, instead show how it can be used.  Some examples where generated data can be used:    Provide generated data through a Rest API endpoint and serve it a JSON.'>
+<meta property='og:description' content='Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.
+ Wont cover or explain details, instead show how it can be used.
+ Some examples where generated data can be used:
+  Provide generated data through a Rest API endpoint and serve it a JSON.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/clojure-spec-test-transducers/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='test'><meta property='article:tag' content='spec'><meta property='article:tag' content='clojure'><meta property='article:tag' content='transducers'><meta property='article:tag' content='generative'><meta property='article:tag' content='programming'><meta property='article:published_time' content='2020-05-22T23:47:13&#43;02:00'/><meta property='article:modified_time' content='2020-05-22T23:47:13&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -122,71 +125,72 @@
     
     <div class="content">
       
+<div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 Into
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
 <p>
   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and
   transducers. With focus on generative data. Describing models with spec and then use
   test.check to generate entities from that model. Bulletproof transducers with the
-  generated data.
-</p>
+  generated data.</p>
 <p>
-  Wont cover or explain details, instead show how it can be used.
-</p>
+  Wont cover or explain details, instead show how it can be used.</p>
 <p>
-  Some examples where generated data can be used:
-</p>
+  Some examples where generated data can be used:</p>
 <ul>
 <li>
-<p>
-Provide generated data through a Rest API endpoint and serve it a JSON. Good starting
-point before you have data in your app.
-</p>
+<p>Provide generated data through a Rest API endpoint and serve it a JSON. Good starting
+point before you have data in your app.</p>
 </li>
 <li>
-<p>
-Use in tests.
-</p>
+<p>Use in tests.</p>
 </li>
 <li>
-<p>
-In Clojures fdef&#39;s to bulletproof your functions.
-</p>
+<p>In Clojures fdef&#39;s to bulletproof your functions.</p>
 </li>
 </ul>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
 Dependencies
 </h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <p>
-  <a href="https://clojure.org/guides/deps_and_cli">Clojure Deps</a> handles dependencies. The <code class="verbatim">deps.edn</code> looks like this:
-</p>
+  <a href="https://clojure.org/guides/deps_and_cli">Clojure Deps</a> handles dependencies. The <code class="verbatim">deps.edn</code> looks like this:</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">{</span><span class="ss">:deps</span> <span class="p">{</span><span class="nv">org.clojure/clojure</span> <span class="p">{</span><span class="ss">:mvn/version</span> <span class="s">&#34;1.10.1&#34;</span><span class="p">}</span>
           <span class="nv">org.clojure/test.check</span> <span class="p">{</span><span class="ss">:mvn/version</span> <span class="s">&#34;0.10.0&#34;</span><span class="p">}}}</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
 <h2 id="headline-3">
 Require
 </h2>
+<div id="outline-text-headline-3" class="outline-text-2">
 <p>
-  Start by require the needed namespaces.
-</p>
+  Start by require the needed namespaces.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">require</span> <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:as</span> <span class="nv">str</span><span class="p">]</span>
            <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.spec.alpha</span> <span class="ss">:as</span> <span class="nv">s</span><span class="p">]</span>
            <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.spec.test.alpha</span> <span class="ss">:as</span> <span class="nv">stest</span><span class="p">]</span>
            <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.test.check.generators</span> <span class="ss">:as</span> <span class="nv">gen</span><span class="p">])</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
 <h2 id="headline-4">
 Specs
 </h2>
+<div id="outline-text-headline-4" class="outline-text-2">
 <p>
-  Specs with two models. <code class="verbatim">::person</code> and <code class="verbatim">::person-with-age</code>.
-</p>
+  Specs with two models. <code class="verbatim">::person</code> and <code class="verbatim">::person-with-age</code>.</p>
 <p>
   Each attribute have a generator that knows how to generate appropriate data with a
-  likelihood.
-</p>
+  likelihood.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::non-blank-string</span> <span class="p">(</span><span class="nf">s/and</span> <span class="nb">string? </span><span class="p">(</span><span class="nb">complement </span><span class="nv">str/blank?</span><span class="p">)))</span>
 
@@ -234,32 +238,32 @@ Specs
      <span class="ss">::person</span>
      <span class="p">(</span><span class="nf">s/keys</span> <span class="ss">:req</span> <span class="p">[</span><span class="ss">:person/age</span><span class="p">])))</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
 <h2 id="headline-5">
 Generate
 </h2>
+<div id="outline-text-headline-5" class="outline-text-2">
 <p>
-  Generate a single entity.
-</p>
+  Generate a single entity.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">gen/generate</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::person</span><span class="p">))</span></code></pre></div>
 </div>
 <p>
-  Result.
-</p>
+  Result.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Johanna&#34;</span>,
            <span class="ss">:email</span> <span class="s">&#34;5g29n6pytf1Ze4Wa47e5Ff2Wv@live.se&#34;</span>,
            <span class="ss">:born</span> <span class="mi">1986</span><span class="p">}</span></code></pre></div>
 </div>
 <p>
-  Generate a collection with 100 entities.
-</p>
+  Generate a collection with 100 entities.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">gen/sample</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::person</span><span class="p">)</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
 </div>
 <p>
-  Results are truncated.
-</p>
+  Results are truncated.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;t@gmail.com&#34;</span>, <span class="ss">:born</span> <span class="mi">1800</span><span class="p">}</span>
    <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;1@1.V&#34;</span>, <span class="ss">:born</span> <span class="mi">1985</span><span class="p">}</span>
@@ -270,12 +274,15 @@ Generate
    <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;C0q082&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;q@e7RR7N.P5ED&#34;</span>, <span class="ss">:born</span> <span class="mi">1800</span><span class="p">}</span>
    ,,,<span class="p">)</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
 <h2 id="headline-6">
 Validate
 </h2>
+<div id="outline-text-headline-6" class="outline-text-2">
 <p>
-  Lets validate data against a spec.
-</p>
+  Lets validate data against a spec.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">s/valid?</span> <span class="ss">::person</span>
             <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Johanna&#34;</span>,
@@ -287,14 +294,17 @@ Validate
             <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Someone&#34;</span><span class="p">})</span>
   <span class="c1">;; =&gt; false</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
 <h2 id="headline-7">
 Transducers
 </h2>
+<div id="outline-text-headline-7" class="outline-text-2">
 <p>
   Use a composition of transducers on data what we can generate. Generate 1000 persons,
   filter out persons that have a name that contains &#34;ann&#34; and are born in 1985 or 1986 and
-  uses proton as a mail provider. Set their current age and take 3 of them.
-</p>
+  uses proton as a mail provider. Set their current age and take 3 of them.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="kd">defn </span><span class="nv">person-name-contains</span> <span class="p">[</span><span class="nv">s</span><span class="p">]</span>
     <span class="p">(</span><span class="nb">filter </span><span class="p">(</span><span class="nb">comp </span><span class="o">#</span><span class="p">(</span><span class="nb">re-matches </span><span class="p">(</span><span class="nb">re-pattern </span><span class="p">(</span><span class="nb">str </span><span class="s">&#34;(?i).*&#34;</span> <span class="nv">s</span> <span class="s">&#34;.*&#34;</span><span class="p">))</span> <span class="nv">%</span><span class="p">)</span> <span class="ss">:person/name</span><span class="p">)))</span>
@@ -319,8 +329,7 @@ Transducers
   <span class="p">(</span><span class="nb">into </span><span class="p">[]</span> <span class="nv">xf</span> <span class="p">(</span><span class="nf">gen/sample</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::person</span><span class="p">)</span> <span class="mi">1000</span><span class="p">))</span></code></pre></div>
 </div>
 <p>
-  This is the results.
-</p>
+  This is the results.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">[</span><span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>,
           <span class="ss">:email</span> <span class="s">&#34;Tz77Z1sFXL6kO1fnojYy8@protonmail.org&#34;</span>,
@@ -335,19 +344,21 @@ Transducers
           <span class="ss">:born</span> <span class="mi">1986</span>,
           <span class="ss">:age</span> <span class="mi">34</span><span class="p">}]</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
 <h2 id="headline-8">
 Test transducer composition
 </h2>
+<div id="outline-text-headline-8" class="outline-text-2">
 <p>
-  Lets use Clojure&#39;s <code class="verbatim">fdef</code> to test our composition of transducers.
-</p>
+  Lets use Clojure&#39;s <code class="verbatim">fdef</code> to test our composition of transducers.</p>
 <p>
   <code class="verbatim">anns-with-proton-mail</code> will be evaluated 1000 times. Each time with 100 new
   <code class="verbatim">::person</code>&#39;s and a random positive integer that arguments the pagination. On every
   invocation the function should return a collection of <code class="verbatim">::person-with-age</code> and the
   collection should not be greater than our paginate value. If a return don&#39;t conform to
-  our rules an error will be thrown.
-</p>
+  our rules an error will be thrown.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="kd">defn </span><span class="nv">anns-with-proton-mail</span> <span class="p">[</span><span class="nv">paginate</span> <span class="nv">xs</span><span class="p">]</span>
     <span class="p">(</span><span class="nf">into</span>
@@ -369,8 +380,7 @@ Test transducer composition
   <span class="p">(</span><span class="nf">stest/check</span> <span class="o">`</span><span class="nv">anns-with-proton-mail</span><span class="p">)</span></code></pre></div>
 </div>
 <p>
-  Results from <code class="verbatim">stest/check</code>.
-</p>
+  Results from <code class="verbatim">stest/check</code>.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">({</span><span class="ss">:spec</span>
     <span class="o">#</span><span class="nv">object</span><span class="p">[</span><span class="nv">clojure.spec.alpha$fspec_impl$reify__2524</span> <span class="mi">0</span><span class="nv">x449e3c52</span>
@@ -382,6 +392,8 @@ Test transducer composition
      <span class="ss">:time-elapsed-ms</span> <span class="mi">17372</span>,
      <span class="ss">:seed</span> <span class="mi">1590228136922</span><span class="p">}</span>,
     <span class="ss">:sym</span> <span class="nv">user/anns-with-proton-mail</span><span class="p">})</span></code></pre></div>
+</div>
+</div>
 </div>
 
       

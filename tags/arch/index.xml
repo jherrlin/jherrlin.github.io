@@ -6,18 +6,16 @@
     <description>Recent content in arch on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jun 2020 16:44:47 +0200</lastBuildDate>
-    
-	<atom:link href="https://jherrlin.github.io/tags/arch/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 01 Jun 2020 16:44:47 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/arch/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Arch install with LUKS and systemd-boot</title>
       <link>https://jherrlin.github.io/posts/arch-install/</link>
       <pubDate>Mon, 01 Jun 2020 16:44:47 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/arch-install/</guid>
-      <description>Into   Recently made a fresh Arch Linux install.  The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.  The LUKS device contains a header with data about the device.</description>
+      <description>Into   Recently made a fresh Arch Linux install.
+ The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.
+ The LUKS device contains a header with data about the device.</description>
     </item>
     
   </channel>

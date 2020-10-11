@@ -120,75 +120,65 @@
     
     <div class="content">
       
+<div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 Intro
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
 <p>
   This post is the first out of two about GnuPG, password management, email, signing and
   encrypting emails and git commit signing. As always with a helping hand from Emacs. As
   the posts cover a lot of ground step by step instructions are not desirable. Links to
   more detailed resources can be found in each section. The main goal is to provide a
-  quick but informative overview and give inspiration for further research.
-</p>
+  quick but informative overview and give inspiration for further research.</p>
 <p>
   The big picture is. Use GnuPG to generate asymmetric keys. Generate sub keys for
   encryption/decryption and signing. Sub keys have a lifetime of 1 year. After 1 year new
   sub keys for encrypt/decrypt and signing needs to be generated. Use signing sub key to
   sign git commits. Use encryption/decryption sub key to encrypt/decrypt password files in
   pass password store. Use Emacs for for gpg pinentry and install a Emacs mode to manage
-  pass passwords.
-</p>
+  pass passwords.</p>
 <p>
   This posts covers security, but the level of security discussed here can be increased
   further. Some weaknesses that the post don&#39;t cover is. Master key is not generated
   offline. Master key is not removed from keyring (<a href="https://paul.fawkesley.com/gpg-for-humans-protecting-your-primary-key/">more</a> <a href="https://rudd-o.com/linux-and-free-software/protecting-your-private-master-key-in-gnupg-2-1-and-later">info</a>). Public signing sub key is
-  not published to key servers.
-</p>
+  not published to key servers.</p>
 <p>
-  The layout of the post:
-</p>
+  The layout of the post:</p>
 <ul>
 <li>
-<p>
-Environment; versions of the software.
-</p>
+<p>Environment; versions of the software.</p>
 </li>
 <li>
-<p>
-GnuGP; how to generate keys and sub key, pinentry, backups.
-</p>
+<p>GnuGP; how to generate keys and sub key, pinentry, backups.</p>
 </li>
 <li>
-<p>
-Git; how to config git to sign with the gpg sub key.
-</p>
+<p>Git; how to config git to sign with the gpg sub key.</p>
 </li>
 <li>
-<p>
-Pass; init password store, some basic commands and a quick mention about browserpass.
-</p>
+<p>Pass; init password store, some basic commands and a quick mention about browserpass.</p>
 </li>
 <li>
-<p>
-Emacs pass mode; quick view of how to config Emacs to use it with <code class="verbatim">pass</code>.
-</p>
+<p>Emacs pass mode; quick view of how to config Emacs to use it with <code class="verbatim">pass</code>.</p>
 </li>
 </ul>
-<p>
-If things are unclear, please contact me via twitter!
-</p>
+<p>If things are unclear, please contact me via twitter!</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
 Environment
 </h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <p>
-  Version of the software in use.
-</p>
+  Version of the software in use.</p>
+<div id="outline-container-headline-3" class="outline-3">
 <h3 id="headline-3">
 Operating system
 </h3>
+<div id="outline-text-headline-3" class="outline-text-3">
 <p>
-   <a href="https://www.archlinux.org/">Arch Linux</a>
-</p>
+   <a href="https://www.archlinux.org/">Arch Linux</a></p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  uname -a
@@ -199,9 +189,13 @@ Operating system
 </span><span class="c"></span>Linux arch 5.7.7-arch1-1 <span class="c1">#1 SMP PREEMPT Wed, 01 Jul 2020 14:53:16 +0000 x86_64 GNU/Linux</span>
 <span class="c">#+end_src</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
 <h3 id="headline-4">
 GnuPG
 </h3>
+<div id="outline-text-headline-4" class="outline-text-3">
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  gpg --version
@@ -217,9 +211,13 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 <span class="c">#+end_src</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
 <h3 id="headline-5">
 Pass
 </h3>
+<div id="outline-text-headline-5" class="outline-text-3">
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  pass --version
@@ -239,9 +237,13 @@ Pass
 <span class="o">============================================</span>
 <span class="c">#+end_src</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
 <h3 id="headline-6">
 Emacs
 </h3>
+<div id="outline-text-headline-6" class="outline-text-3">
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  emacs --version
@@ -257,70 +259,71 @@ under the terms of the GNU General Public License.
 For more information about these matters, see the file named COPYING.
 <span class="c">#+end_src</span></code></pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
 <h2 id="headline-7">
 GnuPG
 </h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<div id="outline-container-headline-8" class="outline-3">
 <h3 id="headline-8">
 Intro
 </h3>
+<div id="outline-text-headline-8" class="outline-text-3">
 <p>
    The first and most important part is GnuPG keys. They are used to encrypt, decrypt and
    for signing. This post will use one sub key for encryption/decryption and another for
    signing. The master key will never expire. The sub keys will have a lifetime of 1 year.
-   After that they will be replaced with new sub keys.
-</p>
+   After that they will be replaced with new sub keys.</p>
 <p>
    This post wont cover the steps of publishing the public signing sub key. But one
    benefit of publishing new public keys &#34;often&#34; is the acknowledgment of new algorithms.
    If your published key is very old, it states that you only support old algorithms even
    if you run the latest GnuPG software. If you wanna know more about publishing keys,
-   more info can be found <a href="https://www.gnupg.org/gph/en/manual/x457.html">here</a> and <a href="https://wiki.debian.org/Keysigning">here</a>.
-</p>
+   more info can be found <a href="https://www.gnupg.org/gph/en/manual/x457.html">here</a> and <a href="https://wiki.debian.org/Keysigning">here</a>.</p>
 <p>
-   More details about GnuPG keys and sub keys can be found here:
-</p>
+   More details about GnuPG keys and sub keys can be found here:</p>
 <ul>
 <li>
-<p>
-<a href="https://keyring.debian.org/creating-key.html">https://keyring.debian.org/creating-key.html</a>
-</p>
+<p><a href="https://keyring.debian.org/creating-key.html">https://keyring.debian.org/creating-key.html</a></p>
 </li>
 <li>
-<p>
-<a href="https://ekaia.org/blog/2009/05/10/creating-new-gpgkey/">https://ekaia.org/blog/2009/05/10/creating-new-gpgkey/</a>
-</p>
+<p><a href="https://ekaia.org/blog/2009/05/10/creating-new-gpgkey/">https://ekaia.org/blog/2009/05/10/creating-new-gpgkey/</a></p>
 </li>
 <li>
-<p>
-<a href="https://wiki.debian.org/Subkeys">https://wiki.debian.org/Subkeys</a>
-</p>
+<p><a href="https://wiki.debian.org/Subkeys">https://wiki.debian.org/Subkeys</a></p>
 </li>
 <li>
-<p>
-<a href="https://wiki.archlinux.org/index.php/GnuPG">https://wiki.archlinux.org/index.php/GnuPG</a>
-</p>
+<p><a href="https://wiki.archlinux.org/index.php/GnuPG">https://wiki.archlinux.org/index.php/GnuPG</a></p>
 </li>
 <li>
-<p>
-<a href="https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html">https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html</a>
-</p>
+<p><a href="https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html">https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html</a></p>
 </li>
 </ul>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
 <h3 id="headline-9">
 Install
 </h3>
+<div id="outline-text-headline-9" class="outline-text-3">
 <p>
-   GnuPG on Arch. Together with gpg a collection of pinentry tools is installed.
-</p>
+   GnuPG on Arch. Together with gpg a collection of pinentry tools is installed.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pacman -S gnupg</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
 <h3 id="headline-10">
 Config files
 </h3>
+<div id="outline-text-headline-10" class="outline-text-3">
 <p>
-   Before start generating keys, make sure that you have this config file in place.
-</p>
+   Before start generating keys, make sure that you have this config file in place.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  cat ~/.gnupg/gpg.conf
@@ -333,17 +336,19 @@ cert-digest-algo SHA256
 default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
 <span class="c">#+end_src</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
 <h3 id="headline-11">
 Create keys
 </h3>
+<div id="outline-text-headline-11" class="outline-text-3">
 <p>
    Some of the steps are truncated with <code class="verbatim">...</code> and some steps don&#39;t show exactly what you
-   should do. If steps are confusing, turn to the links in the Intro section for guidance.
-</p>
+   should do. If steps are confusing, turn to the links in the Intro section for guidance.</p>
 <p>
    Start by creating a master key. This key should never expire and it&#39;s super important
-   that you keep the master key safe. Bake sure to create a backup and store it offline.
-</p>
+   that you keep the master key safe. Bake sure to create a backup and store it offline.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --full-gen-key
 Select keys: RSA and RSA
@@ -352,15 +357,13 @@ Valid <span class="k">for</span>: <span class="k">do</span> not expire</code></p
 </div>
 <p>
    Together with the master key, a sub key for encryption is also created. List the keys
-   including sub key fingerprints.
-</p>
+   including sub key fingerprints.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --list-secret-keys --with-subkey-fingerprint</code></pre></div>
 </div>
 <p>
    Change the expire time of the encryption sub key to 1 year. This means that you every
-   year need to generate a new encryption subkey from the master key.
-</p>
+   year need to generate a new encryption subkey from the master key.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --edit-key &lt;MASTER KEY FINGERPRINT&gt;
 key &lt;EXISTING ENCRYPT SUB KEY FINGERPRINT&gt;
@@ -369,13 +372,16 @@ expire
 ...
 save</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
 <h3 id="headline-12">
 Add sub key
 </h3>
+<div id="outline-text-headline-12" class="outline-text-3">
 <p>
    This sub key will only be used for signing. After one year it will expire and a new one
-   needs to be created from the master key.
-</p>
+   needs to be created from the master key.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --edit-key &lt;MASTER KEY FINGERPRINT&gt;
 addkey
@@ -385,27 +391,32 @@ Valid <span class="k">for</span>: 1y
 ...
 save</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
 <h3 id="headline-13">
 Backup
 </h3>
+<div id="outline-text-headline-13" class="outline-text-3">
 <p>
-   Create backup and store some place safe!
-</p>
+   Create backup and store some place safe!</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">umask</span> 077<span class="p">;</span> tar -cf <span class="nv">$HOME</span>/gnupg-backup.tar -C <span class="nv">$HOME</span> .gnupg</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
 <h3 id="headline-14">
 Pinentry
 </h3>
+<div id="outline-text-headline-14" class="outline-text-3">
 <p>
    <code class="verbatim">pinentry</code> is the application that is responsible to ask you for the gpg passphrase.
    <code class="verbatim">pinentry</code> have applications for many environments. Such as curses, emacs, gnome, gtk,
    qt and tty. I am using <code class="verbatim">pinentry-emacs</code>. This requires some setup in order for Emacs to
-   handle pinentry requests.
-</p>
+   handle pinentry requests.</p>
 <p>
-   This is the gpg-agent config that tells it to use Emacs for pinentry:
-</p>
+   This is the gpg-agent config that tells it to use Emacs for pinentry:</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  cat ~/.gnupg/gpg-agent.conf
@@ -421,12 +432,10 @@ allow-emacs-pinentry
 </div>
 <p>
    When gpg need you to provide a passphrase to access gpg resources, it will ask in
-   Emacs minibuffer!
-</p>
+   Emacs minibuffer!</p>
 <p>
    Here is the list of pinentry applications provided by my current Arch GnuPG
-   installation:
-</p>
+   installation:</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  pacman -Ql pinentry <span class="p">|</span> awk <span class="s1">&#39;{ print $2}&#39;</span> <span class="p">|</span> grep bin/pin
@@ -443,17 +452,17 @@ allow-emacs-pinentry
 /usr/bin/pinentry-tty
 <span class="c">#+end_src</span></code></pre></div>
 </div>
+<div id="outline-container-headline-15" class="outline-4">
 <h4 id="headline-15">
 Emacs
 </h4>
+<div id="outline-text-headline-15" class="outline-text-4">
 <p>
     I run Emacs in <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html">server mode</a> and I always have an open Emacs session so when pinentry
-    wants me to provide a passphrase, it does it through Emacs.
-</p>
+    wants me to provide a passphrase, it does it through Emacs.</p>
 <p>
     Here are the things related to run Emacs as server and to use the <code class="verbatim">pinentry</code> Emacs
-    package.
-</p>
+    package.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  cat ~/.config/systemd/user/emacs.service
@@ -507,17 +516,21 @@ Emacs
   <span class="o">(</span>pinentry-start<span class="o">))</span>
 <span class="c">#+end_src</span></code></pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
 <h3 id="headline-16">
 keys -&gt; qr code
 </h3>
+<div id="outline-text-headline-16" class="outline-text-3">
 <p>
    To get the keys to my phone I exported them from the keychain and into qr codes. Then
    used imagemagick to show each of them for some seconds before showing the next one.
-   When key size is 4096 they don&#39;t fit into one qr image.
-</p>
+   When key size is 4096 they don&#39;t fit into one qr image.</p>
 <p>
-   The qr codes can also be printed and kept in a safe as a secure backup.
-</p>
+   The qr codes can also be printed and kept in a safe as a secure backup.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /tmp/keys-export <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nv">$_</span>
 gpg --export-secret-keys --armor &lt;SUB KEY FINGERPRINT&gt; &gt; sub.key
@@ -526,29 +539,31 @@ split -C <span class="m">2500</span> sub.key splitkey-
 display -delay <span class="m">50</span> *.qr
 <span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> rm -rf keys-export</code></pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
 <h2 id="headline-17">
 Git
 </h2>
+<div id="outline-text-headline-17" class="outline-text-2">
 <p>
-  Now when there is a key to sign with it&#39;s time to configure git to use it.
-</p>
+  Now when there is a key to sign with it&#39;s time to configure git to use it.</p>
 <p>
-  First, get the fingerprint of your signing key.
-</p>
+  First, get the fingerprint of your signing key.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --list-secret-keys --with-subkey-fingerprint</code></pre></div>
 </div>
 <p>
   Then tell git to gpg sign commits and what sub key fingerprint to use when doing so. It
-  should be a &#39;!&#39; in the end of the fingerprint. It tells gpg that it&#39;s a sub key.
-</p>
+  should be a &#39;!&#39; in the end of the fingerprint. It tells gpg that it&#39;s a sub key.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">git config --global commit.gpgSign <span class="nb">true</span>
 git config --global user.signingKey &lt;SIGN SUBKEY FINGERPRINT&gt;<span class="se">\!</span></code></pre></div>
 </div>
 <p>
-  Lets see how the git config looks like.
-</p>
+  Lets see how the git config looks like.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  cat ~/.gitconfig
@@ -566,112 +581,125 @@ git config --global user.signingKey &lt;SIGN SUBKEY FINGERPRINT&gt;<span class="
 </div>
 <p>
   Export your public sign sub key to provide it to a git hosting platform like GitHub or
-  Bitbucket. Or to your colleagues.
-</p>
+  Bitbucket. Or to your colleagues.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --export --armor 6699DFA319365AAD1CE757040EE8540AE7F042B2 &gt; /tmp/public-sign.key</code></pre></div>
 </div>
 <p>
   From now on all of your git commits are signed with your private sign sub key. Now
-  people can be more ensured that it&#39;s you that made the change.
-</p>
+  people can be more ensured that it&#39;s you that made the change.</p>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-2">
 <h2 id="headline-18">
 Pass
 </h2>
+<div id="outline-text-headline-18" class="outline-text-2">
 <p>
   <code class="verbatim">pass</code>, &#34;the standard unix password manager&#34; is a nice way of managing passwords. It
   uses gpg encrypted files that are stored locally on your computer. As they are just
   files they can be version controlled and used in ways you are used to handle files.
   There are a couple of extensions to <code class="verbatim">pass</code> to make it interact with a web browser and
-  for usage of your passwords on your mobile device. And of course there is a Emacs mode!
-</p>
+  for usage of your passwords on your mobile device. And of course there is a Emacs mode!</p>
 <p>
-  Here are a couple of resources for <code class="verbatim">pass</code>.
-</p>
+  Here are a couple of resources for <code class="verbatim">pass</code>.</p>
 <ul>
 <li>
-<p>
-<a href="https://www.passwordstore.org/">https://www.passwordstore.org/</a>
-</p>
+<p><a href="https://www.passwordstore.org/">https://www.passwordstore.org/</a></p>
 </li>
 <li>
-<p>
-<a href="https://github.com/browserpass/browserpass-native">https://github.com/browserpass/browserpass-native</a>
-</p>
+<p><a href="https://github.com/browserpass/browserpass-native">https://github.com/browserpass/browserpass-native</a></p>
 </li>
 <li>
-<p>
-<a href="https://github.com/browserpass/browserpass-extension">https://github.com/browserpass/browserpass-extension</a>
-</p>
+<p><a href="https://github.com/browserpass/browserpass-extension">https://github.com/browserpass/browserpass-extension</a></p>
 </li>
 <li>
-<p>
-<a href="https://lists.zx2c4.com/pipermail/password-store/2018-January/003178.html">https://lists.zx2c4.com/pipermail/password-store/2018-January/003178.html</a>
-</p>
+<p><a href="https://lists.zx2c4.com/pipermail/password-store/2018-January/003178.html">https://lists.zx2c4.com/pipermail/password-store/2018-January/003178.html</a></p>
 </li>
 </ul>
+<div id="outline-container-headline-19" class="outline-3">
 <h3 id="headline-19">
 Install pass and browser extensions
 </h3>
+<div id="outline-text-headline-19" class="outline-text-3">
 <p>
-   On Arch, all of the packages are in the repo.
-</p>
+   On Arch, all of the packages are in the repo.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pacman -S pass browserpass browserpass-chromium</code></pre></div>
 </div>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-20" class="outline-3">
 <h3 id="headline-20">
 Init pass
 </h3>
+<div id="outline-text-headline-20" class="outline-text-3">
 <p>
-   Create a new store and provide your gpg id. Pass also have built in support for git.
-</p>
+   Create a new store and provide your gpg id. Pass also have built in support for git.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pass init &lt;ENCRYPT SUB KEY FINGERPRINT&gt;!
 pass git init</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-21" class="outline-3">
 <h3 id="headline-21">
 Insert new pass
 </h3>
+<div id="outline-text-headline-21" class="outline-text-3">
 <p>
-   Add a password to the password store.
-</p>
+   Add a password to the password store.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pass insert fsf.org</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-22" class="outline-3">
 <h3 id="headline-22">
 Retrieve password
 </h3>
+<div id="outline-text-headline-22" class="outline-text-3">
 <p>
-   Get the password to stdout.
-</p>
+   Get the password to stdout.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pass show fsf.org</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-23" class="outline-3">
 <h3 id="headline-23">
 More
 </h3>
+<div id="outline-text-headline-23" class="outline-text-3">
 <p>
-   <code class="verbatim">pass</code> have many more options, check them out.
-</p>
+   <code class="verbatim">pass</code> have many more options, check them out.</p>
 <div class="src src-shell">
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pass --help</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-24" class="outline-3">
 <h3 id="headline-24">
 Browserpass
 </h3>
+<div id="outline-text-headline-24" class="outline-text-3">
 <p>
-   Install browser pass extension using the installation steps <a href="https://github.com/browserpass/browserpass-extension">here</a>.
-</p>
+   Install browser pass extension using the installation steps <a href="https://github.com/browserpass/browserpass-extension">here</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-25" class="outline-2">
 <h2 id="headline-25">
 Emacs pass mode
 </h2>
+<div id="outline-text-headline-25" class="outline-text-2">
 <p>
   There is a good Emacs package calls <code class="verbatim">pass</code>. I use <code class="verbatim">use-package</code> to install it. To enter
-  <code class="verbatim">pass</code> within Emacs use <code class="verbatim">M-x pass</code>.
-</p>
+  <code class="verbatim">pass</code> within Emacs use <code class="verbatim">M-x pass</code>.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
 </span><span class="c"></span>  cat ~/.emacs.d/packages.el <span class="p">|</span> awk <span class="s1">&#39;NR==13,NR==16&#39;</span>
@@ -684,6 +712,8 @@ Emacs pass mode
   :config
   <span class="o">(</span>setf epa-pinentry-mode <span class="err">&#39;</span>loopback<span class="o">))</span>
 <span class="c">#+end_src</span></code></pre></div>
+</div>
+</div>
 </div>
 
       

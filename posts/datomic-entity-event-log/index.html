@@ -7,7 +7,8 @@
 <title>Entity event log in Datomic | jherrlin</title>
 
 <meta property='og:title' content='Entity event log in Datomic - jherrlin'>
-<meta property='og:description' content='TL;DR   Create an event log from Datomic transactions that&#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles. Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.'>
+<meta property='og:description' content='TL;DR   Create an event log from Datomic transactions that&#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles.
+  Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/datomic-entity-event-log/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='database'><meta property='article:tag' content='datomic'><meta property='article:tag' content='clojure'><meta property='article:tag' content='programming'><meta property='article:published_time' content='2020-05-17T20:28:11&#43;02:00'/><meta property='article:modified_time' content='2020-05-17T20:28:11&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -118,16 +119,21 @@
     
     <div class="content">
       
+<div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 TL;DR
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
 <p>
   Create an event log from Datomic transactions that&#39;s related to an entity. Look at
-  transaction metadata, diffs and the entity from different angles.
-</p>
+  transaction metadata, diffs and the entity from different angles.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
 Intro
 </h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <p>
   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a
   model called <em>event-log</em>. This model is used to keep track of changes (mutations) in the
@@ -136,60 +142,62 @@ Intro
   changed, <em>datetime</em> is a timestamp of when the change occurred, <em>id</em> is a unique
   identifier of the event log entity and <em>type</em> is a categorization of the change. If a
   change was successful an <em>event-log</em> entity would be created. This implies that for each
-  change, a new <em>event-log</em> entity will be created.
-</p>
+  change, a new <em>event-log</em> entity will be created.</p>
 <p>
   After watching <a href="https://www.youtube.com/watch?v=7lm3K8zVOdY">this</a> talk I started to wonder if the <em>event-log</em> model was really needed
   in this app (it have only one database). Features of Datomic maybe could replace this
   model and the app could benefit from less code and one less domain model. In the end it
-  looks like I can. This document will describe my finds.
-</p>
+  looks like I can. This document will describe my finds.</p>
 <p>
   In this document I use the term transaction metadata. This is data that is passed along
   with transactions but doesn&#39;t belong to a system/business model. This data is queried
   from Datomic and will together with some Datomic transaction data replace my <em>event-log</em>
-  model completely.
-</p>
+  model completely.</p>
 <p>
   While learning about this I created this Emacs Org mode document. With help from
   org-babel, CIDER and Clojure CLI I have a document where is can do a style of literate
   programming. <a href="https://www.youtube.com/watch?v=dljNabciEGg">Video about literate devops in Emacs</a>. I am on a learning path. If I have
-  got something wrong please give me feedback via <a href="https://twitter.com/jherrlin">Twitter</a>. Would love that!
-</p>
+  got something wrong please give me feedback via <a href="https://twitter.com/jherrlin">Twitter</a>. Would love that!</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
 <h2 id="headline-3">
 Thanks to
 </h2>
+<div id="outline-text-headline-3" class="outline-text-2">
 <ul>
 <li>
-<p>
-<a href="https://www.youtube.com/watch?v=7lm3K8zVOdY">Lucas Cavalcanti &amp; Edward Wible - Exploring four hidden superpowers of Datomic</a>
-Gave me idea of removing the &#34;event-log&#34; model from my domain models and embrace Datomic.
-</p>
+<p><a href="https://www.youtube.com/watch?v=7lm3K8zVOdY">Lucas Cavalcanti &amp; Edward Wible - Exploring four hidden superpowers of Datomic</a>
+Gave me idea of removing the &#34;event-log&#34; model from my domain models and embrace Datomic.</p>
 </li>
 <li>
-<p>
-<a href="https://augustl.com/blog/2019/datomic_querying_for_history_of_entity_v2/">August Lilleaas post, Datomic: Querying for the history of an entity (v2)</a>
-Gave me a lot of inspiration and some of my code is <strong>heavily</strong> inspired from his post.
-</p>
+<p><a href="https://augustl.com/blog/2019/datomic_querying_for_history_of_entity_v2/">August Lilleaas post, Datomic: Querying for the history of an entity (v2)</a>
+Gave me a lot of inspiration and some of my code is <strong>heavily</strong> inspired from his post.</p>
 </li>
 </ul>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
 <h2 id="headline-4">
 Dependencies
 </h2>
+<div id="outline-text-headline-4" class="outline-text-2">
 <p>
-  <a href="https://clojure.org/guides/deps_and_cli">Clojure Deps</a> handles dependencies. The <code class="verbatim">deps.edn</code> looks like this:
-</p>
+  <a href="https://clojure.org/guides/deps_and_cli">Clojure Deps</a> handles dependencies. The <code class="verbatim">deps.edn</code> looks like this:</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">{</span><span class="ss">:deps</span> <span class="p">{</span><span class="nv">org.clojure/clojure</span> <span class="p">{</span><span class="ss">:mvn/version</span> <span class="s">&#34;1.10.1&#34;</span><span class="p">}</span>
           <span class="nv">com.datomic/datomic-free</span> <span class="p">{</span><span class="ss">:mvn/version</span> <span class="s">&#34;0.9.5697&#34;</span><span class="p">}}}</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
 <h2 id="headline-5">
 In memory database.
 </h2>
+<div id="outline-text-headline-5" class="outline-text-2">
 <p>
   Connect to a random, in memory database. If you would like to get a new fresh database,
-  eval <code class="verbatim">(connect!)</code>.
-</p>
+  eval <code class="verbatim">(connect!)</code>.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">require</span> <span class="o">&#39;</span><span class="p">[</span><span class="nv">datomic.api</span> <span class="ss">:as</span> <span class="nv">d</span><span class="p">])</span>
 
@@ -215,17 +223,20 @@ In memory database.
 
    <span class="p">(</span><span class="nf">connect!</span><span class="p">)</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
 <h2 id="headline-6">
 Schema
 </h2>
+<div id="outline-text-headline-6" class="outline-text-2">
 <p>
   Here is the schema. We will work with a person model. person-schema describes that
   model. The audit-schema describes transaction metadata that will be passed along with
   all transactions. This is the data that we are interested in when building the event
   log. <code class="verbatim">:audit/user</code> holds a reference to the user that made the transaction.
   <code class="verbatim">:audit/type</code> is the categorization of the transaction. It&#39;s also used as a unique value
-  to make sure that we get correct data from our queries.
-</p>
+  to make sure that we get correct data from our queries.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="k">def </span><span class="nv">person-schema</span>
     <span class="p">[{</span><span class="ss">:db/ident</span>       <span class="ss">:person/id</span>
@@ -266,19 +277,21 @@ Schema
   <span class="c1">;; transact schema</span>
   <span class="o">@</span><span class="p">(</span><span class="nf">d/transact</span> <span class="p">(</span><span class="nf">conn</span><span class="p">)</span> <span class="nv">schema-set</span><span class="p">)</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
 <h2 id="headline-7">
 Transactions
 </h2>
+<div id="outline-text-headline-7" class="outline-text-2">
 <p>
   Create a person with the first name Anna and then make some changes to that entity. Anna
   will be our main target from now on. We also have a person called Erik. Erik is just
   here to make sure that we get the correct results. If we find data related to Erik,
-  something is wrong.
-</p>
+  something is wrong.</p>
 <p>
   Each transaction have a unique <code class="verbatim">:audit/type</code>. This is to make sure that we query the
-  correct data later on.
-</p>
+  correct data later on.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="c1">;; uuid to the user that makes the transactions</span>
   <span class="p">(</span><span class="k">def </span><span class="nv">user-id</span> <span class="o">#</span><span class="nv">uuid</span> <span class="s">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span><span class="p">)</span>
@@ -320,12 +333,15 @@ Transactions
      <span class="p">{</span><span class="ss">:audit/user</span> <span class="nv">user-id</span>
       <span class="ss">:audit/type</span> <span class="ss">:error</span><span class="p">}])</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
 <h2 id="headline-8">
 Quick look at Anna
 </h2>
+<div id="outline-text-headline-8" class="outline-text-2">
 <p>
-  Query and pull Anna to see that all the transactions where successful.
-</p>
+  Query and pull Anna to see that all the transactions where successful.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">d/q</span> <span class="o">&#39;</span><span class="p">[</span><span class="ss">:find</span> <span class="p">(</span><span class="nf">pull</span> <span class="nv">?e</span> <span class="p">[</span><span class="nv">*</span><span class="p">])</span> <span class="nv">.</span>
          <span class="ss">:in</span> <span class="nv">$</span> <span class="nv">?id</span>
@@ -333,8 +349,7 @@ Quick look at Anna
        <span class="p">(</span><span class="nf">d/db</span> <span class="p">(</span><span class="nf">conn</span><span class="p">))</span> <span class="o">#</span><span class="nv">uuid</span> <span class="s">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span><span class="p">)</span></code></pre></div>
 </div>
 <p>
-  This is the result and Anna looks correct.
-</p>
+  This is the result and Anna looks correct.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">{</span><span class="ss">:db/id</span> <span class="mi">17592186045418</span>,
  <span class="ss">:person/first-name</span> <span class="s">&#34;Anna&#34;</span>,
@@ -342,20 +357,21 @@ Quick look at Anna
  <span class="ss">:person/birth-year</span> <span class="mi">1987</span>,
  <span class="ss">:person/id</span> <span class="o">#</span><span class="nv">uuid</span> <span class="s">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span><span class="p">}</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
 <h2 id="headline-9">
 Transaction metadata
 </h2>
+<div id="outline-text-headline-9" class="outline-text-2">
 <p>
-  Lets look at what metadata we can get from the transactions we did on Anna.
-</p>
+  Lets look at what metadata we can get from the transactions we did on Anna.</p>
 <p>
   The history database gives access to all of the datoms in the database. Not just recent
-  ones. This gives us the ability to ask for all of the transactions related to a entity.
-</p>
+  ones. This gives us the ability to ask for all of the transactions related to a entity.</p>
 <p>
   It&#39;s not possible to <code class="verbatim">pull</code> from the history database. This example uses two databases
-  to enable pulls.
-</p>
+  to enable pulls.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">d/q</span> <span class="o">&#39;</span><span class="p">{</span><span class="ss">:find</span>  <span class="p">[(</span><span class="nf">pull</span> <span class="nv">?audit</span> <span class="p">[</span><span class="ss">:audit/user</span> <span class="ss">:audit/type</span><span class="p">])</span>
                       <span class="p">(</span><span class="nf">pull</span> <span class="nv">?tx</span>    <span class="p">[[</span><span class="ss">:db/txInstant</span> <span class="ss">:as</span> <span class="ss">:audit/datetime</span><span class="p">]])]</span>
@@ -370,8 +386,7 @@ Transaction metadata
        <span class="p">(</span><span class="nb">sort-by </span><span class="ss">:audit/datetime</span><span class="p">))</span></code></pre></div>
 </div>
 <p>
-  This is the results.
-</p>
+  This is the results.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="o">#</span><span class="ss">:audit</span><span class="p">{</span><span class="ss">:user</span> <span class="o">#</span><span class="nv">uuid</span> <span class="s">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
          <span class="ss">:type</span> <span class="ss">:create</span>,
@@ -388,16 +403,18 @@ Transaction metadata
 </div>
 <p>
   We get a collection with all the changes made to Anna. For each change/transaction we
-  get the author, timestamp and our categorization.
-</p>
+  get the author, timestamp and our categorization.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
 <h2 id="headline-10">
 Metadata together with entity attribute
 </h2>
+<div id="outline-text-headline-10" class="outline-text-2">
 <p>
   This is more or less the same as above. But here we retrieve the first name on the most
   recent version of Anna. In the next section we use this value to create an event log
-  message.
-</p>
+  message.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">d/q</span> <span class="o">&#39;</span><span class="p">{</span><span class="ss">:find</span>  <span class="p">[(</span><span class="nf">pull</span> <span class="nv">?audit</span> <span class="p">[</span><span class="ss">:audit/user</span> <span class="ss">:audit/type</span><span class="p">])</span>
                  <span class="p">(</span><span class="nf">pull</span> <span class="nv">?tx</span>    <span class="p">[[</span><span class="ss">:db/txInstant</span> <span class="ss">:as</span> <span class="ss">:audit/datetime</span><span class="p">]])</span>
@@ -413,8 +430,7 @@ Metadata together with entity attribute
        <span class="o">#</span><span class="nv">uuid</span> <span class="s">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span><span class="p">)</span></code></pre></div>
 </div>
 <p>
-  The result is truncated.
-</p>
+  The result is truncated.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">[[</span><span class="o">#</span><span class="ss">:audit</span><span class="p">{</span><span class="ss">:user</span> <span class="o">#</span><span class="nv">uuid</span> <span class="s">&#34;19c14367-a230-4a8f-9cc3-b6bb72a23dcb&#34;</span>,
             <span class="ss">:type</span> <span class="ss">:update1</span><span class="p">}</span>
@@ -422,12 +438,15 @@ Metadata together with entity attribute
     <span class="s">&#34;Anna&#34;</span><span class="p">]</span>
    ,,,<span class="p">]</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
 <h2 id="headline-11">
 Event log
 </h2>
+<div id="outline-text-headline-11" class="outline-text-2">
 <p>
-  Now lets assemble it and create a collection with event log strings and a timestamp.
-</p>
+  Now lets assemble it and create a collection with event log strings and a timestamp.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="kd">defmulti </span><span class="nv">event-log-msg</span> <span class="ss">:audit/type</span><span class="p">)</span>
   <span class="p">(</span><span class="kd">defmethod </span><span class="nv">event-log-msg</span> <span class="ss">:create</span> <span class="p">[{</span><span class="ss">:audit/keys</span> <span class="p">[</span><span class="nv">user</span><span class="p">]</span> <span class="ss">:keys</span> <span class="p">[</span><span class="nv">entity</span><span class="p">]}]</span>
@@ -456,8 +475,7 @@ Event log
        <span class="p">(</span><span class="nb">sort-by </span><span class="nv">first</span><span class="p">))</span></code></pre></div>
 </div>
 <p>
-  Looks pretty good and gives a good overview of the transactions that is related to Anna.
-</p>
+  Looks pretty good and gives a good overview of the transactions that is related to Anna.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">([</span><span class="o">#</span><span class="nv">inst</span> <span class="s">&#34;2020-05-17T19:07:37.992-00:00&#34;</span>
   <span class="s">&#34;User 19c14367-a230-4a8f-9cc3-b6bb72a23dcb created Anna&#34;</span><span class="p">]</span>
@@ -473,27 +491,26 @@ Event log
   changes made to an entity and create an event log. The id and entity reference that
   existed in the event-log model is not needed. The transaction data replaces that need.
   This makes it possible for me to remove my <em>event-log</em> model and some of the code that&#39;s
-  associated to it.
-</p>
+  associated to it.</p>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
 <h2 id="headline-12">
 Entity before and after each transaction
 </h2>
+<div id="outline-text-headline-12" class="outline-text-2">
 <p>
   This is an elaboration on the event log and I am not sure I have use for in my current
   app. But <a href="https://augustl.com/blog/2019/datomic_querying_for_history_of_entity_v2/">August Lilleaas post</a> shows how to look at the entity before and after each
-  transaction. This is really interesting and could be really useful when needed.
-</p>
+  transaction. This is really interesting and could be really useful when needed.</p>
 <p>
   <a href="https://docs.datomic.com/on-prem/clojure/index.html#datomic.api/tx-%3Et">d/tx-&gt;t</a> returns the Datomic time the transaction was made. This is not the same as wall
-  clock time. Instead it&#39;s and incremental number starting from 1000.
-</p>
+  clock time. Instead it&#39;s and incremental number starting from 1000.</p>
 <p>
   <a href="https://docs.datomic.com/on-prem/clojure/index.html#datomic.api/entity">d/entity</a> pulls an entity from a database and returns a dynamic/lazy map. To make it
-  eager we use <code class="verbatim">into</code> on it.
-</p>
+  eager we use <code class="verbatim">into</code> on it.</p>
 <p>
-  <a href="https://docs.datomic.com/on-prem/clojure/index.html#datomic.api/as-of">d/as-of</a> returns a database for a specific time.
-</p>
+  <a href="https://docs.datomic.com/on-prem/clojure/index.html#datomic.api/as-of">d/as-of</a> returns a database for a specific time.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">db</span> <span class="p">(</span><span class="nf">d/db</span> <span class="p">(</span><span class="nf">conn</span><span class="p">))]</span>
     <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">d/q</span> <span class="o">&#39;</span><span class="p">{</span><span class="ss">:find</span>  <span class="p">[</span><span class="nv">?e</span> <span class="nv">?tx</span> <span class="nv">?audit</span><span class="p">]</span>
@@ -511,8 +528,7 @@ Entity before and after each transaction
          <span class="p">(</span><span class="nb">sort-by </span><span class="ss">:timestamp</span><span class="p">)))</span></code></pre></div>
 </div>
 <p>
-  The results.
-</p>
+  The results.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">({</span><span class="ss">:timestamp</span> <span class="o">#</span><span class="nv">inst</span> <span class="s">&#34;2020-05-18T19:49:02.305-00:00&#34;</span>,
     <span class="ss">:audit</span>
@@ -563,28 +579,27 @@ Entity before and after each transaction
              <span class="ss">:birth-year</span> <span class="mi">1987</span>,
              <span class="ss">:id</span> <span class="o">#</span><span class="nv">uuid</span> <span class="s">&#34;431a2745-07b7-4850-80d5-075c78b306d1&#34;</span><span class="p">}})</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
 <h2 id="headline-13">
 Changes in each transaction
 </h2>
+<div id="outline-text-headline-13" class="outline-text-2">
 <p>
   Lets continue on the elaboration. This code is also <strong>heavily</strong> inspired of <a href="https://augustl.com/blog/2019/datomic_querying_for_history_of_entity_v2/">August
-  Lilleaas post</a>.
-</p>
+  Lilleaas post</a>.</p>
 <p>
   Query and pull each transaction that is related to Anna. Return the changes that have
-  been made in each transaction together with metadata.
-</p>
+  been made in each transaction together with metadata.</p>
 <p>
   Also something that&#39;s not useful for my application but something that could be really
-  handy when needed.
-</p>
+  handy when needed.</p>
 <p>
   <a href="https://docs.datomic.com/on-prem/clojure/index.html#datomic.api/ident">d/ident</a> return the attribute of the entity. Keywords like: <code class="verbatim">:person/first-name</code>,
-  <code class="verbatim">:person/last-name</code> and so on.
-</p>
+  <code class="verbatim">:person/last-name</code> and so on.</p>
 <p>
-  <code class="verbatim">added</code> returns <code class="verbatim">true</code> if something was added and <code class="verbatim">false</code> if something was retracted.
-</p>
+  <code class="verbatim">added</code> returns <code class="verbatim">true</code> if something was added and <code class="verbatim">false</code> if something was retracted.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">db</span> <span class="p">(</span><span class="nf">d/db</span> <span class="p">(</span><span class="nf">conn</span><span class="p">))]</span>
     <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">d/q</span> <span class="o">&#39;</span><span class="p">{</span><span class="ss">:find</span>  <span class="p">[</span><span class="nv">?tx</span> <span class="nv">?attr</span> <span class="nv">?val</span> <span class="nv">?added</span> <span class="nv">?audit</span><span class="p">]</span>
@@ -605,8 +620,7 @@ Changes in each transaction
          <span class="p">(</span><span class="nb">sort-by </span><span class="ss">:timestamp</span><span class="p">)))</span></code></pre></div>
 </div>
 <p>
-  The results.
-</p>
+  The results.</p>
 <div class="src src-clojure">
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">({</span><span class="ss">:timestamp</span> <span class="o">#</span><span class="nv">inst</span> <span class="s">&#34;2020-05-17T19:07:37.992-00:00&#34;</span>,
     <span class="ss">:audit</span>
@@ -637,15 +651,20 @@ Changes in each transaction
     <span class="p">([</span><span class="ss">:person/birth-year</span> <span class="mi">1986</span> <span class="nv">false</span><span class="p">]</span>
      <span class="p">[</span><span class="ss">:person/birth-year</span> <span class="mi">1987</span> <span class="nv">true</span><span class="p">])})</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
 <h2 id="headline-14">
 Conclusion
 </h2>
+<div id="outline-text-headline-14" class="outline-text-2">
 <p>
   Datomic provides some really nice features. Features that makes you able to understand
   how a state came to be and who made it into that state. Some of the features is maybe
   overkill for my current use case. But I have no idea about the requirements of tomorrow.
-  And the ability to look and understand the system is much worth.
-</p>
+  And the ability to look and understand the system is much worth.</p>
+</div>
+</div>
 
       
       <div class="related">

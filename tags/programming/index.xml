@@ -6,18 +6,15 @@
     <description>Recent content in programming on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jherrlin.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learn AWK with Emacs</title>
       <link>https://jherrlin.github.io/posts/learn-awk/</link>
       <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jherrlin.github.io/posts/learn-awk/</guid>
-      <description>Intro   This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&amp;#39;t cover details on how to use Emacs, Org mode or Org-drill. It&amp;#39;s intention is to provide a general overview of a workflow.  A git repo is available with flash cards, note book and some text files here. Content   I just read a few chapters in the &amp;#34;The AWK programming language&amp;#34; book and found AWK to be awesome and I want to learn more of the language.</description>
+      <description>Intro   This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&amp;#39;t cover details on how to use Emacs, Org mode or Org-drill. It&amp;#39;s intention is to provide a general overview of a workflow.
+ A git repo is available with flash cards, note book and some text files here.</description>
     </item>
     
     <item>
@@ -26,7 +23,8 @@
       <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-tables/</guid>
-      <description>Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.  Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &amp;#34;Emacs Org mode source blocks&amp;#34;) or used in calculations.</description>
+      <description>Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
+ Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &amp;#34;Emacs Org mode source blocks&amp;#34;) or used in calculations.</description>
     </item>
     
     <item>
@@ -35,7 +33,8 @@
       <pubDate>Mon, 15 Jun 2020 13:18:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/</guid>
-      <description>Post updates     [2020-06-23] New section. &amp;#34;Combine source blocks&amp;#34;   Intro   It&amp;#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.</description>
+      <description>Post updates    [2020-06-23] New section. &amp;#34;Combine source blocks&amp;#34;
+    Intro   It&amp;#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.</description>
     </item>
     
     <item>
@@ -44,7 +43,10 @@
       <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/clojure-spec-test-transducers/</guid>
-      <description>Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.  Wont cover or explain details, instead show how it can be used.  Some examples where generated data can be used:    Provide generated data through a Rest API endpoint and serve it a JSON.</description>
+      <description>Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.
+ Wont cover or explain details, instead show how it can be used.
+ Some examples where generated data can be used:
+  Provide generated data through a Rest API endpoint and serve it a JSON.</description>
     </item>
     
     <item>
@@ -53,7 +55,8 @@
       <pubDate>Sun, 17 May 2020 20:28:11 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/datomic-entity-event-log/</guid>
-      <description>TL;DR   Create an event log from Datomic transactions that&amp;#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles. Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.</description>
+      <description>TL;DR   Create an event log from Datomic transactions that&amp;#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles.
+  Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.</description>
     </item>
     
   </channel>

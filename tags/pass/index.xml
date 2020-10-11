@@ -6,11 +6,7 @@
     <description>Recent content in pass on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Jul 2020 16:00:00 +0200</lastBuildDate>
-    
-	<atom:link href="https://jherrlin.github.io/tags/pass/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 10 Jul 2020 16:00:00 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/pass/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mail in Emacs with mu4e and mbsync</title>
       <link>https://jherrlin.github.io/posts/emacs-mu4e/</link>

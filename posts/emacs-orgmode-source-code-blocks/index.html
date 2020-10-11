@@ -7,7 +7,8 @@
 <title>Emacs Org mode source blocks | jherrlin</title>
 
 <meta property='og:title' content='Emacs Org mode source blocks - jherrlin'>
-<meta property='og:description' content='Post updates     [2020-06-23] New section. &#34;Combine source blocks&#34;   Intro   It&#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.'>
+<meta property='og:description' content='Post updates    [2020-06-23] New section. &#34;Combine source blocks&#34;
+    Intro   It&#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='GNU'><meta property='article:tag' content='org'><meta property='article:tag' content='programming'><meta property='article:published_time' content='2020-06-15T13:18:00&#43;02:00'/><meta property='article:modified_time' content='2020-06-15T13:18:00&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -118,37 +119,38 @@
     
     <div class="content">
       
+<div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 Post updates
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
 <ul>
 <li>
-<p>
-[2020-06-23] New section. &#34;Combine source blocks&#34;
-</p>
+<p>[2020-06-23] New section. &#34;Combine source blocks&#34;</p>
 </li>
 </ul>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
 Intro
 </h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <p>
   It&#39;s time to start documenting how I use Emacs <a href="https://orgmode.org/">Org mode</a> (from now on org) and it will
   contain a serie of posts. This is the first post and it will cover source blocks. Some
   of the content assumes basic knowledge about org. If you are new to org I can recommend
-  this two videos; <a href="https://www.youtube.com/watch?v=SzA2YODtgK4">hrs</a> and <a href="https://www.youtube.com/watch?v=fgizHHd7nOo">kitchin</a>.
-</p>
+  this two videos; <a href="https://www.youtube.com/watch?v=SzA2YODtgK4">hrs</a> and <a href="https://www.youtube.com/watch?v=fgizHHd7nOo">kitchin</a>.</p>
 <p>
   One of the features I&#39;ve been using very frequently is source blocks. The power of
   evaluating code directly from a block and get the results back into the document is
   really convenient. While reading <a href="https://ia802309.us.archive.org/25/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf">The AWK Programming Language</a> I took notes and did all
   of the <code class="verbatim">awk</code> programming withing source blocks. This makes me able to have notes, code
   and execution results in the same document. And as everything is just text, it&#39;s easy
-  to version control!
-</p>
+  to version control!</p>
 <p>
   This is the structure of a source block. Org mode&#39;s documentation on source blocks can
-  be found <a href="https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code">here</a>.
-</p>
+  be found <a href="https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code">here</a>.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">&lt;language&gt;</span><span class="c"> &lt;switches&gt; &lt;header arguments&gt;
 </span><span class="c"></span>  &lt;body&gt;
@@ -156,14 +158,16 @@ Intro
 </div>
 <p>
   Header arguments differ for different languages and applications. Look in the
-  documentation for your specific language/application to find out what and how to use it.
-</p>
+  documentation for your specific language/application to find out what and how to use it.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
 <h2 id="headline-3">
 Versions
 </h2>
+<div id="outline-text-headline-3" class="outline-text-2">
 <p>
-  … of Emacs and Org mode.
-</p>
+  … of Emacs and Org mode.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
 </span><span class="c"></span>  <span class="p">(</span><span class="nv">org-version</span><span class="p">)</span>
@@ -180,16 +184,19 @@ Versions
 : GNU Emacs 26.3 (build 1, x86_64-pc-linux-gnu, GTK+ Version 3.24.20)
 :  of 2020-05-19</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
 <h2 id="headline-4">
 Emacs config
 </h2>
+<div id="outline-text-headline-4" class="outline-text-2">
 <p>
   Without config Emacs don&#39;t know how to execute source blocks. This following snippet
   provides Emacs with the ability to understand a set of languages/applications. The set
   of languages/applications need to be available in the underlying OS. To get a complete
   list of languages/applications available in org. A complete list can be found here:
-  <a href="https://code.orgmode.org/bzg/org-mode/src/master/lisp">repo</a>. Support for source blocks are available in files prefixed with <code class="verbatim">ob-</code>.
-</p>
+  <a href="https://code.orgmode.org/bzg/org-mode/src/master/lisp">repo</a>. Support for source blocks are available in files prefixed with <code class="verbatim">ob-</code>.</p>
 <div class="src src-emacs-lisp">
 <div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nb">setq</span> <span class="nv">org-confirm-babel-evaluate</span> <span class="no">nil</span><span class="p">)</span>
 
@@ -204,13 +211,16 @@ Emacs config
    <span class="p">(</span><span class="nv">awk</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
    <span class="p">(</span><span class="nv">clojure</span> <span class="o">.</span> <span class="no">t</span><span class="p">)))</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
 <h2 id="headline-5">
 Bash echo
 </h2>
+<div id="outline-text-headline-5" class="outline-text-2">
 <p>
   This small example uses bash to evaluate the <code class="verbatim">echo</code> command. Evaluation is done by
-  moving the pointer to the source block and press the key sequence <code class="verbatim">C-c C-c</code>.
-</p>
+  moving the pointer to the source block and press the key sequence <code class="verbatim">C-c C-c</code>.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">What shell am I using?
 
@@ -221,13 +231,16 @@ Bash echo
 <span class="cs">#+RESULTS</span><span class="c">:</span>
 : /bin/bash</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
 <h2 id="headline-6">
 Echo input variables
 </h2>
+<div id="outline-text-headline-6" class="outline-text-2">
 <p>
   Arguments can be passed to source blocks from the document. This example passes 2 <code class="verbatim">:var</code>,
-  <strong>ARG1</strong> and <strong>ARG2</strong>. The command get the arguments and uses them in the command.
-</p>
+  <strong>ARG1</strong> and <strong>ARG2</strong>. The command get the arguments and uses them in the command.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :var ARG1=&#34;FOO&#34; ARG2=&#34;BAR&#34;
 </span><span class="c"></span>  <span class="nb">echo</span> <span class="nv">$ARG1</span> <span class="nv">$ARG2</span>
@@ -236,15 +249,18 @@ Echo input variables
 <span class="cs">#+RESULTS</span><span class="c">:</span>
 : FOO BAR</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
 <h2 id="headline-7">
 Document variables
 </h2>
+<div id="outline-text-headline-7" class="outline-text-2">
 <p>
   Lets elaborate on argument to source blocks even further. Org documents can contain
   variables that holds data. This example contains a org table with the variable name
   <code class="verbatim">my-list</code>. <code class="verbatim">my-list</code> is passed as an argument to the Python source block via the variable
-  <code class="verbatim">lst</code>. When executed by Python the <code class="verbatim">lst</code> data structure is a vector with vectors.
-</p>
+  <code class="verbatim">lst</code>. When executed by Python the <code class="verbatim">lst</code> data structure is a vector with vectors.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="cs">#+NAME</span><span class="c">: my-list</span>
 <span class="s">| A | 1 |</span>
@@ -273,17 +289,24 @@ Just like with a normal Python application you can manipulate the data.
 <span class="cs">#+RESULTS</span><span class="c">:</span>
 [[&#39;B&#39;, 2], [&#39;C&#39;, 3], [&#39;D&#39;, 4]]</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
 <h2 id="headline-8">
 Result output
 </h2>
+<div id="outline-text-headline-8" class="outline-text-2">
 <p>
   Results output can be in many different shapes. Raw output, tables, as code and many
   more. Output results are described with the <code class="verbatim">:results</code> switch in the source block header.
-  This post won&#39;t go more into details but more information can be found <a href="https://orgmode.org/manual/Results-of-Evaluation.html">here</a>.
-</p>
+  This post won&#39;t go more into details but more information can be found <a href="https://orgmode.org/manual/Results-of-Evaluation.html">here</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
 <h2 id="headline-9">
 More on document variables
 </h2>
+<div id="outline-text-headline-9" class="outline-text-2">
 <p>
   This example provides another org document variable. In this case the <code class="verbatim">text-example</code>
   text block. The text in that block is passed as an argument to the <code class="verbatim">awk</code> source block.
@@ -291,8 +314,7 @@ More on document variables
   from <strong>stdin</strong>. That&#39;s exactly what is happening here. Often you see <code class="verbatim">awk</code> used in shell
   commands, similar to this: <code class="verbatim">cat /etc/passwd | awk -F&#34;:&#34; &#39;{ print $1 }&#39;</code>. Here <code class="verbatim">awk</code> gets
   <strong>stdin</strong> data from the pipe. But in our source block it gets <strong>stdin</strong> data from the org
-  document.
-</p>
+  document.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="cs">#+NAME</span><span class="c">: text-example</span>
 <span class="c">#+BEGIN_EXAMPLE</span>
@@ -310,14 +332,17 @@ Sum field nr 2.
 <span class="cs">#+RESULTS</span><span class="c">:</span>
 <span class="s">| Sum | 350 |</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
 <h2 id="headline-10">
 File from file system
 </h2>
+<div id="outline-text-headline-10" class="outline-text-2">
 <p>
   This example is very similar to the one in <a href="#headline-4">&#34;Echo input variables&#34;</a>. It passed a variable
   to the source block that tells a file path to <code class="verbatim">awk</code>. <code class="verbatim">awk</code> is then called with that
-  <strong>:in-file</strong> as an argument.
-</p>
+  <strong>:in-file</strong> as an argument.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">Get system users that have <span class="nc">=/bin/bash=</span> access.
 
@@ -330,19 +355,21 @@ File from file system
 <span class="s">| root |</span>
 <span class="s">| john |</span></code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
 <h2 id="headline-11">
 Combine source blocks
 </h2>
+<div id="outline-text-headline-11" class="outline-text-2">
 <p>
   It&#39;s possible to combine text from different source blocks with the <code class="verbatim">:noweb yes</code> header
   argument. This example shows a ledger that&#39;s split up into income and expenses source
   blocks. They are then combined in the <code class="verbatim">balance</code> source block. Ledger is a plaintext
   accounting tool and can create a balance report from our assets, income and expenses.
-  The <code class="verbatim">:noweb</code> header arguments in not something that is specific for ledger.
-</p>
+  The <code class="verbatim">:noweb</code> header arguments in not something that is specific for ledger.</p>
 <p>
-  Docs on <code class="verbatim">:noweb</code> header argument can be found <a href="https://orgmode.org/manual/Noweb-Reference-Syntax.html">here</a>. Docs on ledger can be found <a href="https://www.ledger-cli.org/3.0/doc/ledger3.html#Org-mode-with-Babel">here</a>.
-</p>
+  Docs on <code class="verbatim">:noweb</code> header argument can be found <a href="https://orgmode.org/manual/Noweb-Reference-Syntax.html">here</a>. Docs on ledger can be found <a href="https://www.ledger-cli.org/3.0/doc/ledger3.html#Org-mode-with-Babel">here</a>.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="cs">#+NAME</span><span class="c">: income</span>
 <span class="c">#+BEGIN_SRC </span><span class="cs">ledger</span><span class="c">
@@ -381,20 +408,22 @@ Combine source blocks
 : --------------------
 :                    0</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
 <h2 id="headline-12">
 Combine results and source blocks
 </h2>
+<div id="outline-text-headline-12" class="outline-text-2">
 <p>
   Now lets use the result from one source block as argument to another. The example
   requires some files with a <code class="verbatim">.awk</code> ending to be present in <code class="verbatim">/tmp</code>. We use <code class="verbatim">bash</code> to get
   data about our file system. That result is then feed to <code class="verbatim">awk</code> that creates a good
-  looking table. That table is then sent to Python for further processing.
-</p>
+  looking table. That table is then sent to Python for further processing.</p>
 <p>
   There is nothing different here from the other examples except that in this case we use
   <code class="verbatim">#+NAME:</code> on source blocks instead of a text blocks or a tables. The results from the
-  named source blocks will then be available as input to other source blocks.
-</p>
+  named source blocks will then be available as input to other source blocks.</p>
 <div class="src src-org">
 <div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">List files ending with .awk in <span class="ge">/tmp/</span> dir.
 
@@ -437,27 +466,34 @@ Process the table with Python.
 : [396, &#39;copy-line-on-confirm.awk&#39;]
 : 1.3 kb</code></pre></div>
 </div>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
 <h2 id="headline-13">
 Nice things I didn&#39;t cover
 </h2>
+<div id="outline-text-headline-13" class="outline-text-2">
 <p>
   Org have ways to execute code on remote servers via source blocks. This is awesome and can
   be used for DevOps. I have used it in cases where an Ansible playbook is overkill. There
-  is a really nice blog post and video about this stuff <a href="http://howardism.org/Technical/Emacs/literate-devops.html">here</a>.
-</p>
+  is a really nice blog post and video about this stuff <a href="http://howardism.org/Technical/Emacs/literate-devops.html">here</a>.</p>
 <p>
   Source blocks can also be written to the file system via the header switch <code class="verbatim">:tangle</code>. This
-  is also very useful. More info about that can be found <a href="https://orgmode.org/manual/Extracting-Source-Code.html">here</a>.
-</p>
+  is also very useful. More info about that can be found <a href="https://orgmode.org/manual/Extracting-Source-Code.html">here</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
 <h2 id="headline-14">
 Conclusion
 </h2>
+<div id="outline-text-headline-14" class="outline-text-2">
 <p>
   I think org is truly an amazing piece of software. With very little effort from the user
   it can provide a very rich and interactive experience with a lot of applications and
   languages. From the document view everything is just text so version control a org
-  document is very simple.
-</p>
+  document is very simple.</p>
+</div>
+</div>
 
       
       <div class="related">
