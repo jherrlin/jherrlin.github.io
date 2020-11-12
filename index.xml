@@ -6,7 +6,16 @@
     <description>Recent content on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 Jul 2020 11:14:05 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 Nov 2020 11:39:58 +0100</lastBuildDate><atom:link href="https://jherrlin.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wexio Lambda Session Nr1</title>
+      <link>https://jherrlin.github.io/posts/wexio-lambda-session-nr1/</link>
+      <pubDate>Thu, 12 Nov 2020 11:39:58 +0100</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/wexio-lambda-session-nr1/</guid>
+      <description>* Wexio Lambda Sessions nr 1 We are happy to announce the first Wexio Lambda Session. A local meetup about functional programming, lisp and everything around it! | Place | Remote | | Date | 1/12 | | Time | 17:30-19:30 | | Subject | Introduction to Emacs Org mode | | Signup | https://forms.gle/saaH9Z4SYo9pJ4DV8 | * About this event We start the event series with an introduction to one of Emacs killer features.</description>
+    </item>
+    
     <item>
       <title>Emacs Orgmode Source Code Blocks 2</title>
       <link>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks2/</link>
