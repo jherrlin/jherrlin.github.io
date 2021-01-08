@@ -31,9 +31,9 @@
       <pubDate>Mon, 01 Jun 2020 16:44:47 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/arch-install/</guid>
-      <description>Into   Recently made a fresh Arch Linux install.
- The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.
- The LUKS device contains a header with data about the device.</description>
+      <description>2021-01-08 Updated with instructions on LTS kernel.
+  Into   Recently made a fresh Arch Linux install.
+ The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.</description>
     </item>
     
   </channel>

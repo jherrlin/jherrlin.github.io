@@ -7,9 +7,9 @@
 <title>Arch install with LUKS and systemd-boot | jherrlin</title>
 
 <meta property='og:title' content='Arch install with LUKS and systemd-boot - jherrlin'>
-<meta property='og:description' content='Into   Recently made a fresh Arch Linux install.
- The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.
- The LUKS device contains a header with data about the device.'>
+<meta property='og:description' content='2021-01-08 Updated with instructions on LTS kernel.
+  Into   Recently made a fresh Arch Linux install.
+ The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/arch-install/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='arch'><meta property='article:tag' content='install'><meta property='article:tag' content='system'><meta property='article:tag' content='encryption'><meta property='article:published_time' content='2020-06-01T16:44:47&#43;02:00'/><meta property='article:modified_time' content='2020-06-01T16:44:47&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -120,6 +120,11 @@
     
     <div class="content">
       
+<ul>
+<li>
+<p>2021-01-08 Updated with instructions on LTS kernel.</p>
+</li>
+</ul>
 <div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 Into
@@ -186,7 +191,7 @@ Install
   <span class="c1"># Connect to wifi</span>
   wifi-menu
 
-  pacstrap /mnt base base-devel linux linux-firmware intel-ucode git emacs sudo networkmanager bash-completion
+  pacstrap /mnt base base-devel linux linux-lts linux-firmware intel-ucode git emacs sudo networkmanager bash-completion
 
   genfstab -pU /mnt &gt;&gt; /mnt/etc/fstab
 
@@ -268,9 +273,31 @@ nmcli device wifi connect &lt;SSID<span class="p">|</span>BSSID&gt; password &lt
 </div>
 <div id="outline-container-headline-4" class="outline-2">
 <h2 id="headline-4">
-Extra
+LTS kernel
 </h2>
 <div id="outline-text-headline-4" class="outline-text-2">
+<p>
+  A LTS kernel is installed in the <code class="verbatim">pacstrap</code> process. I recommend to add that
+  as a boot option to systemd-boot. File location is
+  <code class="verbatim">/boot/loader/entries/arch-lts.conf</code>.</p>
+<div class="src src-text">
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">  title Arch Linux LTS
+  linux /vmlinuz-linux-lts
+  initrd /intel-ucode.img
+  initrd /initramfs-linux-lts.img
+  options cryptdevice=PARTUUID=&lt;PARTUUID&gt;:cryptroot root=/dev/mapper/cryptroot rw</code></pre></div>
+</div>
+<p>
+  When the system boots the default kernel with be the latest one, but you can
+  choose to boot the LTS kernel if you want. This can be good if somethings is
+  wrong with the latest kernel and the fallback is somehow unusable.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Extra
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
 <p>
   Small set of packages to get up and running with a desktop environment plus some good to
   have.</p>
