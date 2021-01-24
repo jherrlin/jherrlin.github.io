@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Learn RxJava with Emacs Org mode | jherrlin</title>
+
+<meta property='og:title' content='Learn RxJava with Emacs Org mode - jherrlin'>
+<meta property='og:description' content='Intro   RxJava is a Java library that can be used to create non blocking reactive systems in Java. The mindset of non blocking and how to work with RxJava was a bit hard for me to grasp, and still is! I am by no means a skilled RxJava user. But I have found a tool that helps me on the journey to become a better one. And of course this is Org mode and Emacs.'>
+<meta property='og:url' content='https://jherrlin.github.io/posts/rx-java-with-org-mode/'>
+<meta property='og:site_name' content='jherrlin'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='Java'><meta property='article:tag' content='org'><meta property='article:tag' content='programming'><meta property='article:tag' content='reactive'><meta property='article:tag' content='rxjava'><meta property='article:published_time' content='2021-01-23T11:14:05&#43;02:00'/><meta property='article:modified_time' content='2021-01-23T11:14:05&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
+
+
+<link href="https://jherrlin.github.io/index.xml" rel="alternate" type="application/rss+xml" title="jherrlin" />
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://jherrlin.github.io/posts/rx-java-with-org-mode/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://jherrlin.github.io/">
+          <h1 id="nav-heading" class="title is-4">jherrlin</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/jherrlin'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:jherrlin@gmail.com'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/john-herrlin-63458280'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="rss" href='/index.xml'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/emacs/">#emacs</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/java/">#Java</a>
+  
+  | <a class="subtitle is-6" href="/tags/org/">#org</a>
+  
+  | <a class="subtitle is-6" href="/tags/programming/">#programming</a>
+  
+  | <a class="subtitle is-6" href="/tags/reactive/">#reactive</a>
+  
+  | <a class="subtitle is-6" href="/tags/rxjava/">#rxjava</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">January 23, 2021</h2>
+    <h1 class="title">Learn RxJava with Emacs Org mode</h1>
+    
+    <div class="content">
+      
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Intro
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+  RxJava is a Java library that can be used to create non blocking reactive
+  systems in Java. The mindset of non blocking and how to work with RxJava was a
+  bit hard for me to grasp, and still is! I am by no means a skilled RxJava
+  user. But I have found a tool that helps me on the journey to become a better
+  one. And of course this is Org mode and Emacs.</p>
+<p>
+  If you know Org mode then most info in this post wont be anything new. What
+  could be new to you is the new features that ob-java provides. Features that
+  removes some of the boilerplate of the verbose language and you can focus on
+  the important concepts.</p>
+<p>
+  If you are new to Org mode, take a look at my posts about &#34;Emacs Orgmode
+  Source Code Blocks&#34; if you wanna know more about Org modes and source code
+  blocks.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Setup
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Document properties
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>
+   This is properties that is used for all of the source code blocks in the
+   document. The properties states that we want all of our result output in code
+   blocks. All files and commands will be use the <code class="verbatim">src/</code> directory. And set
+   classpaths and imports for RxJava so the compiler and executor know where to
+   find them.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+PROPERTY: header-args      :dir src :results output code :wrap example text
+  #+PROPERTY: header-args:java :cmdline -classpath .:src:./rxjava-1.3.8.jar :cmpflag -classpath .:src:./rxjava-1.3.8.jar :imports rx.Observable</code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Dependency and folder hierarchy.
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>
+   This is the structure of the important files. We have the Org document in a
+   root. In the root is a directory named <code class="verbatim">src/</code> and inside <code class="verbatim">src/</code> is the RxJava
+   lib. You can find the RxJava lib <a href="https://mvnrepository.com/artifact/io.reactivex/rxjava/1.3.8">here</a>.</p>
+<div class="src src-text">
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">.
+├── learn-rx-java.org        # This is the Org file we are in
+├── src                      # Folder where source code will live
+│   ├── rxjava-1.3.8.jar     # Here is the RxJava lib</code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Lets test it out
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>
+   This is a minimal example of <code class="verbatim">learn-rx-java.org</code>. What we see is a Java
+   source code block without all if the usually needed setup code, like <code class="verbatim">public
+   static void main</code>. And we can focus on the RxJava operator <code class="verbatim">just</code>. Below the
+   Java code there is a result block. That&#39;s the result of the Java code after
+   using <code class="verbatim">C-c C-c</code> while standing on the source code block. Pretty neat!</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+PROPERTY: header-args      :dir src :results output code :wrap example text
+  #+PROPERTY: header-args:java :cmdline -classpath .:src:./rxjava-1.3.8.jar :cmpflag -classpath .:src:./rxjava-1.3.8.jar :imports rx.Observable
+
+<span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span><span class="c"></span>    <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&#34;Hey from Org mode&#34;</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  #+begin_example text
+  Hey from Org mode
+  #+end_example</code></pre></div>
+</div>
+<p>
+   But how!? Java needs all the fluff code to run, right? Of course it does! But
+   the new features of Org modes ob-java takes care of that for us. So lets look
+   at what happened.</p>
+<p>
+   It created two new files for us. <code class="verbatim">Main.java</code> and <code class="verbatim">Main.class</code>.</p>
+<div class="src src-shell">
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">.
+├── learn-rx-java.org
+├── src
+│   ├── Main.class
+│   ├── Main.java
+│   └── rxjava-1.3.8.jar</code></pre></div>
+</div>
+<p>
+   And if we look into the <code class="verbatim">Main.java</code> file we can see the file that Org mode
+   created for us before running it through <code class="verbatim">javac</code>.</p>
+<p>
+   And voila! We see that the import from the file property <code class="verbatim">rx.Observable</code> is
+   there together with all the rest that is needed to run a Java program.
+   <code class="verbatim">ob-java</code> have added the needed stuff for us so we don&#39;t need to think about.
+   I think that&#39;s terrific when learning!</p>
+<div class="src src-java">
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kn">import</span> <span class="nn">rx.Observable</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&#34;Hey from Org mode&#34;</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span></code></pre></div>
+</div>
+<p>
+   The commands that ob-java executed looks something like this:</p>
+<div class="src src-shell">
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  javac -classpath .:src:./rxjava-1.3.8.jar /home/john/git/blog/src/Main.java
+      <span class="o">&amp;&amp;</span> java -cp /home/john/git/blog/src/ -classpath .:src:./rxjava-1.3.8.jar Main</code></pre></div>
+</div>
+<p>
+   This is the setup and how stuff works, let&#39;s try out some operators.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Operators
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>
+  Here are some operators and how they can be used. The weight is on showing how
+  Org mode can be used to learn the operators and not on the operators them self.</p>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+range
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>
+   Useful when you wanna generate ranges.</p>
+<p>
+   This example is just as small as the <code class="verbatim">just</code> in the setup section. It shows a
+   very basic usage of the <code class="verbatim">range</code> operator.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span><span class="c"></span>    <span class="n">Observable</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="n">3</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  #+begin_example text
+  5
+  6
+  7
+  #+end_example</code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+flatMapIterable
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>
+   Useful when you have a collection/stream and you wanna turn each item into a
+ observable.</p>
+<p>
+   This example is a little bit bigger and use a operation composition to
+   transform a list.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span><span class="c"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;India&#34;</span><span class="o">,</span> <span class="s">&#34;China&#34;</span><span class="o">,</span> <span class="s">&#34;Bhutan&#34;</span><span class="o">);</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Before: &#34;</span> <span class="o">+</span><span class="n">list</span><span class="o">);</span>
+
+    <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">list</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">flatMapIterable</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">()))</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span>  <span class="s">&#34;#-#&#34;</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="s">&#34;#-#&#34;</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">toList</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="o">{</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;After: &#34;</span> <span class="o">+</span> <span class="n">s</span><span class="o">);});</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  #+begin_example text
+  Before: [India, China, Bhutan]
+  After: [#-#india#-#, #-#china#-#, #-#bhutan#-#]
+  #+end_example</code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+flatMap
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>
+   If you end up in a situation where one Observable returns another Observable.
+   For example like this: <code class="verbatim">Observable&lt;Observable&lt;String&gt;&gt;</code>. Then <code class="verbatim">flatMap</code> can
+   be handy (remember that flatMap don&#39;t preserve order!). This is how execution
+   could look like without it.</p>
+<p>
+   The inner Observable is never executed. It only returns a Observable object
+   in some memory location.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span><span class="c"></span>    <span class="kn">import static</span> <span class="nn">rx.Observable.just</span><span class="o">;</span>
+
+    <span class="n">just</span><span class="o">(</span><span class="n">just</span><span class="o">(</span><span class="s">&#34;Hejsan&#34;</span><span class="o">)).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  #+begin_example text
+  rx.internal.util.ScalarSynchronousObservable@30946e09
+  #+end_example</code></pre></div>
+</div>
+<p>
+   But when adding <code class="verbatim">flatMap</code> to the composition the inner Observable is
+   executed.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span><span class="c"></span>    <span class="kn">import static</span> <span class="nn">rx.Observable.just</span><span class="o">;</span>
+
+    <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="nf">myText</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="n">just</span><span class="o">(</span><span class="s">&#34;Hejsan&#34;</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">myText</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  #+begin_example text
+  Hejsan
+  #+end_example</code></pre></div>
+</div>
+<p>
+   Here we needed to provide some more context for <code class="verbatim">ob-java</code> to make it
+   understand our code.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+zip
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>
+   … is handy when you wanna combine results from Observables.</p>
+<p>
+   This example is little bit bigger and we have a inner class within our
+   <code class="verbatim">ZipExample</code> class. In this scenario we provide a fully working Java class
+   where <code class="verbatim">ob-java</code> don&#39;t need to do any changes to our code. It compiles,
+   executes the code and provide us with the result.</p>
+<div class="src src-org">
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c"> :results output code
+</span><span class="c"></span>    <span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
+    <span class="kn">import static</span> <span class="nn">rx.Observable.*</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZipExample</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Tenant</span> <span class="o">{</span>
+            <span class="kd">public</span> <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="nf">getTenantId</span><span class="o">(){</span>
+                                     <span class="c1">// Simulate network latency
+</span><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="n">456123L</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+            <span class="o">}</span>
+
+            <span class="kd">public</span> <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getTenantName</span><span class="o">(){</span>
+                                             <span class="c1">// Simulate network latency
+</span><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="s">&#34;myCamelCompany&#34;</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+            <span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">tenantName</span> <span class="o">=</span> <span class="n">Tenant</span><span class="o">.</span><span class="na">getTenantName</span><span class="o">();</span>
+            <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span>     <span class="n">tenantId</span> <span class="o">=</span> <span class="n">Tenant</span><span class="o">.</span><span class="na">getTenantId</span><span class="o">();</span>
+
+            <span class="n">zip</span><span class="o">(</span><span class="n">tenantName</span><span class="o">,</span> <span class="n">tenantId</span><span class="o">,</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">id</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                    <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34; / &#34;</span> <span class="o">+</span> <span class="n">id</span><span class="o">;</span>
+                <span class="o">}).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Let&#39;s go!&#34;</span><span class="o">);</span>
+            <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">3</span><span class="o">);</span> <span class="c1">// Dont quit just yet!
+</span><span class="c1"></span>        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="c">  #+END_SRC</span>
+
+  #+RESULTS:
+  #+begin_example text
+  Let&#39;s go!
+  myCamelCompany / 456123
+  #+end_example</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+Conclusion
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>
+  This post shows how to write and execute RxJava where the focus is on the
+  operators and not on all of the Java language fluff. I think it does a good
+  job. In the later operations the examples grow and we needed to do some Java
+  stuff. But in the smaller examples we can really focus on the operators.</p>
+<p>
+  I have used Org mode for interacting with languages from AWK to Python and
+  Clojure. I am very happy to see that it works so good also for Java. Org mode
+  is a wonderful tool!</p>
+</div>
+</div>
+
+      
+      <div class="related">
+
+<h3>Similar articles:</h3>
+<ul>
+	
+	<li><a href="/posts/emacs-orgmode-source-code-blocks2/">Emacs Orgmode Source Code Blocks 2</a></li>
+	
+	<li><a href="/posts/learn-awk/">Learn AWK with Emacs</a></li>
+	
+	<li><a href="/posts/emacs-orgmode-tables/">Emacs Org mode tables</a></li>
+	
+	<li><a href="/posts/emacs-orgmode-source-code-blocks/">Emacs Org mode source blocks</a></li>
+	
+	<li><a href="/posts/emacs-mu4e/">Mail in Emacs with mu4e and mbsync</a></li>
+	
+</ul>
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

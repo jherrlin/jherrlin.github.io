@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>reactive on jherrlin</title>
+    <link>https://jherrlin.github.io/tags/reactive/</link>
+    <description>Recent content in reactive on jherrlin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 23 Jan 2021 11:14:05 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/reactive/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Learn RxJava with Emacs Org mode</title>
+      <link>https://jherrlin.github.io/posts/rx-java-with-org-mode/</link>
+      <pubDate>Sat, 23 Jan 2021 11:14:05 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/rx-java-with-org-mode/</guid>
+      <description>Intro   RxJava is a Java library that can be used to create non blocking reactive systems in Java. The mindset of non blocking and how to work with RxJava was a bit hard for me to grasp, and still is! I am by no means a skilled RxJava user. But I have found a tool that helps me on the journey to become a better one. And of course this is Org mode and Emacs.</description>
+    </item>
+    
+  </channel>
+</rss>
