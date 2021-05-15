@@ -8,12 +8,12 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 15 May 2021 09:37:17 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Resume with AltaCV and LaTeX</title>
+      <title>Résumé with AltaCV and LaTeX</title>
       <link>https://jherrlin.github.io/posts/resume-altacv-latex/</link>
       <pubDate>Sat, 15 May 2021 09:37:17 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/resume-altacv-latex/</guid>
-      <description>I had to write a resume and searched the web for solutions that looked good. Quickly found the AltaCV template that liantze have made and I think it looks really good!
+      <description>I had to write a résumé and searched the web for solutions that looked good. Quickly found the AltaCV template that liantze have made and I think it looks really good!
  This is my notes on how I got the template to compile.
 Clone AltaCV template   Navigate to the GitHub repo AltaCV and clone it to your local system. In this example I have cloned it to ~/git.</description>
     </item>
