@@ -1,234 +1,140 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://jherrlin.github.io/tags/emacs/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/java/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/rx-java-with-org-mode/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/org/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/programming/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/reactive/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/rxjava/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/</loc>
     <lastmod>2021-01-23T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/event/</loc>
     <lastmod>2020-11-12T11:39:58+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/fortnox/</loc>
     <lastmod>2020-11-12T11:39:58+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/meetup/</loc>
     <lastmod>2020-11-12T11:39:58+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/v%C3%A4xj%C3%B6/</loc>
     <lastmod>2020-11-12T11:39:58+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/wexio-lambda-session-nr1/</loc>
     <lastmod>2020-11-12T11:39:58+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks2/</loc>
     <lastmod>2020-07-22T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/gnu/</loc>
     <lastmod>2020-07-22T11:14:05+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/awk/</loc>
     <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/language/</loc>
     <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/learn-awk/</loc>
     <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/learning/</loc>
     <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/org-drill/</loc>
     <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/email/</loc>
     <lastmod>2020-07-10T16:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/encryption/</loc>
     <lastmod>2020-07-10T16:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/gnugp/</loc>
     <lastmod>2020-07-10T16:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/emacs-mu4e/</loc>
     <lastmod>2020-07-10T16:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/mu4e/</loc>
     <lastmod>2020-07-10T16:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/pass/</loc>
     <lastmod>2020-07-10T16:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/emacs-gnupg-and-pass/</loc>
     <lastmod>2020-07-10T15:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/git/</loc>
     <lastmod>2020-07-10T15:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/emacs-orgmode-tables/</loc>
     <lastmod>2020-06-21T16:16:30+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/</loc>
     <lastmod>2020-06-15T13:18:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/arch/</loc>
     <lastmod>2020-06-01T16:44:47+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/arch-install/</loc>
     <lastmod>2020-06-01T16:44:47+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/install/</loc>
     <lastmod>2020-06-01T16:44:47+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/system/</loc>
     <lastmod>2020-06-01T16:44:47+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/clojure/</loc>
     <lastmod>2020-05-22T23:47:13+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/generative/</loc>
     <lastmod>2020-05-22T23:47:13+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/clojure-spec-test-transducers/</loc>
     <lastmod>2020-05-22T23:47:13+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/spec/</loc>
     <lastmod>2020-05-22T23:47:13+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/test/</loc>
     <lastmod>2020-05-22T23:47:13+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/transducers/</loc>
     <lastmod>2020-05-22T23:47:13+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/database/</loc>
     <lastmod>2020-05-17T20:28:11+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/tags/datomic/</loc>
     <lastmod>2020-05-17T20:28:11+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jherrlin.github.io/posts/datomic-entity-event-log/</loc>
     <lastmod>2020-05-17T20:28:11+02:00</lastmod>
   </url>
-  
-  <url>
-    <loc>https://jherrlin.github.io/posts/deploy-clojure-on-prem/</loc>
-  </url>
-  
 </urlset>
