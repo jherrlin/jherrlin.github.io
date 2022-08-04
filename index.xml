@@ -6,7 +6,18 @@
     <description>Recent content on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 15 May 2021 09:37:17 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Aug 2022 08:15:43 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Emacs on Macos Monterey</title>
+      <link>https://jherrlin.github.io/posts/emacs-on-macos-monterey/</link>
+      <pubDate>Thu, 04 Aug 2022 08:15:43 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/emacs-on-macos-monterey/</guid>
+      <description>Intro Got a new computer from work, this is some quick notes on how my Emacs setup looks.
+Run Emacs as daemon with LaunchAgent. Fetch mails periodically with mbsync via LaunchAgent.
+Install brew install --cask emacs brew install mu brew install isync brew install gpg brew ls --verbose emacs brew ls --verbose mu Mu4a mkdir -p ~/.mail/work ~/.mail/gmail mu init --maildir=~/.mail --my-address=USERNAME@gmail.com --my-address=USERNAME@work.com mu index mbsync -Va mu index Mbsync config cat ~/.</description>
+    </item>
+    
     <item>
       <title>Resume with AltaCV and LaTeX</title>
       <link>https://jherrlin.github.io/posts/resume-altacv-latex/</link>

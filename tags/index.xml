@@ -6,7 +6,61 @@
     <description>Recent content in Tags on jherrlin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 15 May 2021 09:37:17 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Aug 2022 08:15:43 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>emacs</title>
+      <link>https://jherrlin.github.io/tags/emacs/</link>
+      <pubDate>Thu, 04 Aug 2022 08:15:43 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GNU</title>
+      <link>https://jherrlin.github.io/tags/gnu/</link>
+      <pubDate>Thu, 04 Aug 2022 08:15:43 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/gnu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>macos</title>
+      <link>https://jherrlin.github.io/tags/macos/</link>
+      <pubDate>Thu, 04 Aug 2022 08:15:43 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/macos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mail</title>
+      <link>https://jherrlin.github.io/tags/mail/</link>
+      <pubDate>Thu, 04 Aug 2022 08:15:43 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/mail/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mu4e</title>
+      <link>https://jherrlin.github.io/tags/mu4e/</link>
+      <pubDate>Thu, 04 Aug 2022 08:15:43 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/mu4e/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://jherrlin.github.io/tags/programming/</link>
+      <pubDate>Thu, 04 Aug 2022 08:15:43 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>altacv</title>
       <link>https://jherrlin.github.io/tags/altacv/</link>
@@ -35,15 +89,6 @@
     </item>
     
     <item>
-      <title>emacs</title>
-      <link>https://jherrlin.github.io/tags/emacs/</link>
-      <pubDate>Sat, 23 Jan 2021 11:14:05 +0200</pubDate>
-      
-      <guid>https://jherrlin.github.io/tags/emacs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Java</title>
       <link>https://jherrlin.github.io/tags/java/</link>
       <pubDate>Sat, 23 Jan 2021 11:14:05 +0200</pubDate>
@@ -58,15 +103,6 @@
       <pubDate>Sat, 23 Jan 2021 11:14:05 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/tags/org/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>programming</title>
-      <link>https://jherrlin.github.io/tags/programming/</link>
-      <pubDate>Sat, 23 Jan 2021 11:14:05 +0200</pubDate>
-      
-      <guid>https://jherrlin.github.io/tags/programming/</guid>
       <description></description>
     </item>
     
@@ -121,15 +157,6 @@
       <pubDate>Thu, 12 Nov 2020 11:39:58 +0100</pubDate>
       
       <guid>https://jherrlin.github.io/tags/v%C3%A4xj%C3%B6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GNU</title>
-      <link>https://jherrlin.github.io/tags/gnu/</link>
-      <pubDate>Wed, 22 Jul 2020 11:14:05 +0200</pubDate>
-      
-      <guid>https://jherrlin.github.io/tags/gnu/</guid>
       <description></description>
     </item>
     
@@ -193,15 +220,6 @@
       <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/tags/gnugp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mu4e</title>
-      <link>https://jherrlin.github.io/tags/mu4e/</link>
-      <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
-      
-      <guid>https://jherrlin.github.io/tags/mu4e/</guid>
       <description></description>
     </item>
     
