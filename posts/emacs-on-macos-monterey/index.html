@@ -9,7 +9,8 @@
 <meta property='og:title' content='Emacs on Macos Monterey - jherrlin'>
 <meta property='og:description' content='Intro Got a new computer from work, this is some quick notes on how my Emacs setup looks.
 Run Emacs as daemon with LaunchAgent. Fetch mails periodically with mbsync via LaunchAgent.
-Install brew install --cask emacs brew install mu brew install isync brew install gpg brew ls --verbose emacs brew ls --verbose mu Mu4a mkdir -p ~/.mail/work ~/.mail/gmail mu init --maildir=~/.mail --my-address=USERNAME@gmail.com --my-address=USERNAME@work.com mu index mbsync -Va mu index Mbsync config cat ~/.'>
+Install brew install --cask emacs brew install mu brew install isync brew install gpg brew ls --verbose emacs brew ls --verbose mu Mu4a Replace USERNAME with your info.
+mkdir -p ~/.mail/work ~/.mail/gmail mu init --maildir=~/.mail --my-address=USERNAME@gmail.com --my-address=USERNAME@work.com mu index mbsync -Va mu index Mbsync config cat ~/.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/emacs-on-macos-monterey/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='GNU'><meta property='article:tag' content='programming'><meta property='article:tag' content='mu4e'><meta property='article:tag' content='mail'><meta property='article:tag' content='macos'><meta property='article:published_time' content='2022-08-04T08:15:43&#43;02:00'/><meta property='article:modified_time' content='2022-08-04T08:15:43&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -159,6 +160,8 @@ Install
 Mu4a
 </h2>
 <div id="outline-text-headline-3" class="outline-text-2">
+<p>
+  Replace USERNAME with your info.</p>
 <div class="src src-shell">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  mkdir -p ~/.mail/work ~/.mail/gmail
 </span></span><span class="line"><span class="cl">  mu init --maildir<span class="o">=</span>~/.mail --my-address<span class="o">=</span>USERNAME@gmail.com --my-address<span class="o">=</span>USERNAME@work.com
@@ -214,6 +217,8 @@ Emacs daemon via LaunchAgent
 <div class="src src-shell">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  cat ~/Library/LaunchAgents/gnu.emacs.plist</span></span></code></pre></div>
 </div>
+<p>
+  Replace USERNAME with your info.</p>
 <div class="src src-xml">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">  <span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="cp">&lt;!DOCTYPE plist PUBLIC &#34;-//Apple//DTD PLIST 1.0//EN&#34; &#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&#34;&gt;</span>
@@ -234,31 +239,6 @@ Emacs daemon via LaunchAgent
 </span></span><span class="line"><span class="cl">      <span class="nt">&lt;string&gt;</span>/tmp/gnu-emacs-daemon.log<span class="nt">&lt;/string&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="nt">&lt;key&gt;</span>StandardOutPath<span class="nt">&lt;/key&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="nt">&lt;string&gt;</span>/tmp/gnu-emacs-daemon.log<span class="nt">&lt;/string&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;key&gt;</span>UserName<span class="nt">&lt;/key&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;string&gt;</span>USERNAME<span class="nt">&lt;/string&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dict&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/plist&gt;</span></span></span></code></pre></div>
-</div>
-<div class="src src-xml">
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">  <span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="cp">&lt;!DOCTYPE plist PUBLIC &#34;-//Apple//DTD PLIST 1.0//EN&#34; &#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&#34;&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">&#34;1.0&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dict&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;key&gt;</span>KeepAlive<span class="nt">&lt;/key&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;true/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;string&gt;</span>gnu.emacs<span class="nt">&lt;/string&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;array&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&lt;string&gt;</span>/opt/homebrew/bin/emacs<span class="nt">&lt;/string&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&lt;string&gt;</span>--fg-daemon<span class="nt">&lt;/string&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;/array&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;key&gt;</span>StandardOutPath<span class="nt">&lt;/key&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;string&gt;</span>/tmp/gnu-emacs-daemon.log<span class="nt">&lt;/string&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;key&gt;</span>StandardErrorPath<span class="nt">&lt;/key&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;string&gt;</span>/tmp/gnu-emacs-daemon.log<span class="nt">&lt;/string&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;true/&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="nt">&lt;key&gt;</span>UserName<span class="nt">&lt;/key&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="nt">&lt;string&gt;</span>USERNAME<span class="nt">&lt;/string&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dict&gt;</span>
@@ -285,6 +265,8 @@ Fetch mails periodically
 <div class="src src-shell">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  cat ~/Library/LaunchAgents/periodic.mbsync.plist</span></span></code></pre></div>
 </div>
+<p>
+  Replace USERNAME with your info.</p>
 <div class="src src-xml">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">  <span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="cp">&lt;!DOCTYPE plist PUBLIC &#34;-//Apple//DTD PLIST 1.0//EN&#34; &#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&#34;&gt;</span>
