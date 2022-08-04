@@ -244,12 +244,16 @@ Emacs daemon via LaunchAgent
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dict&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&lt;/plist&gt;</span></span></span></code></pre></div>
 </div>
+<p>
+  Verify that the plist file is correct.</p>
 <div class="src src-shell">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  plutil -lint ~/Library/LaunchAgents/gnu.emacs.plist</span></span></code></pre></div>
 </div>
 <div class="src src-text">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">  /Users/USERNAME/Library/LaunchAgents/gnu.emacs.plist: OK</span></span></code></pre></div>
 </div>
+<p>
+  Start, stop and list service.</p>
 <div class="src src-shell">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  launchctl load -w /Users/USERNAME/Library/LaunchAgents/gnu.emacs.plist
 </span></span><span class="line"><span class="cl">  launchctl unload /Users/USERNAME/Library/LaunchAgents/gnu.emacs.plist
@@ -307,7 +311,7 @@ Fetch mails periodically
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">  /Users/USERNAME/Library/LaunchAgents/periodic.mbsync.plist: OK</span></span></code></pre></div>
 </div>
 <p>
-  Start, stop and list services.</p>
+  Start, stop and list service.</p>
 <div class="src src-shell">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  launchctl load -w /Users/USERNAME/Library/LaunchAgents/periodic.mbsync.plist
 </span></span><span class="line"><span class="cl">  launchctl unload /Users/USERNAME/Library/LaunchAgents/periodic.mbsync.plist
