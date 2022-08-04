@@ -13,7 +13,7 @@
       <pubDate>Sat, 23 Jan 2021 11:14:05 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/rx-java-with-org-mode/</guid>
-      <description>Intro   RxJava is a Java library that can be used to create non blocking reactive systems in Java. The mindset of non blocking and how to work with RxJava was a bit hard for me to grasp, and still is! I am by no means a skilled RxJava user. But I have found a tool that helps me on the journey to become a better one. And of course this is Org mode and Emacs.</description>
+      <description>Intro RxJava is a Java library that can be used to create non blocking reactive systems in Java. The mindset of non blocking and how to work with RxJava was a bit hard for me to grasp, and still is! I am by no means a skilled RxJava user. But I have found a tool that helps me on the journey to become a better one. And of course this is Org mode and Emacs.</description>
     </item>
     
   </channel>

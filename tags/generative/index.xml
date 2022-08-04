@@ -13,10 +13,10 @@
       <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/clojure-spec-test-transducers/</guid>
-      <description>Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.
- Wont cover or explain details, instead show how it can be used.
- Some examples where generated data can be used:
-  Provide generated data through a Rest API endpoint and serve it a JSON.</description>
+      <description>Into A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.
+Wont cover or explain details, instead show how it can be used.
+Some examples where generated data can be used:
+Provide generated data through a Rest API endpoint and serve it a JSON.</description>
     </item>
     
   </channel>

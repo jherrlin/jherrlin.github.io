@@ -7,7 +7,7 @@
 <title>Learn RxJava with Emacs Org mode | jherrlin</title>
 
 <meta property='og:title' content='Learn RxJava with Emacs Org mode - jherrlin'>
-<meta property='og:description' content='Intro   RxJava is a Java library that can be used to create non blocking reactive systems in Java. The mindset of non blocking and how to work with RxJava was a bit hard for me to grasp, and still is! I am by no means a skilled RxJava user. But I have found a tool that helps me on the journey to become a better one. And of course this is Org mode and Emacs.'>
+<meta property='og:description' content='Intro RxJava is a Java library that can be used to create non blocking reactive systems in Java. The mindset of non blocking and how to work with RxJava was a bit hard for me to grasp, and still is! I am by no means a skilled RxJava user. But I have found a tool that helps me on the journey to become a better one. And of course this is Org mode and Emacs.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/rx-java-with-org-mode/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='Java'><meta property='article:tag' content='org'><meta property='article:tag' content='programming'><meta property='article:tag' content='reactive'><meta property='article:tag' content='rxjava'><meta property='article:published_time' content='2021-01-23T11:14:05&#43;02:00'/><meta property='article:modified_time' content='2021-01-23T11:14:05&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -161,8 +161,8 @@ Document properties
    classpaths and imports for RxJava so the compiler and executor know where to
    find them.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+PROPERTY: header-args      :dir src :results output code :wrap example text
-  #+PROPERTY: header-args:java :cmdline -classpath .:src:./rxjava-1.3.8.jar :cmpflag -classpath .:src:./rxjava-1.3.8.jar :imports rx.Observable</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+PROPERTY: header-args      :dir src :results output code :wrap example text
+</span></span><span class="line"><span class="cl">  #+PROPERTY: header-args:java :cmdline -classpath .:src:./rxjava-1.3.8.jar :cmpflag -classpath .:src:./rxjava-1.3.8.jar :imports rx.Observable</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -176,10 +176,10 @@ Dependency and folder hierarchy.
    root. In the root is a directory named <code class="verbatim">src/</code> and inside <code class="verbatim">src/</code> is the RxJava
    lib. You can find the RxJava lib <a href="https://mvnrepository.com/artifact/io.reactivex/rxjava/1.3.8">here</a>.</p>
 <div class="src src-text">
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">.
-├── learn-rx-java.org        # This is the Org file we are in
-├── src                      # Folder where source code will live
-│   ├── rxjava-1.3.8.jar     # Here is the RxJava lib</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── learn-rx-java.org        # This is the Org file we are in
+</span></span><span class="line"><span class="cl">├── src                      # Folder where source code will live
+</span></span><span class="line"><span class="cl">│   ├── rxjava-1.3.8.jar     # Here is the RxJava lib</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -195,17 +195,17 @@ Lets test it out
    Java code there is a result block. That&#39;s the result of the Java code after
    using <code class="verbatim">C-c C-c</code> while standing on the source code block. Pretty neat!</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+PROPERTY: header-args      :dir src :results output code :wrap example text
-  #+PROPERTY: header-args:java :cmdline -classpath .:src:./rxjava-1.3.8.jar :cmpflag -classpath .:src:./rxjava-1.3.8.jar :imports rx.Observable
-
-<span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
-</span><span class="c"></span>    <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&#34;Hey from Org mode&#34;</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  #+begin_example text
-  Hey from Org mode
-  #+end_example</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+PROPERTY: header-args      :dir src :results output code :wrap example text
+</span></span><span class="line"><span class="cl">  #+PROPERTY: header-args:java :cmdline -classpath .:src:./rxjava-1.3.8.jar :cmpflag -classpath .:src:./rxjava-1.3.8.jar :imports rx.Observable
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&#34;Hey from Org mode&#34;</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  #+begin_example text
+</span></span><span class="line"><span class="cl">  Hey from Org mode
+</span></span><span class="line"><span class="cl">  #+end_example</span></span></code></pre></div>
 </div>
 <p>
    But how!? Java needs all the fluff code to run, right? Of course it does! But
@@ -214,12 +214,12 @@ Lets test it out
 <p>
    It created two new files for us. <code class="verbatim">Main.java</code> and <code class="verbatim">Main.class</code>.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">.
-├── learn-rx-java.org
-├── src
-│   ├── Main.class
-│   ├── Main.java
-│   └── rxjava-1.3.8.jar</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── learn-rx-java.org
+</span></span><span class="line"><span class="cl">├── src
+</span></span><span class="line"><span class="cl">│   ├── Main.class
+</span></span><span class="line"><span class="cl">│   ├── Main.java
+</span></span><span class="line"><span class="cl">│   └── rxjava-1.3.8.jar</span></span></code></pre></div>
 </div>
 <p>
    And if we look into the <code class="verbatim">Main.java</code> file we can see the file that Org mode
@@ -230,19 +230,19 @@ Lets test it out
    <code class="verbatim">ob-java</code> have added the needed stuff for us so we don&#39;t need to think about.
    I think that&#39;s terrific when learning!</p>
 <div class="src src-java">
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kn">import</span> <span class="nn">rx.Observable</span><span class="o">;</span>
-
-  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-          <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&#34;Hey from Org mode&#34;</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-      <span class="o">}</span>
-  <span class="o">}</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">  <span class="kn">import</span> <span class="nn">rx.Observable</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&#34;Hey from Org mode&#34;</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span></span></span></code></pre></div>
 </div>
 <p>
    The commands that ob-java executed looks something like this:</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  javac -classpath .:src:./rxjava-1.3.8.jar /home/john/git/blog/src/Main.java
-      <span class="o">&amp;&amp;</span> java -cp /home/john/git/blog/src/ -classpath .:src:./rxjava-1.3.8.jar Main</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  javac -classpath .:src:./rxjava-1.3.8.jar /home/john/git/blog/src/Main.java
+</span></span><span class="line"><span class="cl">      <span class="o">&amp;&amp;</span> java -cp /home/john/git/blog/src/ -classpath .:src:./rxjava-1.3.8.jar Main</span></span></code></pre></div>
 </div>
 <p>
    This is the setup and how stuff works, let&#39;s try out some operators.</p>
@@ -269,16 +269,16 @@ range
    This example is just as small as the <code class="verbatim">just</code> in the setup section. It shows a
    very basic usage of the <code class="verbatim">range</code> operator.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
-</span><span class="c"></span>    <span class="n">Observable</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="n">3</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  #+begin_example text
-  5
-  6
-  7
-  #+end_example</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="n">Observable</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="n">3</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  #+begin_example text
+</span></span><span class="line"><span class="cl">  5
+</span></span><span class="line"><span class="cl">  6
+</span></span><span class="line"><span class="cl">  7
+</span></span><span class="line"><span class="cl">  #+end_example</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -294,24 +294,24 @@ flatMapIterable
    This example is a little bit bigger and use a operation composition to
    transform a list.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
-</span><span class="c"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;India&#34;</span><span class="o">,</span> <span class="s">&#34;China&#34;</span><span class="o">,</span> <span class="s">&#34;Bhutan&#34;</span><span class="o">);</span>
-
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Before: &#34;</span> <span class="o">+</span><span class="n">list</span><span class="o">);</span>
-
-    <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">list</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">flatMapIterable</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">()))</span>
-        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span>  <span class="s">&#34;#-#&#34;</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="s">&#34;#-#&#34;</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">toList</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="o">{</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;After: &#34;</span> <span class="o">+</span> <span class="n">s</span><span class="o">);});</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  #+begin_example text
-  Before: [India, China, Bhutan]
-  After: [#-#india#-#, #-#china#-#, #-#bhutan#-#]
-  #+end_example</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;India&#34;</span><span class="o">,</span> <span class="s">&#34;China&#34;</span><span class="o">,</span> <span class="s">&#34;Bhutan&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Before: &#34;</span> <span class="o">+</span><span class="n">list</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">list</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="na">flatMapIterable</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">()))</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span>  <span class="s">&#34;#-#&#34;</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="s">&#34;#-#&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="na">toList</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="o">{</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;After: &#34;</span> <span class="o">+</span> <span class="n">s</span><span class="o">);});</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  #+begin_example text
+</span></span><span class="line"><span class="cl">  Before: [India, China, Bhutan]
+</span></span><span class="line"><span class="cl">  After: [#-#india#-#, #-#china#-#, #-#bhutan#-#]
+</span></span><span class="line"><span class="cl">  #+end_example</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -329,39 +329,39 @@ flatMap
    The inner Observable is never executed. It only returns a Observable object
    in some memory location.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
-</span><span class="c"></span>    <span class="kn">import static</span> <span class="nn">rx.Observable.just</span><span class="o">;</span>
-
-    <span class="n">just</span><span class="o">(</span><span class="n">just</span><span class="o">(</span><span class="s">&#34;Hejsan&#34;</span><span class="o">)).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  #+begin_example text
-  rx.internal.util.ScalarSynchronousObservable@30946e09
-  #+end_example</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="kn">import static</span> <span class="nn">rx.Observable.just</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">just</span><span class="o">(</span><span class="n">just</span><span class="o">(</span><span class="s">&#34;Hejsan&#34;</span><span class="o">)).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  #+begin_example text
+</span></span><span class="line"><span class="cl">  rx.internal.util.ScalarSynchronousObservable@30946e09
+</span></span><span class="line"><span class="cl">  #+end_example</span></span></code></pre></div>
 </div>
 <p>
    But when adding <code class="verbatim">flatMap</code> to the composition the inner Observable is
    executed.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
-</span><span class="c"></span>    <span class="kn">import static</span> <span class="nn">rx.Observable.just</span><span class="o">;</span>
-
-    <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="nf">myText</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="n">just</span><span class="o">(</span><span class="s">&#34;Hejsan&#34;</span><span class="o">));</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">myText</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  #+begin_example text
-  Hejsan
-  #+end_example</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="kn">import static</span> <span class="nn">rx.Observable.just</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="nf">myText</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="n">just</span><span class="o">(</span><span class="s">&#34;Hejsan&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">myText</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  #+begin_example text
+</span></span><span class="line"><span class="cl">  Hejsan
+</span></span><span class="line"><span class="cl">  #+end_example</span></span></code></pre></div>
 </div>
 <p>
    Here we needed to provide some more context for <code class="verbatim">ob-java</code> to make it
@@ -381,42 +381,42 @@ zip
    where <code class="verbatim">ob-java</code> don&#39;t need to do any changes to our code. It compiles,
    executes the code and provide us with the result.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c"> :results output code
-</span><span class="c"></span>    <span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
-    <span class="kn">import static</span> <span class="nn">rx.Observable.*</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZipExample</span> <span class="o">{</span>
-        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Tenant</span> <span class="o">{</span>
-            <span class="kd">public</span> <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="nf">getTenantId</span><span class="o">(){</span>
-                                     <span class="c1">// Simulate network latency
-</span><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="n">456123L</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
-            <span class="o">}</span>
-
-            <span class="kd">public</span> <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getTenantName</span><span class="o">(){</span>
-                                             <span class="c1">// Simulate network latency
-</span><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="s">&#34;myCamelCompany&#34;</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-
-        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
-            <span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">tenantName</span> <span class="o">=</span> <span class="n">Tenant</span><span class="o">.</span><span class="na">getTenantName</span><span class="o">();</span>
-            <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span>     <span class="n">tenantId</span> <span class="o">=</span> <span class="n">Tenant</span><span class="o">.</span><span class="na">getTenantId</span><span class="o">();</span>
-
-            <span class="n">zip</span><span class="o">(</span><span class="n">tenantName</span><span class="o">,</span> <span class="n">tenantId</span><span class="o">,</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">id</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-                    <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34; / &#34;</span> <span class="o">+</span> <span class="n">id</span><span class="o">;</span>
-                <span class="o">}).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Let&#39;s go!&#34;</span><span class="o">);</span>
-            <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">3</span><span class="o">);</span> <span class="c1">// Dont quit just yet!
-</span><span class="c1"></span>        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  #+begin_example text
-  Let&#39;s go!
-  myCamelCompany / 456123
-  #+end_example</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">import static</span> <span class="nn">rx.Observable.*</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZipExample</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Tenant</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">public</span> <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="nf">getTenantId</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">                                     <span class="c1">// Simulate network latency
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="n">456123L</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kd">public</span> <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getTenantName</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">                                             <span class="c1">// Simulate network latency
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="s">&#34;myCamelCompany&#34;</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">tenantName</span> <span class="o">=</span> <span class="n">Tenant</span><span class="o">.</span><span class="na">getTenantName</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span>     <span class="n">tenantId</span> <span class="o">=</span> <span class="n">Tenant</span><span class="o">.</span><span class="na">getTenantId</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">zip</span><span class="o">(</span><span class="n">tenantName</span><span class="o">,</span> <span class="n">tenantId</span><span class="o">,</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">id</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34; / &#34;</span> <span class="o">+</span> <span class="n">id</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Let&#39;s go!&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">3</span><span class="o">);</span> <span class="c1">// Dont quit just yet!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  #+begin_example text
+</span></span><span class="line"><span class="cl">  Let&#39;s go!
+</span></span><span class="line"><span class="cl">  myCamelCompany / 456123
+</span></span><span class="line"><span class="cl">  #+end_example</span></span></code></pre></div>
 </div>
 </div>
 </div>

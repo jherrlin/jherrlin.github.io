@@ -7,8 +7,9 @@
 <title>Learn AWK with Emacs | jherrlin</title>
 
 <meta property='og:title' content='Learn AWK with Emacs - jherrlin'>
-<meta property='og:description' content='Intro   This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&#39;t cover details on how to use Emacs, Org mode or Org-drill. It&#39;s intention is to provide a general overview of a workflow.
- A git repo is available with flash cards, note book and some text files here.'>
+<meta property='og:description' content='Intro This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&#39;t cover details on how to use Emacs, Org mode or Org-drill. It&#39;s intention is to provide a general overview of a workflow.
+A git repo is available with flash cards, note book and some text files here.
+Content I just read a few chapters in the &#34;The AWK programming language&#34; book and found AWK to be awesome and I want to learn more of the language.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/learn-awk/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='awk'><meta property='article:tag' content='learning'><meta property='article:tag' content='org'><meta property='article:tag' content='org-drill'><meta property='article:tag' content='programming'><meta property='article:tag' content='language'><meta property='article:published_time' content='2020-07-20T00:00:00Z'/><meta property='article:modified_time' content='2020-07-20T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -176,21 +177,11 @@ Content
 <p>
   The learning workflow looks like this:</p>
 <ol>
-<li>
-<p>Open 2 Emacs sessions</p>
-</li>
-<li>
-<p>Open the file containing the flash cards in one session</p>
-</li>
-<li>
-<p>Open a note book file in the other</p>
-</li>
-<li>
-<p>Start org-drill in the flash cards session</p>
-</li>
-<li>
-<p>Write your answers in the note book session</p>
-</li>
+<li>Open 2 Emacs sessions</li>
+<li>Open the file containing the flash cards in one session</li>
+<li>Open a note book file in the other</li>
+<li>Start org-drill in the flash cards session</li>
+<li>Write your answers in the note book session</li>
 </ol>
 <p>Together with the note book file and the flash cards are a couple of text files. The text
   files are examples of the &#34;famous&#34; files. The note book file contains Org mode source
@@ -199,9 +190,9 @@ Content
 <p>
   A source block inside the note book file looks like this.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results output code :in-file ./text-files/access.log
-</span><span class="c"></span>  <span class="p">{</span> <span class="kr">print</span> <span class="p">}</span>
-<span class="c">#+END_SRC</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results output code :in-file ./text-files/access.log
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="p">{</span> <span class="kr">print</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span></span></span></code></pre></div>
 </div>
 <p>
   It tells that the language to evaluated is AWK. Results should be inserted in the note
@@ -217,19 +208,19 @@ Content
   from 1-5. Depending how you rate your answer, org-drill will set a date for the next time
   the question should appear.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results output code :in-file ./text-files/access.log
-</span><span class="c"></span>  <span class="p">{</span> <span class="nx">ips</span><span class="p">[</span><span class="o">$</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span> <span class="p">}</span>
-  <span class="nb">END</span> <span class="p">{</span> <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">in</span> <span class="nx">ips</span><span class="p">)</span> <span class="p">{</span> <span class="kr">print</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ips</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">|</span> <span class="s2">&#34;sort -rk 2,2&#34;</span><span class="p">}}</span>
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">awk</span><span class="c">
-</span><span class="c"></span><span class="mf">121.204</span><span class="p">.</span><span class="mf">106.181</span> <span class="mi">8</span>
-<span class="mf">191.54</span><span class="p">.</span><span class="mf">160.135</span> <span class="mi">7</span>
-<span class="mf">111.185</span><span class="p">.</span><span class="mf">35.101</span> <span class="mi">1</span>
-<span class="mf">111.85</span><span class="p">.</span><span class="mf">5.44</span> <span class="mi">1</span>
-<span class="mf">101.11</span><span class="p">.</span><span class="mf">117.117</span> <span class="mi">1</span>
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results output code :in-file ./text-files/access.log
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="p">{</span> <span class="nx">ips</span><span class="p">[</span><span class="o">$</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">END</span> <span class="p">{</span> <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">in</span> <span class="nx">ips</span><span class="p">)</span> <span class="p">{</span> <span class="kr">print</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ips</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">|</span> <span class="s2">&#34;sort -rk 2,2&#34;</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">awk</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="mf">121.204</span><span class="p">.</span><span class="mf">106.181</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="mf">191.54</span><span class="p">.</span><span class="mf">160.135</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl"><span class="mf">111.185</span><span class="p">.</span><span class="mf">35.101</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mf">111.85</span><span class="p">.</span><span class="mf">5.44</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mf">101.11</span><span class="p">.</span><span class="mf">117.117</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 <p>
   Below is an example on how the flash card looks. If you know basic with Org mode this
@@ -237,25 +228,25 @@ Content
   database or weird stuff. Just plain text that is easy to search in and easy to version
   control.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="gu">**</span> Print line 7 to 10 of file                                    <span class="ge"> :awk:drill:</span>
-
-   How do you print line 7 to 10 with a range pattern?
-
-   :in-file ./text-files/ledger.ledger
-
-<span class="gu">***</span> Answer
-
-<span class="c">    #+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results output code :in-file ./text-files/ledger.ledger
-</span><span class="c"></span>      <span class="nb">FNR</span><span class="o">==</span><span class="mi">7</span><span class="p">,</span><span class="nb">FNR</span><span class="o">==</span><span class="mi">10</span>
-<span class="c">    #+END_SRC</span>
-
-    #+RESULTS:
-<span class="c">    #+begin_src </span><span class="cs">awk</span><span class="c">
-</span><span class="c"></span>    <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">17</span> <span class="o">*</span> <span class="nx">Dustin</span><span class="p">.</span> <span class="nx">Köp</span> <span class="nx">av</span> <span class="nx">tangentbord</span><span class="p">.</span>
-       <span class="p">;;</span> <span class="o">~</span><span class="err">/company/incomming-invoices/2020/2020-04-17-lenovo-keyboard-swedbank-transaction.pdf</span>
-       <span class="mi">2</span><span class="err">:</span><span class="mi">4</span><span class="err">:</span><span class="mi">4</span><span class="err">:</span><span class="mi">0</span>                                   <span class="mf">667.00</span> <span class="nx">SEK</span>
-       <span class="mi">2</span><span class="err">:</span><span class="mi">0</span><span class="err">:</span><span class="mi">1</span><span class="err">:</span><span class="mi">8</span>                                  <span class="o">-</span><span class="mf">667.00</span> <span class="nx">SEK</span>
-<span class="c">    #+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="gu">**</span> Print line 7 to 10 of file                                    <span class="ge"> :awk:drill:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   How do you print line 7 to 10 with a range pattern?
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   :in-file ./text-files/ledger.ledger
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">***</span> Answer
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">awk</span><span class="c"> :results output code :in-file ./text-files/ledger.ledger
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      <span class="nb">FNR</span><span class="o">==</span><span class="mi">7</span><span class="p">,</span><span class="nb">FNR</span><span class="o">==</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">    #+begin_src </span><span class="cs">awk</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">17</span> <span class="o">*</span> <span class="nx">Dustin</span><span class="p">.</span> <span class="nx">Köp</span> <span class="nx">av</span> <span class="nx">tangentbord</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">       <span class="p">;;</span> <span class="o">~</span><span class="err">/company/incomming-invoices/2020/2020-04-17-lenovo-keyboard-swedbank-transaction.pdf</span>
+</span></span><span class="line"><span class="cl">       <span class="mi">2</span><span class="err">:</span><span class="mi">4</span><span class="err">:</span><span class="mi">4</span><span class="err">:</span><span class="mi">0</span>                                   <span class="mf">667.00</span> <span class="nx">SEK</span>
+</span></span><span class="line"><span class="cl">       <span class="mi">2</span><span class="err">:</span><span class="mi">0</span><span class="err">:</span><span class="mi">1</span><span class="err">:</span><span class="mi">8</span>                                  <span class="o">-</span><span class="mf">667.00</span> <span class="nx">SEK</span>
+</span></span><span class="line"><span class="cl"><span class="c">    #+end_src</span></span></span></code></pre></div>
 </div>
 <p>
   This kind of setup for learning languages feels very appealing to me. I think that AWK
@@ -268,24 +259,12 @@ Content
 <p>
   Here are a couple of resources related to the post:</p>
 <ul>
-<li>
-<p><a href="https://ia802309.us.archive.org/25/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf">The AWK programming language book</a></p>
-</li>
-<li>
-<p><a href="https://www.gnu.org/software/gawk/">Gnus AWK implementation called GAWK</a></p>
-</li>
-<li>
-<p><a href="https://github.com/jherrlin/learn-awk">GitHub project that implements the ideas</a></p>
-</li>
-<li>
-<p><a href="https://www.gnu.org/software/emacs/">Emacs</a></p>
-</li>
-<li>
-<p><a href="https://orgmode.org/">Org mode</a></p>
-</li>
-<li>
-<p><a href="https://orgmode.org/worg/org-contrib/org-drill.html">Org-drill</a></p>
-</li>
+<li><a href="https://ia802309.us.archive.org/25/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf">The AWK programming language book</a></li>
+<li><a href="https://www.gnu.org/software/gawk/">Gnus AWK implementation called GAWK</a></li>
+<li><a href="https://github.com/jherrlin/learn-awk">GitHub project that implements the ideas</a></li>
+<li><a href="https://www.gnu.org/software/emacs/">Emacs</a></li>
+<li><a href="https://orgmode.org/">Org mode</a></li>
+<li><a href="https://orgmode.org/worg/org-contrib/org-drill.html">Org-drill</a></li>
 </ul>
 <p>
   Here is a gif showing the learning workflow.</p>

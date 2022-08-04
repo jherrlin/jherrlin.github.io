@@ -13,9 +13,9 @@
       <pubDate>Wed, 22 Jul 2020 11:14:05 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks2/</guid>
-      <description>Intro   This is the third post in a series about Emacs Org mode and the second about source code blocks.
- The last post about source code blocks (blocks from now on) covered org document variables, named blocks and combining blocks.
- This post will focus on how and where block result output will end up. It won&amp;#39;t cover all of the arguments and features as I don&amp;#39;t use all of them.</description>
+      <description>Intro This is the third post in a series about Emacs Org mode and the second about source code blocks.
+The last post about source code blocks (blocks from now on) covered org document variables, named blocks and combining blocks.
+This post will focus on how and where block result output will end up. It won&amp;#39;t cover all of the arguments and features as I don&amp;#39;t use all of them.</description>
     </item>
     
     <item>
@@ -24,8 +24,8 @@
       <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-tables/</guid>
-      <description>Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
- Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &amp;#34;Emacs Org mode source blocks&amp;#34;) or used in calculations.</description>
+      <description>Intro This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
+Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &amp;#34;Emacs Org mode source blocks&amp;#34;) or used in calculations.</description>
     </item>
     
     <item>
@@ -34,8 +34,8 @@
       <pubDate>Mon, 15 Jun 2020 13:18:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/</guid>
-      <description>Post updates    [2020-06-23] New section. &amp;#34;Combine source blocks&amp;#34;
-    Intro   It&amp;#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.</description>
+      <description>Post updates [2020-06-23] New section. &amp;#34;Combine source blocks&amp;#34; Intro It&amp;#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
+One of the features I&amp;#39;ve been using very frequently is source blocks.</description>
     </item>
     
   </channel>

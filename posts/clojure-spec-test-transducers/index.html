@@ -7,10 +7,10 @@
 <title>Quick overview of Clojure spec, test.check and transducers | jherrlin</title>
 
 <meta property='og:title' content='Quick overview of Clojure spec, test.check and transducers - jherrlin'>
-<meta property='og:description' content='Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.
- Wont cover or explain details, instead show how it can be used.
- Some examples where generated data can be used:
-  Provide generated data through a Rest API endpoint and serve it a JSON.'>
+<meta property='og:description' content='Into A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.
+Wont cover or explain details, instead show how it can be used.
+Some examples where generated data can be used:
+Provide generated data through a Rest API endpoint and serve it a JSON.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/clojure-spec-test-transducers/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='test'><meta property='article:tag' content='spec'><meta property='article:tag' content='clojure'><meta property='article:tag' content='transducers'><meta property='article:tag' content='generative'><meta property='article:tag' content='programming'><meta property='article:published_time' content='2020-05-22T23:47:13&#43;02:00'/><meta property='article:modified_time' content='2020-05-22T23:47:13&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -140,16 +140,10 @@ Into
 <p>
   Some examples where generated data can be used:</p>
 <ul>
-<li>
-<p>Provide generated data through a Rest API endpoint and serve it a JSON. Good starting
-point before you have data in your app.</p>
-</li>
-<li>
-<p>Use in tests.</p>
-</li>
-<li>
-<p>In Clojures fdef&#39;s to bulletproof your functions.</p>
-</li>
+<li>Provide generated data through a Rest API endpoint and serve it a JSON. Good starting
+point before you have data in your app.</li>
+<li>Use in tests.</li>
+<li>In Clojures fdef&#39;s to bulletproof your functions.</li>
 </ul>
 </div>
 </div>
@@ -161,8 +155,8 @@ Dependencies
 <p>
   <a href="https://clojure.org/guides/deps_and_cli">Clojure Deps</a> handles dependencies. The <code class="verbatim">deps.edn</code> looks like this:</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">{</span><span class="ss">:deps</span> <span class="p">{</span><span class="nv">org.clojure/clojure</span> <span class="p">{</span><span class="ss">:mvn/version</span> <span class="s">&#34;1.10.1&#34;</span><span class="p">}</span>
-          <span class="nv">org.clojure/test.check</span> <span class="p">{</span><span class="ss">:mvn/version</span> <span class="s">&#34;0.10.0&#34;</span><span class="p">}}}</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">{</span><span class="ss">:deps</span> <span class="p">{</span><span class="nv">org.clojure/clojure</span> <span class="p">{</span><span class="ss">:mvn/version</span> <span class="s">&#34;1.10.1&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="nv">org.clojure/test.check</span> <span class="p">{</span><span class="ss">:mvn/version</span> <span class="s">&#34;0.10.0&#34;</span><span class="p">}}}</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -174,10 +168,10 @@ Require
 <p>
   Start by require the needed namespaces.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">require</span> <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:as</span> <span class="nv">str</span><span class="p">]</span>
-           <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.spec.alpha</span> <span class="ss">:as</span> <span class="nv">s</span><span class="p">]</span>
-           <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.spec.test.alpha</span> <span class="ss">:as</span> <span class="nv">stest</span><span class="p">]</span>
-           <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.test.check.generators</span> <span class="ss">:as</span> <span class="nv">gen</span><span class="p">])</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">require</span> <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.string</span> <span class="ss">:as</span> <span class="nv">str</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">           <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.spec.alpha</span> <span class="ss">:as</span> <span class="nv">s</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">           <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.spec.test.alpha</span> <span class="ss">:as</span> <span class="nv">stest</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">           <span class="o">&#39;</span><span class="p">[</span><span class="nv">clojure.test.check.generators</span> <span class="ss">:as</span> <span class="nv">gen</span><span class="p">])</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -192,51 +186,51 @@ Specs
   Each attribute have a generator that knows how to generate appropriate data with a
   likelihood.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::non-blank-string</span> <span class="p">(</span><span class="nf">s/and</span> <span class="nb">string? </span><span class="p">(</span><span class="nb">complement </span><span class="nv">str/blank?</span><span class="p">)))</span>
-
-  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::known-email-providers</span> <span class="o">#</span><span class="p">{</span><span class="s">&#34;gmail.com&#34;</span> <span class="s">&#34;live.se&#34;</span> <span class="s">&#34;protonmail.com&#34;</span><span class="p">})</span>
-
-  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::random-email-providers</span>
-    <span class="p">(</span><span class="nf">s/with-gen</span>
-      <span class="p">(</span><span class="nf">s/and</span> <span class="nb">string? </span><span class="o">#</span><span class="p">(</span><span class="nb">re-matches </span><span class="o">#</span><span class="s">&#34;.+\..+&#34;</span> <span class="nv">%</span><span class="p">))</span>
-      <span class="o">#</span><span class="p">(</span><span class="nf">gen/fmap</span> <span class="p">(</span><span class="k">fn </span><span class="p">[[</span><span class="nv">a</span> <span class="nv">b</span><span class="p">]]</span> <span class="p">(</span><span class="nb">str </span><span class="nv">a</span> <span class="s">&#34;.&#34;</span> <span class="nv">b</span><span class="p">))</span>
-                 <span class="p">(</span><span class="nf">gen/tuple</span>
-                  <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::non-blank-string</span><span class="p">)</span>
-                  <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::non-blank-string</span><span class="p">)))))</span>
-
-  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">:person/name</span>
-    <span class="p">(</span><span class="nf">s/with-gen</span>
-      <span class="ss">::non-blank-string</span>
-      <span class="o">#</span><span class="p">(</span><span class="nf">gen/frequency</span> <span class="p">[[</span><span class="mi">3</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::non-blank-string</span><span class="p">)]</span>
-                       <span class="p">[</span><span class="mi">7</span> <span class="p">(</span><span class="nf">gen/elements</span> <span class="p">[</span><span class="s">&#34;Ann&#34;</span> <span class="s">&#34;Anna&#34;</span> <span class="s">&#34;Hanna&#34;</span> <span class="s">&#34;Johanna&#34;</span> <span class="s">&#34;Erik&#34;</span><span class="p">])]])))</span>
-
-  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">:person/email</span>
-    <span class="p">(</span><span class="nf">s/with-gen</span>
-      <span class="p">(</span><span class="nf">s/and</span> <span class="nb">string? </span><span class="o">#</span><span class="p">(</span><span class="nb">re-matches </span><span class="o">#</span><span class="s">&#34;.+@.+\..+&#34;</span> <span class="nv">%</span><span class="p">))</span>
-      <span class="o">#</span><span class="p">(</span><span class="nf">gen/fmap</span>
-        <span class="p">(</span><span class="k">fn </span><span class="p">[[</span><span class="nv">a</span> <span class="nv">b</span><span class="p">]]</span> <span class="p">(</span><span class="nb">str </span><span class="nv">a</span> <span class="s">&#34;@&#34;</span> <span class="nv">b</span><span class="p">))</span>
-        <span class="p">(</span><span class="nf">gen/tuple</span>
-         <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::non-blank-string</span><span class="p">)</span>
-         <span class="p">(</span><span class="nf">gen/frequency</span> <span class="p">[[</span><span class="mi">5</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::known-email-providers</span><span class="p">)]</span>
-                         <span class="p">[</span><span class="mi">5</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::random-email-providers</span><span class="p">)]])))))</span>
-
-  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">:person/born</span>
-    <span class="p">(</span><span class="nf">s/with-gen</span>
-      <span class="p">(</span><span class="nf">s/int-in</span> <span class="mi">1800</span> <span class="mi">2500</span><span class="p">)</span>
-      <span class="o">#</span><span class="p">(</span><span class="nf">gen/frequency</span> <span class="p">[[</span><span class="mi">5</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="p">(</span><span class="nf">s/int-in</span> <span class="mi">1800</span> <span class="mi">2020</span><span class="p">))]</span>
-                       <span class="p">[</span><span class="mi">5</span> <span class="p">(</span><span class="nf">gen/choose</span> <span class="mi">1985</span> <span class="mi">1987</span><span class="p">)]])))</span>
-
-  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::person</span>
-    <span class="p">(</span><span class="nf">s/keys</span> <span class="ss">:req</span> <span class="p">[</span><span class="ss">:person/name</span>
-                  <span class="ss">:person/email</span>
-                  <span class="ss">:person/born</span><span class="p">]))</span>
-
-  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">:person/age</span> <span class="p">(</span><span class="nf">s/int-in</span> <span class="mi">1</span> <span class="mi">150</span><span class="p">))</span>
-
-  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::person-with-age</span>
-    <span class="p">(</span><span class="nf">s/merge</span>
-     <span class="ss">::person</span>
-     <span class="p">(</span><span class="nf">s/keys</span> <span class="ss">:req</span> <span class="p">[</span><span class="ss">:person/age</span><span class="p">])))</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::non-blank-string</span> <span class="p">(</span><span class="nf">s/and</span> <span class="nb">string? </span><span class="p">(</span><span class="nb">complement </span><span class="nv">str/blank?</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::known-email-providers</span> <span class="o">#</span><span class="p">{</span><span class="s">&#34;gmail.com&#34;</span> <span class="s">&#34;live.se&#34;</span> <span class="s">&#34;protonmail.com&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::random-email-providers</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">s/with-gen</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nf">s/and</span> <span class="nb">string? </span><span class="o">#</span><span class="p">(</span><span class="nb">re-matches </span><span class="o">#</span><span class="s">&#34;.+\..+&#34;</span> <span class="nv">%</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="o">#</span><span class="p">(</span><span class="nf">gen/fmap</span> <span class="p">(</span><span class="k">fn </span><span class="p">[[</span><span class="nv">a</span> <span class="nv">b</span><span class="p">]]</span> <span class="p">(</span><span class="nb">str </span><span class="nv">a</span> <span class="s">&#34;.&#34;</span> <span class="nv">b</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                 <span class="p">(</span><span class="nf">gen/tuple</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::non-blank-string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::non-blank-string</span><span class="p">)))))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">:person/name</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">s/with-gen</span>
+</span></span><span class="line"><span class="cl">      <span class="ss">::non-blank-string</span>
+</span></span><span class="line"><span class="cl">      <span class="o">#</span><span class="p">(</span><span class="nf">gen/frequency</span> <span class="p">[[</span><span class="mi">3</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::non-blank-string</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">                       <span class="p">[</span><span class="mi">7</span> <span class="p">(</span><span class="nf">gen/elements</span> <span class="p">[</span><span class="s">&#34;Ann&#34;</span> <span class="s">&#34;Anna&#34;</span> <span class="s">&#34;Hanna&#34;</span> <span class="s">&#34;Johanna&#34;</span> <span class="s">&#34;Erik&#34;</span><span class="p">])]])))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">:person/email</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">s/with-gen</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nf">s/and</span> <span class="nb">string? </span><span class="o">#</span><span class="p">(</span><span class="nb">re-matches </span><span class="o">#</span><span class="s">&#34;.+@.+\..+&#34;</span> <span class="nv">%</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="o">#</span><span class="p">(</span><span class="nf">gen/fmap</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">fn </span><span class="p">[[</span><span class="nv">a</span> <span class="nv">b</span><span class="p">]]</span> <span class="p">(</span><span class="nb">str </span><span class="nv">a</span> <span class="s">&#34;@&#34;</span> <span class="nv">b</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nf">gen/tuple</span>
+</span></span><span class="line"><span class="cl">         <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::non-blank-string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         <span class="p">(</span><span class="nf">gen/frequency</span> <span class="p">[[</span><span class="mi">5</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::known-email-providers</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">                         <span class="p">[</span><span class="mi">5</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::random-email-providers</span><span class="p">)]])))))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">:person/born</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">s/with-gen</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nf">s/int-in</span> <span class="mi">1800</span> <span class="mi">2500</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">#</span><span class="p">(</span><span class="nf">gen/frequency</span> <span class="p">[[</span><span class="mi">5</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="p">(</span><span class="nf">s/int-in</span> <span class="mi">1800</span> <span class="mi">2020</span><span class="p">))]</span>
+</span></span><span class="line"><span class="cl">                       <span class="p">[</span><span class="mi">5</span> <span class="p">(</span><span class="nf">gen/choose</span> <span class="mi">1985</span> <span class="mi">1987</span><span class="p">)]])))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::person</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">s/keys</span> <span class="ss">:req</span> <span class="p">[</span><span class="ss">:person/name</span>
+</span></span><span class="line"><span class="cl">                  <span class="ss">:person/email</span>
+</span></span><span class="line"><span class="cl">                  <span class="ss">:person/born</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">:person/age</span> <span class="p">(</span><span class="nf">s/int-in</span> <span class="mi">1</span> <span class="mi">150</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/def</span> <span class="ss">::person-with-age</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">s/merge</span>
+</span></span><span class="line"><span class="cl">     <span class="ss">::person</span>
+</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="nf">s/keys</span> <span class="ss">:req</span> <span class="p">[</span><span class="ss">:person/age</span><span class="p">])))</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -248,31 +242,31 @@ Generate
 <p>
   Generate a single entity.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">gen/generate</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::person</span><span class="p">))</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">gen/generate</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::person</span><span class="p">))</span></span></span></code></pre></div>
 </div>
 <p>
   Result.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Johanna&#34;</span>,
-           <span class="ss">:email</span> <span class="s">&#34;5g29n6pytf1Ze4Wa47e5Ff2Wv@live.se&#34;</span>,
-           <span class="ss">:born</span> <span class="mi">1986</span><span class="p">}</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Johanna&#34;</span>,
+</span></span><span class="line"><span class="cl">           <span class="ss">:email</span> <span class="s">&#34;5g29n6pytf1Ze4Wa47e5Ff2Wv@live.se&#34;</span>,
+</span></span><span class="line"><span class="cl">           <span class="ss">:born</span> <span class="mi">1986</span><span class="p">}</span></span></span></code></pre></div>
 </div>
 <p>
   Generate a collection with 100 entities.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">gen/sample</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::person</span><span class="p">)</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">gen/sample</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::person</span><span class="p">)</span> <span class="mi">100</span><span class="p">)</span></span></span></code></pre></div>
 </div>
 <p>
   Results are truncated.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;t@gmail.com&#34;</span>, <span class="ss">:born</span> <span class="mi">1800</span><span class="p">}</span>
-   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;1@1.V&#34;</span>, <span class="ss">:born</span> <span class="mi">1985</span><span class="p">}</span>
-   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;E&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;V@gmail.com&#34;</span>, <span class="ss">:born</span> <span class="mi">1800</span><span class="p">}</span>
-   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Erik&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;c@live.se&#34;</span>, <span class="ss">:born</span> <span class="mi">1987</span><span class="p">}</span>
-   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Erik&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;OSW@Xc.AO7D&#34;</span>, <span class="ss">:born</span> <span class="mi">1987</span><span class="p">}</span>
-   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;wKoGD@T34.6U2&#34;</span>, <span class="ss">:born</span> <span class="mi">1985</span><span class="p">}</span>
-   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;C0q082&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;q@e7RR7N.P5ED&#34;</span>, <span class="ss">:born</span> <span class="mi">1800</span><span class="p">}</span>
-   ,,,<span class="p">)</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">(</span><span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;t@gmail.com&#34;</span>, <span class="ss">:born</span> <span class="mi">1800</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;1@1.V&#34;</span>, <span class="ss">:born</span> <span class="mi">1985</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;E&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;V@gmail.com&#34;</span>, <span class="ss">:born</span> <span class="mi">1800</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Erik&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;c@live.se&#34;</span>, <span class="ss">:born</span> <span class="mi">1987</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Erik&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;OSW@Xc.AO7D&#34;</span>, <span class="ss">:born</span> <span class="mi">1987</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;wKoGD@T34.6U2&#34;</span>, <span class="ss">:born</span> <span class="mi">1985</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;C0q082&#34;</span>, <span class="ss">:email</span> <span class="s">&#34;q@e7RR7N.P5ED&#34;</span>, <span class="ss">:born</span> <span class="mi">1800</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">   ,,,<span class="p">)</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -284,15 +278,15 @@ Validate
 <p>
   Lets validate data against a spec.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="nf">s/valid?</span> <span class="ss">::person</span>
-            <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Johanna&#34;</span>,
-                     <span class="ss">:email</span> <span class="s">&#34;5g29n6pytf1Ze4Wa47e5Ff2Wv@live.se&#34;</span>,
-                     <span class="ss">:born</span> <span class="mi">1986</span><span class="p">})</span>
-  <span class="c1">;; =&gt; true</span>
-
-  <span class="p">(</span><span class="nf">s/valid?</span> <span class="ss">::person</span>
-            <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Someone&#34;</span><span class="p">})</span>
-  <span class="c1">;; =&gt; false</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/valid?</span> <span class="ss">::person</span>
+</span></span><span class="line"><span class="cl">            <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Johanna&#34;</span>,
+</span></span><span class="line"><span class="cl">                     <span class="ss">:email</span> <span class="s">&#34;5g29n6pytf1Ze4Wa47e5Ff2Wv@live.se&#34;</span>,
+</span></span><span class="line"><span class="cl">                     <span class="ss">:born</span> <span class="mi">1986</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">;; =&gt; true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/valid?</span> <span class="ss">::person</span>
+</span></span><span class="line"><span class="cl">            <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Someone&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">;; =&gt; false</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -306,43 +300,43 @@ Transducers
   filter out persons that have a name that contains &#34;ann&#34; and are born in 1985 or 1986 and
   uses proton as a mail provider. Set their current age and take 3 of them.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="kd">defn </span><span class="nv">person-name-contains</span> <span class="p">[</span><span class="nv">s</span><span class="p">]</span>
-    <span class="p">(</span><span class="nb">filter </span><span class="p">(</span><span class="nb">comp </span><span class="o">#</span><span class="p">(</span><span class="nb">re-matches </span><span class="p">(</span><span class="nb">re-pattern </span><span class="p">(</span><span class="nb">str </span><span class="s">&#34;(?i).*&#34;</span> <span class="nv">s</span> <span class="s">&#34;.*&#34;</span><span class="p">))</span> <span class="nv">%</span><span class="p">)</span> <span class="ss">:person/name</span><span class="p">)))</span>
-
-  <span class="p">(</span><span class="kd">defn </span><span class="nv">person-born-in-years</span> <span class="p">[</span><span class="nv">years-set</span><span class="p">]</span>
-    <span class="p">(</span><span class="nb">filter </span><span class="p">(</span><span class="nb">comp </span><span class="nv">years-set</span> <span class="ss">:person/born</span><span class="p">)))</span>
-
-  <span class="p">(</span><span class="kd">defn </span><span class="nv">person-email-provider</span> <span class="p">[</span><span class="nv">provider</span><span class="p">]</span>
-    <span class="p">(</span><span class="nb">filter </span><span class="p">(</span><span class="nb">comp </span><span class="o">#</span><span class="p">(</span><span class="nb">re-matches </span><span class="p">(</span><span class="nb">re-pattern </span><span class="p">(</span><span class="nb">str </span><span class="s">&#34;(?i).*&#34;</span> <span class="nv">provider</span> <span class="s">&#34;.*&#34;</span><span class="p">))</span> <span class="nv">%</span><span class="p">)</span> <span class="ss">:person/email</span><span class="p">)))</span>
-
-  <span class="p">(</span><span class="kd">defn </span><span class="nv">calc-person-age</span> <span class="p">[]</span>
-    <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="k">fn </span><span class="p">[{</span><span class="ss">:person/keys</span> <span class="p">[</span><span class="nv">born</span><span class="p">]</span> <span class="ss">:as</span> <span class="nv">p</span><span class="p">}]</span> <span class="p">(</span><span class="nb">assoc </span><span class="nv">p</span> <span class="ss">:person/age</span> <span class="p">(</span><span class="nb">- </span><span class="mi">2020</span> <span class="nv">born</span><span class="p">)))))</span>
-
-  <span class="p">(</span><span class="k">def </span><span class="nv">xf</span>
-    <span class="p">(</span><span class="nf">comp</span>
-     <span class="p">(</span><span class="nf">calc-person-age</span><span class="p">)</span>
-     <span class="p">(</span><span class="nf">person-name-contains</span> <span class="s">&#34;ann&#34;</span><span class="p">)</span>
-     <span class="p">(</span><span class="nf">person-born-in-years</span> <span class="o">#</span><span class="p">{</span><span class="mi">1985</span> <span class="mi">1986</span><span class="p">})</span>
-     <span class="p">(</span><span class="nf">person-email-provider</span> <span class="s">&#34;protonmail&#34;</span><span class="p">)</span>
-     <span class="p">(</span><span class="nb">take </span><span class="mi">3</span><span class="p">)))</span>
-
-  <span class="p">(</span><span class="nb">into </span><span class="p">[]</span> <span class="nv">xf</span> <span class="p">(</span><span class="nf">gen/sample</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::person</span><span class="p">)</span> <span class="mi">1000</span><span class="p">))</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">(</span><span class="kd">defn </span><span class="nv">person-name-contains</span> <span class="p">[</span><span class="nv">s</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nb">filter </span><span class="p">(</span><span class="nb">comp </span><span class="o">#</span><span class="p">(</span><span class="nb">re-matches </span><span class="p">(</span><span class="nb">re-pattern </span><span class="p">(</span><span class="nb">str </span><span class="s">&#34;(?i).*&#34;</span> <span class="nv">s</span> <span class="s">&#34;.*&#34;</span><span class="p">))</span> <span class="nv">%</span><span class="p">)</span> <span class="ss">:person/name</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="kd">defn </span><span class="nv">person-born-in-years</span> <span class="p">[</span><span class="nv">years-set</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nb">filter </span><span class="p">(</span><span class="nb">comp </span><span class="nv">years-set</span> <span class="ss">:person/born</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="kd">defn </span><span class="nv">person-email-provider</span> <span class="p">[</span><span class="nv">provider</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nb">filter </span><span class="p">(</span><span class="nb">comp </span><span class="o">#</span><span class="p">(</span><span class="nb">re-matches </span><span class="p">(</span><span class="nb">re-pattern </span><span class="p">(</span><span class="nb">str </span><span class="s">&#34;(?i).*&#34;</span> <span class="nv">provider</span> <span class="s">&#34;.*&#34;</span><span class="p">))</span> <span class="nv">%</span><span class="p">)</span> <span class="ss">:person/email</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="kd">defn </span><span class="nv">calc-person-age</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="k">fn </span><span class="p">[{</span><span class="ss">:person/keys</span> <span class="p">[</span><span class="nv">born</span><span class="p">]</span> <span class="ss">:as</span> <span class="nv">p</span><span class="p">}]</span> <span class="p">(</span><span class="nb">assoc </span><span class="nv">p</span> <span class="ss">:person/age</span> <span class="p">(</span><span class="nb">- </span><span class="mi">2020</span> <span class="nv">born</span><span class="p">)))))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="k">def </span><span class="nv">xf</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">comp</span>
+</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="nf">calc-person-age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="nf">person-name-contains</span> <span class="s">&#34;ann&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="nf">person-born-in-years</span> <span class="o">#</span><span class="p">{</span><span class="mi">1985</span> <span class="mi">1986</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="nf">person-email-provider</span> <span class="s">&#34;protonmail&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="nb">take </span><span class="mi">3</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">into </span><span class="p">[]</span> <span class="nv">xf</span> <span class="p">(</span><span class="nf">gen/sample</span> <span class="p">(</span><span class="nf">s/gen</span> <span class="ss">::person</span><span class="p">)</span> <span class="mi">1000</span><span class="p">))</span></span></span></code></pre></div>
 </div>
 <p>
   This is the results.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">[</span><span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>,
-          <span class="ss">:email</span> <span class="s">&#34;Tz77Z1sFXL6kO1fnojYy8@protonmail.org&#34;</span>,
-          <span class="ss">:born</span> <span class="mi">1985</span>,
-          <span class="ss">:age</span> <span class="mi">35</span><span class="p">}</span>
- <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Hanna&#34;</span>,
-          <span class="ss">:email</span> <span class="s">&#34;O@protonmail.org&#34;</span>,
-          <span class="ss">:born</span> <span class="mi">1985</span>,
-          <span class="ss">:age</span> <span class="mi">35</span><span class="p">}</span>
- <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Anna&#34;</span>,
-          <span class="ss">:email</span> <span class="s">&#34;Jq29sl1l2yoLmL42W3whqO4i8YtVJ@protonmail.org&#34;</span>,
-          <span class="ss">:born</span> <span class="mi">1986</span>,
-          <span class="ss">:age</span> <span class="mi">34</span><span class="p">}]</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">[</span><span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Ann&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="ss">:email</span> <span class="s">&#34;Tz77Z1sFXL6kO1fnojYy8@protonmail.org&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="ss">:born</span> <span class="mi">1985</span>,
+</span></span><span class="line"><span class="cl">          <span class="ss">:age</span> <span class="mi">35</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Hanna&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="ss">:email</span> <span class="s">&#34;O@protonmail.org&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="ss">:born</span> <span class="mi">1985</span>,
+</span></span><span class="line"><span class="cl">          <span class="ss">:age</span> <span class="mi">35</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="o">#</span><span class="ss">:person</span><span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;Anna&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="ss">:email</span> <span class="s">&#34;Jq29sl1l2yoLmL42W3whqO4i8YtVJ@protonmail.org&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="ss">:born</span> <span class="mi">1986</span>,
+</span></span><span class="line"><span class="cl">          <span class="ss">:age</span> <span class="mi">34</span><span class="p">}]</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -360,38 +354,38 @@ Test transducer composition
   collection should not be greater than our paginate value. If a return don&#39;t conform to
   our rules an error will be thrown.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">(</span><span class="kd">defn </span><span class="nv">anns-with-proton-mail</span> <span class="p">[</span><span class="nv">paginate</span> <span class="nv">xs</span><span class="p">]</span>
-    <span class="p">(</span><span class="nf">into</span>
-     <span class="p">[]</span>
-     <span class="p">(</span><span class="nf">comp</span>
-      <span class="p">(</span><span class="nf">calc-person-age</span><span class="p">)</span>
-      <span class="p">(</span><span class="nf">person-name-contains</span> <span class="s">&#34;ann&#34;</span><span class="p">)</span>
-      <span class="p">(</span><span class="nf">person-born-in-years</span> <span class="o">#</span><span class="p">{</span><span class="mi">1985</span> <span class="mi">1986</span><span class="p">})</span>
-      <span class="p">(</span><span class="nf">person-email-provider</span> <span class="s">&#34;protonmail&#34;</span><span class="p">)</span>
-      <span class="p">(</span><span class="nb">take </span><span class="nv">paginate</span><span class="p">))</span>
-     <span class="nv">xs</span><span class="p">))</span>
-
-  <span class="p">(</span><span class="nf">s/fdef</span> <span class="nv">anns-with-proton-mail</span>
-    <span class="ss">:args</span> <span class="p">(</span><span class="nf">s/cat</span> <span class="ss">:paginate</span> <span class="nv">pos-int?</span> <span class="ss">:xs</span> <span class="p">(</span><span class="nf">s/coll-of</span> <span class="ss">::person</span> <span class="ss">:count</span> <span class="mi">100</span><span class="p">))</span>
-    <span class="ss">:ret</span> <span class="p">(</span><span class="nf">s/coll-of</span> <span class="ss">::person-with-age</span><span class="p">)</span>
-    <span class="ss">:fn</span> <span class="p">(</span><span class="k">fn </span><span class="p">[{{</span><span class="nv">p</span> <span class="ss">:paginate</span> <span class="nv">xs</span> <span class="ss">:xs</span><span class="p">}</span> <span class="ss">:args</span> <span class="nv">res</span> <span class="ss">:res</span><span class="p">}]</span>
-          <span class="p">(</span><span class="nb">&gt;= </span> <span class="nv">p</span> <span class="p">(</span><span class="nb">count </span><span class="nv">res</span><span class="p">))))</span>
-
-  <span class="p">(</span><span class="nf">stest/check</span> <span class="o">`</span><span class="nv">anns-with-proton-mail</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">(</span><span class="kd">defn </span><span class="nv">anns-with-proton-mail</span> <span class="p">[</span><span class="nv">paginate</span> <span class="nv">xs</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">into</span>
+</span></span><span class="line"><span class="cl">     <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="nf">comp</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nf">calc-person-age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nf">person-name-contains</span> <span class="s">&#34;ann&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nf">person-born-in-years</span> <span class="o">#</span><span class="p">{</span><span class="mi">1985</span> <span class="mi">1986</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nf">person-email-provider</span> <span class="s">&#34;protonmail&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">take </span><span class="nv">paginate</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">     <span class="nv">xs</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">s/fdef</span> <span class="nv">anns-with-proton-mail</span>
+</span></span><span class="line"><span class="cl">    <span class="ss">:args</span> <span class="p">(</span><span class="nf">s/cat</span> <span class="ss">:paginate</span> <span class="nv">pos-int?</span> <span class="ss">:xs</span> <span class="p">(</span><span class="nf">s/coll-of</span> <span class="ss">::person</span> <span class="ss">:count</span> <span class="mi">100</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="ss">:ret</span> <span class="p">(</span><span class="nf">s/coll-of</span> <span class="ss">::person-with-age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="ss">:fn</span> <span class="p">(</span><span class="k">fn </span><span class="p">[{{</span><span class="nv">p</span> <span class="ss">:paginate</span> <span class="nv">xs</span> <span class="ss">:xs</span><span class="p">}</span> <span class="ss">:args</span> <span class="nv">res</span> <span class="ss">:res</span><span class="p">}]</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="nb">&gt;= </span> <span class="nv">p</span> <span class="p">(</span><span class="nb">count </span><span class="nv">res</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">stest/check</span> <span class="o">`</span><span class="nv">anns-with-proton-mail</span><span class="p">)</span></span></span></code></pre></div>
 </div>
 <p>
   Results from <code class="verbatim">stest/check</code>.</p>
 <div class="src src-clojure">
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure">  <span class="p">({</span><span class="ss">:spec</span>
-    <span class="o">#</span><span class="nv">object</span><span class="p">[</span><span class="nv">clojure.spec.alpha$fspec_impl$reify__2524</span> <span class="mi">0</span><span class="nv">x449e3c52</span>
-            <span class="s">&#34;clojure.spec.alpha$fspec_impl$reify__2524@449e3c52&#34;</span><span class="p">]</span>,
-    <span class="ss">:clojure.spec.test.check/ret</span>
-    <span class="p">{</span><span class="ss">:result</span> <span class="nv">true</span>,
-     <span class="ss">:pass?</span> <span class="nv">true</span>,
-     <span class="ss">:num-tests</span> <span class="mi">1000</span>,
-     <span class="ss">:time-elapsed-ms</span> <span class="mi">17372</span>,
-     <span class="ss">:seed</span> <span class="mi">1590228136922</span><span class="p">}</span>,
-    <span class="ss">:sym</span> <span class="nv">user/anns-with-proton-mail</span><span class="p">})</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl">  <span class="p">({</span><span class="ss">:spec</span>
+</span></span><span class="line"><span class="cl">    <span class="o">#</span><span class="nv">object</span><span class="p">[</span><span class="nv">clojure.spec.alpha$fspec_impl$reify__2524</span> <span class="mi">0</span><span class="nv">x449e3c52</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;clojure.spec.alpha$fspec_impl$reify__2524@449e3c52&#34;</span><span class="p">]</span>,
+</span></span><span class="line"><span class="cl">    <span class="ss">:clojure.spec.test.check/ret</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="ss">:result</span> <span class="nv">true</span>,
+</span></span><span class="line"><span class="cl">     <span class="ss">:pass?</span> <span class="nv">true</span>,
+</span></span><span class="line"><span class="cl">     <span class="ss">:num-tests</span> <span class="mi">1000</span>,
+</span></span><span class="line"><span class="cl">     <span class="ss">:time-elapsed-ms</span> <span class="mi">17372</span>,
+</span></span><span class="line"><span class="cl">     <span class="ss">:seed</span> <span class="mi">1590228136922</span><span class="p">}</span>,
+</span></span><span class="line"><span class="cl">    <span class="ss">:sym</span> <span class="nv">user/anns-with-proton-mail</span><span class="p">})</span></span></span></code></pre></div>
 </div>
 </div>
 </div>

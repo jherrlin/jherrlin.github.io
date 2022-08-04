@@ -13,10 +13,10 @@
       <pubDate>Fri, 22 May 2020 23:47:13 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/clojure-spec-test-transducers/</guid>
-      <description>Into   A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.
- Wont cover or explain details, instead show how it can be used.
- Some examples where generated data can be used:
-  Provide generated data through a Rest API endpoint and serve it a JSON.</description>
+      <description>Into A quick and dirty overview on some of the capabilities of Clojure spec, test.check and transducers. With focus on generative data. Describing models with spec and then use test.check to generate entities from that model. Bulletproof transducers with the generated data.
+Wont cover or explain details, instead show how it can be used.
+Some examples where generated data can be used:
+Provide generated data through a Rest API endpoint and serve it a JSON.</description>
     </item>
     
     <item>
@@ -25,8 +25,8 @@
       <pubDate>Sun, 17 May 2020 20:28:11 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/datomic-entity-event-log/</guid>
-      <description>TL;DR   Create an event log from Datomic transactions that&amp;#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles.
-  Intro   I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.</description>
+      <description>TL;DR Create an event log from Datomic transactions that&amp;#39;s related to an entity. Look at transaction metadata, diffs and the entity from different angles.
+Intro I am pretty new to Datomic and writing a small Clojure app. In my domain models I have a model called event-log. This model is used to keep track of changes (mutations) in the system. It have the following attributes: author, datetime, entity, id, type.</description>
     </item>
     
   </channel>

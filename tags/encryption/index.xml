@@ -13,7 +13,7 @@
       <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-mu4e/</guid>
-      <description>Intro   This post is the second part about GnuPG, password management, email, signing and encrypting emails and git commit signing. The first posts talked about GnuPG key generation, password management using pass, how to sign git commits and how Emacs connects with most of it. This post will focus on how to manage mails in Emacs with Mu4e and how to signing and encrypting messages with GnuPG. As the posts cover a lot of ground step by step instructions are not desirable.</description>
+      <description>Intro This post is the second part about GnuPG, password management, email, signing and encrypting emails and git commit signing. The first posts talked about GnuPG key generation, password management using pass, how to sign git commits and how Emacs connects with most of it. This post will focus on how to manage mails in Emacs with Mu4e and how to signing and encrypting messages with GnuPG. As the posts cover a lot of ground step by step instructions are not desirable.</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Fri, 10 Jul 2020 15:00:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-gnupg-and-pass/</guid>
-      <description>Intro   This post is the first out of two about GnuPG, password management, email, signing and encrypting emails and git commit signing. As always with a helping hand from Emacs. As the posts cover a lot of ground step by step instructions are not desirable. Links to more detailed resources can be found in each section. The main goal is to provide a quick but informative overview and give inspiration for further research.</description>
+      <description>Intro This post is the first out of two about GnuPG, password management, email, signing and encrypting emails and git commit signing. As always with a helping hand from Emacs. As the posts cover a lot of ground step by step instructions are not desirable. Links to more detailed resources can be found in each section. The main goal is to provide a quick but informative overview and give inspiration for further research.</description>
     </item>
     
     <item>
@@ -31,9 +31,9 @@
       <pubDate>Mon, 01 Jun 2020 16:44:47 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/arch-install/</guid>
-      <description>2021-01-08 Updated with instructions on LTS kernel.
-  Into   Recently made a fresh Arch Linux install.
- The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.</description>
+      <description>2021-01-08 Updated with instructions on LTS kernel. Into Recently made a fresh Arch Linux install.
+The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.
+The LUKS device contains a header with data about the device.</description>
     </item>
     
   </channel>

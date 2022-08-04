@@ -13,7 +13,7 @@
       <pubDate>Fri, 10 Jul 2020 15:00:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-gnupg-and-pass/</guid>
-      <description>Intro   This post is the first out of two about GnuPG, password management, email, signing and encrypting emails and git commit signing. As always with a helping hand from Emacs. As the posts cover a lot of ground step by step instructions are not desirable. Links to more detailed resources can be found in each section. The main goal is to provide a quick but informative overview and give inspiration for further research.</description>
+      <description>Intro This post is the first out of two about GnuPG, password management, email, signing and encrypting emails and git commit signing. As always with a helping hand from Emacs. As the posts cover a lot of ground step by step instructions are not desirable. Links to more detailed resources can be found in each section. The main goal is to provide a quick but informative overview and give inspiration for further research.</description>
     </item>
     
   </channel>

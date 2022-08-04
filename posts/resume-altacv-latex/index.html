@@ -8,8 +8,9 @@
 
 <meta property='og:title' content='Resume with AltaCV and LaTeX - jherrlin'>
 <meta property='og:description' content='I had to write a resume and searched the web for solutions that looked good. Quickly found the AltaCV template that liantze have made and I think it looks really good!
- This is my notes on how I got the template to compile.
-Clone AltaCV template   Navigate to the GitHub repo AltaCV and clone it to your local system. In this example I have cloned it to ~/git.'>
+This is my notes on how I got the template to compile.
+Clone AltaCV template Navigate to the GitHub repo AltaCV and clone it to your local system. In this example I have cloned it to ~/git.
+cd ~/git/ git clone https://github.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/resume-altacv-latex/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='resume'><meta property='article:tag' content='altacv'><meta property='article:tag' content='latex'><meta property='article:published_time' content='2021-05-15T09:37:17&#43;02:00'/><meta property='article:modified_time' content='2021-05-15T09:37:17&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -133,8 +134,8 @@ Clone AltaCV template
   Navigate to the GitHub repo <a href="https://github.com/liantze/AltaCV">AltaCV</a> and clone it to your local system. In this
   example I have cloned it to <code class="verbatim">~/git</code>.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  <span class="nb">cd</span> ~/git/
-  git clone https://github.com/liantze/AltaCV</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  <span class="nb">cd</span> ~/git/
+</span></span><span class="line"><span class="cl">  git clone https://github.com/liantze/AltaCV</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -147,10 +148,10 @@ Docker and docker-compose
   Install <code class="verbatim">docker</code> and <code class="verbatim">docker-compose</code> on your system. On Arch this can be made
   with the following:</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  sudo pacman -S docker docker-compose  <span class="c1"># Install docker and docker-compose</span>
-  sudo systemctl <span class="nb">enable</span> docker.service  <span class="c1"># Make sure docker starts at boot</span>
-  sudo usermod -aG docker <span class="nv">$USER</span>         <span class="c1"># Add your user to the docker group</span>
-  shutdown -r now                       <span class="c1"># Reboot your system</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  sudo pacman -S docker docker-compose  <span class="c1"># Install docker and docker-compose</span>
+</span></span><span class="line"><span class="cl">  sudo systemctl <span class="nb">enable</span> docker.service  <span class="c1"># Make sure docker starts at boot</span>
+</span></span><span class="line"><span class="cl">  sudo usermod -aG docker <span class="nv">$USER</span>         <span class="c1"># Add your user to the docker group</span>
+</span></span><span class="line"><span class="cl">  shutdown -r now                       <span class="c1"># Reboot your system</span></span></span></code></pre></div>
 </div>
 <p>
   It&#39;s important that you reboot your system to get group changes and systemd
@@ -169,23 +170,23 @@ Texlive and biber in docker
   Navigate to his project and copy his docker-compose example and add it to
   <code class="verbatim">~/git/AltaCV/docker-compose.yaml</code>. My file looks like this:</p>
 <div class="src src-text">
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">  version: &#34;3.3&#34;
-
-  services:
-    tex_to_pdf:
-      image: marcellodesales/texlive-full-biber
-      working_dir: /resume
-      environment:
-        # Name of the tex file. Say &#34;main.tex&#34;. Running latexpdf might generate main.aux (if references are included set WITH_BIB=true)
-        - TEX_FILENAME=sample
-        # If you have Bib references, just say so.
-        - WITH_BIB=true
-        # Clean the logs generated
-        - CLEAN_LATEX_LOGS=true
-        # Rename the final PDF with the name. Say &#34;main.pdf -&gt; RENAME_PDF_AS.pdf
-        - RENAME_PDF_AS=john-herrlin-resume
-      volumes:
-        - &#34;${PWD}:/resume&#34;</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">  version: &#34;3.3&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  services:
+</span></span><span class="line"><span class="cl">    tex_to_pdf:
+</span></span><span class="line"><span class="cl">      image: marcellodesales/texlive-full-biber
+</span></span><span class="line"><span class="cl">      working_dir: /resume
+</span></span><span class="line"><span class="cl">      environment:
+</span></span><span class="line"><span class="cl">        # Name of the tex file. Say &#34;main.tex&#34;. Running latexpdf might generate main.aux (if references are included set WITH_BIB=true)
+</span></span><span class="line"><span class="cl">        - TEX_FILENAME=sample
+</span></span><span class="line"><span class="cl">        # If you have Bib references, just say so.
+</span></span><span class="line"><span class="cl">        - WITH_BIB=true
+</span></span><span class="line"><span class="cl">        # Clean the logs generated
+</span></span><span class="line"><span class="cl">        - CLEAN_LATEX_LOGS=true
+</span></span><span class="line"><span class="cl">        # Rename the final PDF with the name. Say &#34;main.pdf -&gt; RENAME_PDF_AS.pdf
+</span></span><span class="line"><span class="cl">        - RENAME_PDF_AS=john-herrlin-resume
+</span></span><span class="line"><span class="cl">      volumes:
+</span></span><span class="line"><span class="cl">        - &#34;${PWD}:/resume&#34;</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -197,7 +198,7 @@ Compile to PDF
 <p>
   Navigate to the <code class="verbatim">sample.tex</code> file and change your name. Save and the run:</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  docker-compose up</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  docker-compose up</span></span></code></pre></div>
 </div>
 <p>
   Docker may run for a little white to download all the dependencies and then

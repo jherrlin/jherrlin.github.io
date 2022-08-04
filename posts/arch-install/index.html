@@ -7,9 +7,9 @@
 <title>Arch install with LUKS and systemd-boot | jherrlin</title>
 
 <meta property='og:title' content='Arch install with LUKS and systemd-boot - jherrlin'>
-<meta property='og:description' content='2021-01-08 Updated with instructions on LTS kernel.
-  Into   Recently made a fresh Arch Linux install.
- The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.'>
+<meta property='og:description' content='2021-01-08 Updated with instructions on LTS kernel. Into Recently made a fresh Arch Linux install.
+The setup will looks like this. One HDD with 2 partitions. The first one is unencrypted and contains EFI and boot. Second contains the system and user home. This partition will be encrypted with LUKS and contain a EXT4 file system. For boot systemd-boot will be used.
+The LUKS device contains a header with data about the device.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/arch-install/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='arch'><meta property='article:tag' content='install'><meta property='article:tag' content='system'><meta property='article:tag' content='encryption'><meta property='article:published_time' content='2020-06-01T16:44:47&#43;02:00'/><meta property='article:modified_time' content='2020-06-01T16:44:47&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -121,9 +121,7 @@
     <div class="content">
       
 <ul>
-<li>
-<p>2021-01-08 Updated with instructions on LTS kernel.</p>
-</li>
+<li>2021-01-08 Updated with instructions on LTS kernel.</li>
 </ul>
 <div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
@@ -148,12 +146,8 @@ Thanks to
 </h2>
 <div id="outline-text-headline-2" class="outline-text-2">
 <ul>
-<li>
-<p><a href="https://wiki.archlinux.org/">https://wiki.archlinux.org/</a></p>
-</li>
-<li>
-<p><a href="https://gist.github.com/mattiaslundberg/8620837">https://gist.github.com/mattiaslundberg/8620837</a></p>
-</li>
+<li><a href="https://wiki.archlinux.org/">https://wiki.archlinux.org/</a></li>
+<li><a href="https://gist.github.com/mattiaslundberg/8620837">https://gist.github.com/mattiaslundberg/8620837</a></li>
 </ul>
 </div>
 </div>
@@ -163,111 +157,111 @@ Install
 </h2>
 <div id="outline-text-headline-3" class="outline-text-2">
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  gdisk /dev/nvme0n1 <span class="c1"># Disk for</span>
-  <span class="c1"># Remove all partitions</span>
-  <span class="c1"># Create two new partitions</span>
-  <span class="c1"># +1GB           EF00   EFI and boot</span>
-  <span class="c1"># rest of disk   8300   home and system</span>
-
-  mkfs.fat -F32 /dev/nvmw0n1p1
-
-  <span class="c1"># Create LUKS device</span>
-  <span class="c1"># Check the results</span>
-  <span class="c1"># Create header backup</span>
-  <span class="c1"># Mount the device</span>
-  cryptsetup -v --use-random luksFormat /dev/nvmw0n1p2
-  cryptsetup luksDump /dev/nvmw0n1p2
-  cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file luks_header_backup_<span class="sb">`</span>date +%Y-%m-%d<span class="sb">`</span>
-  cryptsetup luksOpen /dev/nvmw0n1p2 cryptroot
-
-  <span class="c1"># Create file system on luks device</span>
-  mkfs.ext4 /dev/mapper/cryptroot
-
-  <span class="c1"># Mount partitions</span>
-  mount /dev/mapper/cryptroot /mnt
-  mkdir -p /mnt/boot
-  mount /dev/nvmw0n1p1 /mnt/boot
-
-  <span class="c1"># Connect to wifi</span>
-  wifi-menu
-
-  pacstrap /mnt base base-devel linux linux-lts linux-firmware intel-ucode git emacs sudo networkmanager bash-completion
-
-  genfstab -pU /mnt &gt;&gt; /mnt/etc/fstab
-
-  arch-chroot /mnt /bin/bash
-
-  timedatectl set-timezone Europe/Stockholm
-
-  hwclock --systohc --utc
-
-  <span class="c1"># Set host name</span>
-  <span class="nb">echo</span> arch &gt; /etc/hostname
-
-  emacs /etc/locale.gen
-  <span class="c1"># uncomment:</span>
-  <span class="c1"># en_US.UTF-8 UTF-8</span>
-
-  locale-gen
-
-  <span class="nb">echo</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8 &gt; /etc/locale.conf
-  <span class="nb">echo</span> <span class="nv">LANGUAGE</span><span class="o">=</span>en_US &gt;&gt; /etc/locale.conf
-  <span class="nb">echo</span> <span class="nv">LC_ALL</span><span class="o">=</span>C &gt;&gt; /etc/locale.conf
-
-  <span class="c1"># Set root password</span>
-  passwd
-
-  <span class="c1"># Create new user</span>
-  useradd -m -g users -G wheel,video john
-
-  <span class="c1"># Set user password</span>
-  passwd john
-
-  <span class="nv">EDITOR</span><span class="o">=</span>emacs visudo
-  <span class="c1"># Uncomment line:</span>
-  <span class="c1"># %wheel ALL=(ALL) ALL</span>
-
-  emacs /etc/mkinitcpio.conf
-  <span class="c1"># Open mkinitcpio.conf and add the following to each section:</span>
-  <span class="c1"># MODULES=(ext4)</span>
-  <span class="c1"># On &#39;HOOKS&#39; add &#39;encrypt&#39; before &#39;filesystem&#39;</span>
-  <span class="c1"># Something like this:</span>
-  <span class="c1"># HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)</span>
-
-  mkinitcpio -p linux
-
-  bootctl --path<span class="o">=</span>/boot install
-
-  <span class="nb">echo</span> <span class="s1">&#39;default arch&#39;</span> &gt;&gt; /boot/loader/loader.conf
-  <span class="nb">echo</span> <span class="s1">&#39;timeout 5&#39;</span> &gt;&gt; /boot/loader/loader.conf
-
-  <span class="c1"># Get the PARTUUID from the system partition into arch.conf</span>
-  blkid -s PARTUUID -o value /dev/nvme1n1p2 &gt;&gt; /boot/loader/entries/arch.conf
-
-  emacs /boot/loader/entries/arch.conf
-  <span class="c1"># Add the following content to arch.conf</span>
-  <span class="c1"># The partition &lt;PARTUUID&gt; is already in the file.</span>
-  title Arch Linux
-  linux /vmlinuz-linux
-  initrd /intel-ucode.img
-  initrd /initramfs-linux.img
-  options <span class="nv">cryptdevice</span><span class="o">=</span><span class="nv">PARTUUID</span><span class="o">=</span>&lt;PARTUUID&gt;:cryptroot <span class="nv">root</span><span class="o">=</span>/dev/mapper/cryptroot rw
-
-  <span class="c1"># Exit new system and go into the cd shell</span>
-  <span class="nb">exit</span>
-
-  <span class="c1"># Unmount all</span>
-  umount -R /mnt
-
-  <span class="c1"># Reboot system</span>
-  shutdown -r now</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  gdisk /dev/nvme0n1 <span class="c1"># Disk for</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Remove all partitions</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Create two new partitions</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># +1GB           EF00   EFI and boot</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># rest of disk   8300   home and system</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  mkfs.fat -F32 /dev/nvmw0n1p1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Create LUKS device</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Check the results</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Create header backup</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Mount the device</span>
+</span></span><span class="line"><span class="cl">  cryptsetup -v --use-random luksFormat /dev/nvmw0n1p2
+</span></span><span class="line"><span class="cl">  cryptsetup luksDump /dev/nvmw0n1p2
+</span></span><span class="line"><span class="cl">  cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file luks_header_backup_<span class="sb">`</span>date +%Y-%m-%d<span class="sb">`</span>
+</span></span><span class="line"><span class="cl">  cryptsetup luksOpen /dev/nvmw0n1p2 cryptroot
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Create file system on luks device</span>
+</span></span><span class="line"><span class="cl">  mkfs.ext4 /dev/mapper/cryptroot
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Mount partitions</span>
+</span></span><span class="line"><span class="cl">  mount /dev/mapper/cryptroot /mnt
+</span></span><span class="line"><span class="cl">  mkdir -p /mnt/boot
+</span></span><span class="line"><span class="cl">  mount /dev/nvmw0n1p1 /mnt/boot
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Connect to wifi</span>
+</span></span><span class="line"><span class="cl">  wifi-menu
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  pacstrap /mnt base base-devel linux linux-lts linux-firmware intel-ucode git emacs sudo networkmanager bash-completion
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  genfstab -pU /mnt &gt;&gt; /mnt/etc/fstab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  arch-chroot /mnt /bin/bash
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  timedatectl set-timezone Europe/Stockholm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  hwclock --systohc --utc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Set host name</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> arch &gt; /etc/hostname
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  emacs /etc/locale.gen
+</span></span><span class="line"><span class="cl">  <span class="c1"># uncomment:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># en_US.UTF-8 UTF-8</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  locale-gen
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8 &gt; /etc/locale.conf
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="nv">LANGUAGE</span><span class="o">=</span>en_US &gt;&gt; /etc/locale.conf
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="nv">LC_ALL</span><span class="o">=</span>C &gt;&gt; /etc/locale.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Set root password</span>
+</span></span><span class="line"><span class="cl">  passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Create new user</span>
+</span></span><span class="line"><span class="cl">  useradd -m -g users -G wheel,video john
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Set user password</span>
+</span></span><span class="line"><span class="cl">  passwd john
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nv">EDITOR</span><span class="o">=</span>emacs visudo
+</span></span><span class="line"><span class="cl">  <span class="c1"># Uncomment line:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># %wheel ALL=(ALL) ALL</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  emacs /etc/mkinitcpio.conf
+</span></span><span class="line"><span class="cl">  <span class="c1"># Open mkinitcpio.conf and add the following to each section:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># MODULES=(ext4)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># On &#39;HOOKS&#39; add &#39;encrypt&#39; before &#39;filesystem&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Something like this:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  mkinitcpio -p linux
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  bootctl --path<span class="o">=</span>/boot install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s1">&#39;default arch&#39;</span> &gt;&gt; /boot/loader/loader.conf
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s1">&#39;timeout 5&#39;</span> &gt;&gt; /boot/loader/loader.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Get the PARTUUID from the system partition into arch.conf</span>
+</span></span><span class="line"><span class="cl">  blkid -s PARTUUID -o value /dev/nvme1n1p2 &gt;&gt; /boot/loader/entries/arch.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  emacs /boot/loader/entries/arch.conf
+</span></span><span class="line"><span class="cl">  <span class="c1"># Add the following content to arch.conf</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># The partition &lt;PARTUUID&gt; is already in the file.</span>
+</span></span><span class="line"><span class="cl">  title Arch Linux
+</span></span><span class="line"><span class="cl">  linux /vmlinuz-linux
+</span></span><span class="line"><span class="cl">  initrd /intel-ucode.img
+</span></span><span class="line"><span class="cl">  initrd /initramfs-linux.img
+</span></span><span class="line"><span class="cl">  options <span class="nv">cryptdevice</span><span class="o">=</span><span class="nv">PARTUUID</span><span class="o">=</span>&lt;PARTUUID&gt;:cryptroot <span class="nv">root</span><span class="o">=</span>/dev/mapper/cryptroot rw
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Exit new system and go into the cd shell</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Unmount all</span>
+</span></span><span class="line"><span class="cl">  umount -R /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Reboot system</span>
+</span></span><span class="line"><span class="cl">  shutdown -r now</span></span></code></pre></div>
 </div>
 <p>
   Start NetworkManager and connect to a wifi in the new system.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">systemctl start NetworkManager
-systemctl <span class="nb">enable</span> NetworkManager
-nmcli device wifi connect &lt;SSID<span class="p">|</span>BSSID&gt; password &lt;password&gt;</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">systemctl start NetworkManager
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> NetworkManager
+</span></span><span class="line"><span class="cl">nmcli device wifi connect &lt;SSID<span class="p">|</span>BSSID&gt; password &lt;password&gt;</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -281,11 +275,11 @@ LTS kernel
   as a boot option to systemd-boot. File location is
   <code class="verbatim">/boot/loader/entries/arch-lts.conf</code>.</p>
 <div class="src src-text">
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">  title Arch Linux LTS
-  linux /vmlinuz-linux-lts
-  initrd /intel-ucode.img
-  initrd /initramfs-linux-lts.img
-  options cryptdevice=PARTUUID=&lt;PARTUUID&gt;:cryptroot root=/dev/mapper/cryptroot rw</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">  title Arch Linux LTS
+</span></span><span class="line"><span class="cl">  linux /vmlinuz-linux-lts
+</span></span><span class="line"><span class="cl">  initrd /intel-ucode.img
+</span></span><span class="line"><span class="cl">  initrd /initramfs-linux-lts.img
+</span></span><span class="line"><span class="cl">  options cryptdevice=PARTUUID=&lt;PARTUUID&gt;:cryptroot root=/dev/mapper/cryptroot rw</span></span></code></pre></div>
 </div>
 <p>
   When the system boots the default kernel with be the latest one, but you can
@@ -302,21 +296,21 @@ Extra
   Small set of packages to get up and running with a desktop environment plus some good to
   have.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">  alacritty
-  acpi
-  chromium
-  clojure
-  emacs
-  fwupd
-  htop
-  jdk11-openjdk
-  sway
-  swaylock
-  swayidle
-  openssh
-  wofi
-  xorg-server-xwayland
-  pass</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">  alacritty
+</span></span><span class="line"><span class="cl">  acpi
+</span></span><span class="line"><span class="cl">  chromium
+</span></span><span class="line"><span class="cl">  clojure
+</span></span><span class="line"><span class="cl">  emacs
+</span></span><span class="line"><span class="cl">  fwupd
+</span></span><span class="line"><span class="cl">  htop
+</span></span><span class="line"><span class="cl">  jdk11-openjdk
+</span></span><span class="line"><span class="cl">  sway
+</span></span><span class="line"><span class="cl">  swaylock
+</span></span><span class="line"><span class="cl">  swayidle
+</span></span><span class="line"><span class="cl">  openssh
+</span></span><span class="line"><span class="cl">  wofi
+</span></span><span class="line"><span class="cl">  xorg-server-xwayland
+</span></span><span class="line"><span class="cl">  pass</span></span></code></pre></div>
 </div>
 </div>
 </div>

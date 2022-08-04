@@ -13,7 +13,7 @@
       <pubDate>Sat, 23 Jan 2021 11:14:05 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/rx-java-with-org-mode/</guid>
-      <description>Intro   RxJava is a Java library that can be used to create non blocking reactive systems in Java. The mindset of non blocking and how to work with RxJava was a bit hard for me to grasp, and still is! I am by no means a skilled RxJava user. But I have found a tool that helps me on the journey to become a better one. And of course this is Org mode and Emacs.</description>
+      <description>Intro RxJava is a Java library that can be used to create non blocking reactive systems in Java. The mindset of non blocking and how to work with RxJava was a bit hard for me to grasp, and still is! I am by no means a skilled RxJava user. But I have found a tool that helps me on the journey to become a better one. And of course this is Org mode and Emacs.</description>
     </item>
     
     <item>
@@ -22,9 +22,9 @@
       <pubDate>Wed, 22 Jul 2020 11:14:05 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks2/</guid>
-      <description>Intro   This is the third post in a series about Emacs Org mode and the second about source code blocks.
- The last post about source code blocks (blocks from now on) covered org document variables, named blocks and combining blocks.
- This post will focus on how and where block result output will end up. It won&amp;#39;t cover all of the arguments and features as I don&amp;#39;t use all of them.</description>
+      <description>Intro This is the third post in a series about Emacs Org mode and the second about source code blocks.
+The last post about source code blocks (blocks from now on) covered org document variables, named blocks and combining blocks.
+This post will focus on how and where block result output will end up. It won&amp;#39;t cover all of the arguments and features as I don&amp;#39;t use all of them.</description>
     </item>
     
     <item>
@@ -33,8 +33,9 @@
       <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jherrlin.github.io/posts/learn-awk/</guid>
-      <description>Intro   This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&amp;#39;t cover details on how to use Emacs, Org mode or Org-drill. It&amp;#39;s intention is to provide a general overview of a workflow.
- A git repo is available with flash cards, note book and some text files here.</description>
+      <description>Intro This post describes my workflow for learning the AWK programming language using Emacs, Org mode and Org-drill. The workflow may work for other programming languages. The post won&amp;#39;t cover details on how to use Emacs, Org mode or Org-drill. It&amp;#39;s intention is to provide a general overview of a workflow.
+A git repo is available with flash cards, note book and some text files here.
+Content I just read a few chapters in the &amp;#34;The AWK programming language&amp;#34; book and found AWK to be awesome and I want to learn more of the language.</description>
     </item>
     
     <item>
@@ -43,7 +44,7 @@
       <pubDate>Fri, 10 Jul 2020 16:00:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-mu4e/</guid>
-      <description>Intro   This post is the second part about GnuPG, password management, email, signing and encrypting emails and git commit signing. The first posts talked about GnuPG key generation, password management using pass, how to sign git commits and how Emacs connects with most of it. This post will focus on how to manage mails in Emacs with Mu4e and how to signing and encrypting messages with GnuPG. As the posts cover a lot of ground step by step instructions are not desirable.</description>
+      <description>Intro This post is the second part about GnuPG, password management, email, signing and encrypting emails and git commit signing. The first posts talked about GnuPG key generation, password management using pass, how to sign git commits and how Emacs connects with most of it. This post will focus on how to manage mails in Emacs with Mu4e and how to signing and encrypting messages with GnuPG. As the posts cover a lot of ground step by step instructions are not desirable.</description>
     </item>
     
     <item>
@@ -52,7 +53,7 @@
       <pubDate>Fri, 10 Jul 2020 15:00:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-gnupg-and-pass/</guid>
-      <description>Intro   This post is the first out of two about GnuPG, password management, email, signing and encrypting emails and git commit signing. As always with a helping hand from Emacs. As the posts cover a lot of ground step by step instructions are not desirable. Links to more detailed resources can be found in each section. The main goal is to provide a quick but informative overview and give inspiration for further research.</description>
+      <description>Intro This post is the first out of two about GnuPG, password management, email, signing and encrypting emails and git commit signing. As always with a helping hand from Emacs. As the posts cover a lot of ground step by step instructions are not desirable. Links to more detailed resources can be found in each section. The main goal is to provide a quick but informative overview and give inspiration for further research.</description>
     </item>
     
     <item>
@@ -61,8 +62,8 @@
       <pubDate>Sun, 21 Jun 2020 16:16:30 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-tables/</guid>
-      <description>Intro   This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
- Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &amp;#34;Emacs Org mode source blocks&amp;#34;) or used in calculations.</description>
+      <description>Intro This is the second post in the serie of how I use Emacs Org mode (from now on org) and it will cover usage of org tables. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
+Org tables are like spreadsheets with super powers. Tables can be used to keep information organized, as input to source blocks (more about that in the first post, &amp;#34;Emacs Org mode source blocks&amp;#34;) or used in calculations.</description>
     </item>
     
     <item>
@@ -71,8 +72,8 @@
       <pubDate>Mon, 15 Jun 2020 13:18:00 +0200</pubDate>
       
       <guid>https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks/</guid>
-      <description>Post updates    [2020-06-23] New section. &amp;#34;Combine source blocks&amp;#34;
-    Intro   It&amp;#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.</description>
+      <description>Post updates [2020-06-23] New section. &amp;#34;Combine source blocks&amp;#34; Intro It&amp;#39;s time to start documenting how I use Emacs Org mode (from now on org) and it will contain a serie of posts. This is the first post and it will cover source blocks. Some of the content assumes basic knowledge about org. If you are new to org I can recommend this two videos; hrs and kitchin.
+One of the features I&amp;#39;ve been using very frequently is source blocks.</description>
     </item>
     
   </channel>

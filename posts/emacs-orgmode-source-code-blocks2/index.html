@@ -7,9 +7,9 @@
 <title>Emacs Orgmode Source Code Blocks 2 | jherrlin</title>
 
 <meta property='og:title' content='Emacs Orgmode Source Code Blocks 2 - jherrlin'>
-<meta property='og:description' content='Intro   This is the third post in a series about Emacs Org mode and the second about source code blocks.
- The last post about source code blocks (blocks from now on) covered org document variables, named blocks and combining blocks.
- This post will focus on how and where block result output will end up. It won&#39;t cover all of the arguments and features as I don&#39;t use all of them.'>
+<meta property='og:description' content='Intro This is the third post in a series about Emacs Org mode and the second about source code blocks.
+The last post about source code blocks (blocks from now on) covered org document variables, named blocks and combining blocks.
+This post will focus on how and where block result output will end up. It won&#39;t cover all of the arguments and features as I don&#39;t use all of them.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/emacs-orgmode-source-code-blocks2/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='GNU'><meta property='article:tag' content='org'><meta property='article:tag' content='programming'><meta property='article:published_time' content='2020-07-22T11:14:05&#43;02:00'/><meta property='article:modified_time' content='2020-07-22T11:14:05&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -154,8 +154,8 @@ Versions
   Here are the &#34;inline code blocks&#34; used to show what versions of the
   software I am currently using.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  src_emacs-lisp{emacs-version} <span class="nb">{{{results(=27.1=)}}}</span>
-  src_emacs-lisp{org-version} <span class="nb">{{{results(=9.4=)}}}</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  src_emacs-lisp{emacs-version} <span class="nb">{{{results(=27.1=)}}}</span>
+</span></span><span class="line"><span class="cl">  src_emacs-lisp{org-version} <span class="nb">{{{results(=9.4=)}}}</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -170,22 +170,22 @@ Default argument
 <p>
   This is how it end up if no argument if provided.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  : Hello Emacs</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  : Hello Emacs</span></span></code></pre></div>
 </div>
 <p>
   This is the same as the argument <code class="verbatim">:results output</code>.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output
-</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  : Hello Emacs</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  : Hello Emacs</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -199,27 +199,27 @@ Output code
   new block gets the same language as the parent. In this case the
   language is shell.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>  Hello Emacs
-<span class="c">  #+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  Hello Emacs
+</span></span><span class="line"><span class="cl"><span class="c">  #+end_src</span></span></span></code></pre></div>
 </div>
 <p>
   If the output language is not the same as the parent. <code class="verbatim">:wrap</code> can be
   used to tell what language the result block will get.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code :wrap src text
-</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-<span class="c">  #+begin_src </span><span class="cs">text</span><span class="c">
-</span><span class="c"></span>  Hello Emacs
-<span class="c">  #+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code :wrap src text
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;Hello Emacs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">  #+begin_src </span><span class="cs">text</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  Hello Emacs
+</span></span><span class="line"><span class="cl"><span class="c">  #+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -232,14 +232,14 @@ Append results
   Results can be appended into the org document. In this case the
   block have been evaluated three times. I don&#39;t use this very often.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output append
-</span><span class="c"></span>    date +<span class="s1">&#39;%Y-%m-%d %H:%M:%S&#39;</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  : 2020-08-29 11:52:34
-  : 2020-08-29 11:52:36
-  : 2020-08-29 11:52:38</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output append
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    date +<span class="s1">&#39;%Y-%m-%d %H:%M:%S&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  : 2020-08-29 11:52:34
+</span></span><span class="line"><span class="cl">  : 2020-08-29 11:52:36
+</span></span><span class="line"><span class="cl">  : 2020-08-29 11:52:38</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -251,28 +251,28 @@ Table
 <p>
   Results can end up in nicely formatted org tables</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results table
-</span><span class="c"></span>    ps -a
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  <span class="s">|     PID | TTY   |     TIME | CMD      |</span>
-  <span class="s">|    5456 | tty1  | 00:00:00 | swaybg   |</span>
-  <span class="s">|    5468 | tty1  | 00:00:49 | swaybar  |</span>
-  <span class="s">|    5479 | tty1  | 00:01:12 | sh       |</span>
-  <span class="s">|    5937 | tty1  | 00:07:14 | Xwayland |</span>
-  <span class="s">| 1279652 | pts/0 | 00:00:03 | hugo     |</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results table
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    ps -a
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  <span class="s">|     PID | TTY   |     TIME | CMD      |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">|    5456 | tty1  | 00:00:00 | swaybg   |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">|    5468 | tty1  | 00:00:49 | swaybar  |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">|    5479 | tty1  | 00:01:12 | sh       |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">|    5937 | tty1  | 00:07:14 | Xwayland |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">| 1279652 | pts/0 | 00:00:03 | hugo     |</span></span></span></code></pre></div>
 </div>
 <p>
   Or what about a nice looking NetworkManager table.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>    nmcli -g name,type,device con <span class="p">|</span> awk <span class="s1">&#39;BEGIN{FS=&#34;:&#34;; OFS=&#34;\t&#34;};{print $1, $2, $3}&#39;</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  <span class="s">| iPhone             | 802-11-wireless | wlp0s20f3     |</span>
-  <span class="s">| integrity_vpn      | wireguard       | integrity_vpn |</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    nmcli -g name,type,device con <span class="p">|</span> awk <span class="s1">&#39;BEGIN{FS=&#34;:&#34;; OFS=&#34;\t&#34;};{print $1, $2, $3}&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  <span class="s">| iPhone             | 802-11-wireless | wlp0s20f3     |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">| integrity_vpn      | wireguard       | integrity_vpn |</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -285,13 +285,13 @@ File
   Results can be written to a file. In the results area a org link to
   the file containing the results is provided.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results file :file script.sh
-</span><span class="c"></span>  <span class="nb">echo</span> <span class="s2">&#34;#!/bin/bash&#34;</span>
-  <span class="nb">echo</span> <span class="s2">&#34;echo Hey&#34;</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  [[<span class="na">file:script.sh</span>]]</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results file :file script.sh
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="nb">echo</span> <span class="s2">&#34;#!/bin/bash&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;echo Hey&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  [[<span class="na">file:script.sh</span>]]</span></span></code></pre></div>
 </div>
 <p>
   Here is a larger case. Write the results to a file. The filename
@@ -299,28 +299,28 @@ File
   should also have execute permissions for all three user types. This
   <code class="verbatim">:file-mode</code> argument came in Org version 9.4.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+HEADER: :results file
-  #+HEADER: :file script.sh
-  #+HEADER: :output-dir /tmp
-  #+HEADER: :file-mode (identity #o777)
-<span class="c">  #+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
-</span><span class="c"></span>    <span class="s">&#34;#!/bin/bash\necho Hello World&#34;</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  [[<span class="na">file:/tmp/script.sh</span>]]</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+HEADER: :results file
+</span></span><span class="line"><span class="cl">  #+HEADER: :file script.sh
+</span></span><span class="line"><span class="cl">  #+HEADER: :output-dir /tmp
+</span></span><span class="line"><span class="cl">  #+HEADER: :file-mode (identity #o777)
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">emacs-lisp</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="s">&#34;#!/bin/bash\necho Hello World&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  [[<span class="na">file:/tmp/script.sh</span>]]</span></span></code></pre></div>
 </div>
 <p>
   Let&#39;s look on the attributes of the <code class="verbatim">script.sh</code> file.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code :dir /tmp
-</span><span class="c"></span>    ls -la <span class="p">|</span> grep script.sh
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>  -r-xr-xr-x  <span class="m">1</span> nils users   <span class="m">28</span> Aug <span class="m">29</span> 11:59 script.sh
-<span class="c">  #+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code :dir /tmp
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    ls -la <span class="p">|</span> grep script.sh
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  -r-xr-xr-x  <span class="m">1</span> nils users   <span class="m">28</span> Aug <span class="m">29</span> 11:59 script.sh
+</span></span><span class="line"><span class="cl"><span class="c">  #+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -338,31 +338,31 @@ Pass result on
   the previous block and append two more lines. One with a string and
   the other with numbers from 20 to 30.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: attr_wrap
-<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :var data=&#34;&#34; :results raw
-</span><span class="c"></span>    <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$data</span><span class="s2">&#34;</span>
-    <span class="nb">echo</span> <span class="s2">&#34;... and this appends this&#34;</span>
-    <span class="nb">echo</span> <span class="o">{</span>20..30<span class="o">}</span>
-<span class="c">  #+END_SRC</span>
-
-  Evaluate the block below, the upper block will be called
-  automatically.
-
-  #+HEADER: :post attr_wrap(data=<span class="gs">*this*</span>)
-  #+HEADER: :file /tmp/a.txt
-  #+HEADER: :results output code
-<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;This blocks generates this data&#34;</span>
-    <span class="nb">echo</span> <span class="o">{</span>01..10<span class="o">}</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>  This blocks generates this data
-  <span class="m">01</span> <span class="m">02</span> <span class="m">03</span> <span class="m">04</span> <span class="m">05</span> <span class="m">06</span> <span class="m">07</span> <span class="m">08</span> <span class="m">09</span> <span class="m">10</span>
-  ... and this appends this
-  <span class="m">20</span> <span class="m">21</span> <span class="m">22</span> <span class="m">23</span> <span class="m">24</span> <span class="m">25</span> <span class="m">26</span> <span class="m">27</span> <span class="m">28</span> <span class="m">29</span> <span class="m">30</span>
-<span class="c">  #+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+NAME: attr_wrap
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :var data=&#34;&#34; :results raw
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$data</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;... and this appends this&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="o">{</span>20..30<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Evaluate the block below, the upper block will be called
+</span></span><span class="line"><span class="cl">  automatically.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+HEADER: :post attr_wrap(data=<span class="gs">*this*</span>)
+</span></span><span class="line"><span class="cl">  #+HEADER: :file /tmp/a.txt
+</span></span><span class="line"><span class="cl">  #+HEADER: :results output code
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="nb">echo</span> <span class="s2">&#34;This blocks generates this data&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="o">{</span>01..10<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  This blocks generates this data
+</span></span><span class="line"><span class="cl">  <span class="m">01</span> <span class="m">02</span> <span class="m">03</span> <span class="m">04</span> <span class="m">05</span> <span class="m">06</span> <span class="m">07</span> <span class="m">08</span> <span class="m">09</span> <span class="m">10</span>
+</span></span><span class="line"><span class="cl">  ... and this appends this
+</span></span><span class="line"><span class="cl">  <span class="m">20</span> <span class="m">21</span> <span class="m">22</span> <span class="m">23</span> <span class="m">24</span> <span class="m">25</span> <span class="m">26</span> <span class="m">27</span> <span class="m">28</span> <span class="m">29</span> <span class="m">30</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -381,18 +381,18 @@ Tangle
 <p>
   This example writes some text from a source code block to a file.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">  #+BEGIN_SRC </span><span class="cs">text</span><span class="c"> :tangle /tmp/hey-from-org.txt
-</span><span class="c"></span>    This is some text
-<span class="c">  #+END_SRC</span>
-
-<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>    cat /tmp/hey-from-org.txt
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>  This is some text
-<span class="c">  #+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">text</span><span class="c"> :tangle /tmp/hey-from-org.txt
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    This is some text
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    cat /tmp/hey-from-org.txt
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  This is some text
+</span></span><span class="line"><span class="cl"><span class="c">  #+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -407,26 +407,26 @@ Tangled file permissions
   small bash script written to the file system and set to be executable
   for all users.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+HEADER: :tangle /tmp/hey-org-mode.sh
-  #+HEADER: :tangle-mode (identity #o777)
-<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>    <span class="c1">#!/bin/bash</span>
-    <span class="nb">echo</span> <span class="s2">&#34;Hello World&#34;</span>
-<span class="c">  #+END_SRC</span>
-
-  Lets check what permissions the file got after tangled.
-
-<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>    ls -la /tmp <span class="p">|</span> grep hey-org-mode.sh
-<span class="c">  #+END_SRC</span>
-
-  The file got <span class="gs">*read*</span>, <span class="gs">*write*</span> and <span class="gs">*execute*</span> for everyone. That&#39;s what
-  we told in the <span class="nc">=:tange-mode=</span> header.
-
-  #+RESULTS:
-<span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>    -rwxrwxrwx  <span class="m">1</span> john users      <span class="m">31</span> Jul <span class="m">22</span> 11:40 hey-org-mode.sh
-<span class="c">  #+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+HEADER: :tangle /tmp/hey-org-mode.sh
+</span></span><span class="line"><span class="cl">  #+HEADER: :tangle-mode (identity #o777)
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="c1">#!/bin/bash</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Hello World&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Lets check what permissions the file got after tangled.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    ls -la /tmp <span class="p">|</span> grep hey-org-mode.sh
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  The file got <span class="gs">*read*</span>, <span class="gs">*write*</span> and <span class="gs">*execute*</span> for everyone. That&#39;s what
+</span></span><span class="line"><span class="cl">  we told in the <span class="nc">=:tange-mode=</span> header.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">  #+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    -rwxrwxrwx  <span class="m">1</span> john users      <span class="m">31</span> Jul <span class="m">22</span> 11:40 hey-org-mode.sh
+</span></span><span class="line"><span class="cl"><span class="c">  #+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -441,49 +441,49 @@ Bigger example
 <p>
   Lets start by specifying the commands to run in the report.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: report-commands
-  <span class="s">| Disk usage    | df -h      |</span>
-  <span class="s">| Memory usage  | free -h    |</span>
-  <span class="s">| Network       | nmcli conn |</span>
-  <span class="s">| System time   | date       |</span>
-  <span class="s">| System uptime | uptime     |</span>
-  <span class="s">| System kernel | uname -a   |</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+NAME: report-commands
+</span></span><span class="line"><span class="cl">  <span class="s">| Disk usage    | df -h      |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">| Memory usage  | free -h    |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">| Network       | nmcli conn |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">| System time   | date       |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">| System uptime | uptime     |</span>
+</span></span><span class="line"><span class="cl">  <span class="s">| System kernel | uname -a   |</span></span></span></code></pre></div>
 </div>
 <p>
   Run the table into a <code class="verbatim">awk</code> source code block to format it into a
   bash script. The result is written to a file and execute permissions
   are set on the file.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+HEADER: :stdin report-commands
-  #+HEADER: :results file
-  #+HEADER: :file /tmp/system-report.sh
-  #+HEADER: :file-mode (identity #o744)&#34;
-<span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c">
-</span><span class="c"></span>    <span class="nb">BEGIN</span> <span class="p">{</span>
-        <span class="nb">FS</span><span class="o">=</span><span class="s2">&#34;\t&#34;</span>
-        <span class="kr">print</span> <span class="s2">&#34;#!/bin/bash\n&#34;</span>
-        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;#+TITLE: $1\&#34;&#34;</span>
-        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;#+DATE: $(date +&#39;%m-%d-%Y %H:%M:%S&#39;)\&#34;&#34;</span>
-        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;#+STARTUP: overview\&#34;&#34;</span>
-        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;\&#34;&#34;</span>
-    <span class="p">}</span>
-    <span class="p">{</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;* %s\&#34;\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">1</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;\&#34;\n&#34;</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+BEGIN_SRC shell\&#34;\n&#34;</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;%s\&#34;\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">2</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+END_SRC\&#34;\n&#34;</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;\&#34;\n&#34;</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+RESULTS:\&#34;\n&#34;</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+BEGIN_SRC text\&#34;\n&#34;</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;$(%s)\&#34;\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">2</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+END_SRC\&#34;\n&#34;</span><span class="p">)</span>
-        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;\&#34;\n&#34;</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="c">  #+END_SRC</span>
-
-  #+RESULTS:
-  [[<span class="na">file:/tmp/system-report.sh</span>]]</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+HEADER: :stdin report-commands
+</span></span><span class="line"><span class="cl">  #+HEADER: :results file
+</span></span><span class="line"><span class="cl">  #+HEADER: :file /tmp/system-report.sh
+</span></span><span class="line"><span class="cl">  #+HEADER: :file-mode (identity #o744)&#34;
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">awk</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="nb">BEGIN</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">FS</span><span class="o">=</span><span class="s2">&#34;\t&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">print</span> <span class="s2">&#34;#!/bin/bash\n&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;#+TITLE: $1\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;#+DATE: $(date +&#39;%m-%d-%Y %H:%M:%S&#39;)\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;#+STARTUP: overview\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">print</span> <span class="s2">&#34;echo \&#34;\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;* %s\&#34;\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;\&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+BEGIN_SRC shell\&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;%s\&#34;\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+END_SRC\&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;\&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+RESULTS:\&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+BEGIN_SRC text\&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;$(%s)\&#34;\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;#+END_SRC\&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">printf</span><span class="p">(</span><span class="s2">&#34;echo \&#34;\&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  #+RESULTS:
+</span></span><span class="line"><span class="cl">  [[<span class="na">file:/tmp/system-report.sh</span>]]</span></span></code></pre></div>
 </div>
 <p>
   The output of the <code class="verbatim">system-report.sh</code> will be pretty flat and will
@@ -491,110 +491,110 @@ Bigger example
   indentation depending on context. This source block is only
   responsible for formatting and cant do anything on it&#39;s own.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+NAME: org_format
-  #+HEADER: :var data=&#34;&#34;
-  #+HEADER: :results raw
-<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>    <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$data</span><span class="s2">&#34;</span> <span class="se">\
-</span><span class="se"></span>        <span class="p">|</span> awk <span class="s1">&#39;$1~/BEGIN_SRC|RESULTS/,$1~/END_SRC/ { print &#34;   &#34;, $0; next }; { print }&#39;</span> <span class="se">\
-</span><span class="se"></span>        <span class="p">|</span> awk <span class="s1">&#39;$1~/^#+/ {gsub(/^[ \t]+/, &#34;  &#34;, $0) ; print; next}; { print }&#39;</span>
-<span class="c">  #+END_SRC</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+NAME: org_format
+</span></span><span class="line"><span class="cl">  #+HEADER: :var data=&#34;&#34;
+</span></span><span class="line"><span class="cl">  #+HEADER: :results raw
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$data</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        <span class="p">|</span> awk <span class="s1">&#39;$1~/BEGIN_SRC|RESULTS/,$1~/END_SRC/ { print &#34;   &#34;, $0; next }; { print }&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        <span class="p">|</span> awk <span class="s1">&#39;$1~/^#+/ {gsub(/^[ \t]+/, &#34;  &#34;, $0) ; print; next}; { print }&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span></span></span></code></pre></div>
 </div>
 <p>
   Let run the script and pass it though the format source code block.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+HEADER: :dir /tmp
-  #+HEADER: :post org_format(data=<span class="gs">*this*</span>)
-  #+HEADER: :results output code
-  #+HEADER: :wrap src org
-<span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>    ./system-report.sh <span class="s2">&#34;Daily system report&#34;</span>
-<span class="c">  #+END_SRC</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+HEADER: :dir /tmp
+</span></span><span class="line"><span class="cl">  #+HEADER: :post org_format(data=<span class="gs">*this*</span>)
+</span></span><span class="line"><span class="cl">  #+HEADER: :results output code
+</span></span><span class="line"><span class="cl">  #+HEADER: :wrap src org
+</span></span><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    ./system-report.sh <span class="s2">&#34;Daily system report&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span></span></span></code></pre></div>
 </div>
 <p>
   And voila, here is the result! The report is well formatted and looks
   very good.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">  #+TITLE: Daily system report
-  #+DATE: 10-11-2020 21:06:41
-  #+STARTUP: overview
-
-  <span class="k">* </span>Disk usage
-
-<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>      df -h
-<span class="c">    #+END_SRC</span>
-
-    #+RESULTS:
-<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
-</span><span class="c"></span>      Filesystem             Size  Used Avail Use% Mounted on
-      dev                     16G     0   16G   0% /dev
-      run                     16G  1.2M   16G   1% /run
-      /dev/mapper/cryptroot  468G   27G  418G   6% /
-      tmpfs                   16G  187M   16G   2% /dev/shm
-      tmpfs                  4.0M     0  4.0M   0% /sys/fs/cgroup
-      tmpfs                   16G  2.4M   16G   1% /tmp
-      tmpfs                  3.2G  8.7M  3.1G   1% /run/user/1000
-<span class="c">    #+END_SRC</span>
-
-  <span class="k">* </span>Memory usage
-
-<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>      free -h
-<span class="c">    #+END_SRC</span>
-
-    #+RESULTS:
-<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
-</span><span class="c"></span>      total        used        free      shared  buff/cache   available
-      Mem:           31Gi       1.7Gi        25Gi       621Mi       3.8Gi        28Gi
-      Swap:            0B          0B          0B
-<span class="c">    #+END_SRC</span>
-
-  <span class="k">* </span>Network
-
-<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>      nmcli conn
-<span class="c">    #+END_SRC</span>
-
-    #+RESULTS:
-<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
-</span><span class="c"></span>      NAME                UUID                                  TYPE       DEVICE
-      iPhone              22f467bf-5d07-41d1-a394-a7b778c4ceb2  wifi       wlp0s20f3
-      integrity_vpn       da1a14fe-ba3e-4251-bc98-03d604ec4fe0  wireguard  integrity_vpn
-<span class="c">    #+END_SRC</span>
-
-  <span class="k">* </span>System time
-
-<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>      date
-<span class="c">    #+END_SRC</span>
-
-    #+RESULTS:
-<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
-</span><span class="c"></span>      Sun Oct 11 09:06:42 PM CEST 2020
-<span class="c">    #+END_SRC</span>
-
-  <span class="k">* </span>System uptime
-
-<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>      uptime
-<span class="c">    #+END_SRC</span>
-
-    #+RESULTS:
-<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
-</span><span class="c"></span>      21:06:42 up 1 day,  2:26,  1 user,  load average: 0.56, 0.63, 0.58
-<span class="c">    #+END_SRC</span>
-
-  <span class="k">* </span>System kernel
-
-<span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>      uname -a
-<span class="c">    #+END_SRC</span>
-
-    #+RESULTS:
-<span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
-</span><span class="c"></span>      Linux arch 5.8.14-arch1-1 #1 SMP PREEMPT Wed, 07 Oct 2020 23:59:46 +0000 x86_64 GNU/Linux
-<span class="c">    #+END_SRC</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl">  #+TITLE: Daily system report
+</span></span><span class="line"><span class="cl">  #+DATE: 10-11-2020 21:06:41
+</span></span><span class="line"><span class="cl">  #+STARTUP: overview
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">* </span>Disk usage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      df -h
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      Filesystem             Size  Used Avail Use% Mounted on
+</span></span><span class="line"><span class="cl">      dev                     16G     0   16G   0% /dev
+</span></span><span class="line"><span class="cl">      run                     16G  1.2M   16G   1% /run
+</span></span><span class="line"><span class="cl">      /dev/mapper/cryptroot  468G   27G  418G   6% /
+</span></span><span class="line"><span class="cl">      tmpfs                   16G  187M   16G   2% /dev/shm
+</span></span><span class="line"><span class="cl">      tmpfs                  4.0M     0  4.0M   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">      tmpfs                   16G  2.4M   16G   1% /tmp
+</span></span><span class="line"><span class="cl">      tmpfs                  3.2G  8.7M  3.1G   1% /run/user/1000
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">* </span>Memory usage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      free -h
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      total        used        free      shared  buff/cache   available
+</span></span><span class="line"><span class="cl">      Mem:           31Gi       1.7Gi        25Gi       621Mi       3.8Gi        28Gi
+</span></span><span class="line"><span class="cl">      Swap:            0B          0B          0B
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">* </span>Network
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      nmcli conn
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      NAME                UUID                                  TYPE       DEVICE
+</span></span><span class="line"><span class="cl">      iPhone              22f467bf-5d07-41d1-a394-a7b778c4ceb2  wifi       wlp0s20f3
+</span></span><span class="line"><span class="cl">      integrity_vpn       da1a14fe-ba3e-4251-bc98-03d604ec4fe0  wireguard  integrity_vpn
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">* </span>System time
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      date
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      Sun Oct 11 09:06:42 PM CEST 2020
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">* </span>System uptime
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      uptime
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      21:06:42 up 1 day,  2:26,  1 user,  load average: 0.56, 0.63, 0.58
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">* </span>System kernel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      uname -a
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    #+RESULTS:
+</span></span><span class="line"><span class="cl"><span class="c">    #+BEGIN_SRC </span><span class="cs">text</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>      Linux arch 5.8.14-arch1-1 #1 SMP PREEMPT Wed, 07 Oct 2020 23:59:46 +0000 x86_64 GNU/Linux
+</span></span><span class="line"><span class="cl"><span class="c">    #+END_SRC</span></span></span></code></pre></div>
 </div>
 </div>
 </div>

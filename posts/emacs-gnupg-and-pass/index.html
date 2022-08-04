@@ -7,7 +7,7 @@
 <title>Emacs, GnuPG and Pass | jherrlin</title>
 
 <meta property='og:title' content='Emacs, GnuPG and Pass - jherrlin'>
-<meta property='og:description' content='Intro   This post is the first out of two about GnuPG, password management, email, signing and encrypting emails and git commit signing. As always with a helping hand from Emacs. As the posts cover a lot of ground step by step instructions are not desirable. Links to more detailed resources can be found in each section. The main goal is to provide a quick but informative overview and give inspiration for further research.'>
+<meta property='og:description' content='Intro This post is the first out of two about GnuPG, password management, email, signing and encrypting emails and git commit signing. As always with a helping hand from Emacs. As the posts cover a lot of ground step by step instructions are not desirable. Links to more detailed resources can be found in each section. The main goal is to provide a quick but informative overview and give inspiration for further research.'>
 <meta property='og:url' content='https://jherrlin.github.io/posts/emacs-gnupg-and-pass/'>
 <meta property='og:site_name' content='jherrlin'>
 <meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/4bc4e51875ff5d86326b676d50864a2c?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='emacs'><meta property='article:tag' content='gnugp'><meta property='article:tag' content='git'><meta property='article:tag' content='pass'><meta property='article:tag' content='encryption'><meta property='article:published_time' content='2020-07-10T15:00:00&#43;02:00'/><meta property='article:modified_time' content='2020-07-10T15:00:00&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@jherrlin'><meta name='twitter:creator' content='@jherrlin'>
@@ -146,21 +146,11 @@ Intro
 <p>
   The layout of the post:</p>
 <ul>
-<li>
-<p>Environment; versions of the software.</p>
-</li>
-<li>
-<p>GnuGP; how to generate keys and sub key, pinentry, backups.</p>
-</li>
-<li>
-<p>Git; how to config git to sign with the gpg sub key.</p>
-</li>
-<li>
-<p>Pass; init password store, some basic commands and a quick mention about browserpass.</p>
-</li>
-<li>
-<p>Emacs pass mode; quick view of how to config Emacs to use it with <code class="verbatim">pass</code>.</p>
-</li>
+<li>Environment; versions of the software.</li>
+<li>GnuGP; how to generate keys and sub key, pinentry, backups.</li>
+<li>Git; how to config git to sign with the gpg sub key.</li>
+<li>Pass; init password store, some basic commands and a quick mention about browserpass.</li>
+<li>Emacs pass mode; quick view of how to config Emacs to use it with <code class="verbatim">pass</code>.</li>
 </ul>
 <p>If things are unclear, please contact me via twitter!</p>
 </div>
@@ -180,14 +170,14 @@ Operating system
 <p>
    <a href="https://www.archlinux.org/">Arch Linux</a></p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  uname -a
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>Linux arch 5.7.7-arch1-1 <span class="c1">#1 SMP PREEMPT Wed, 01 Jul 2020 14:53:16 +0000 x86_64 GNU/Linux</span>
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  uname -a
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>Linux arch 5.7.7-arch1-1 <span class="c1">#1 SMP PREEMPT Wed, 01 Jul 2020 14:53:16 +0000 x86_64 GNU/Linux</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -197,19 +187,19 @@ GnuPG
 </h3>
 <div id="outline-text-headline-4" class="outline-text-3">
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  gpg --version
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.20
-libgcrypt 1.8.5
-Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2020</span> Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version <span class="m">3</span> or later &lt;https://gnu.org/licenses/gpl.html&gt;
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  gpg --version
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.20
+</span></span><span class="line"><span class="cl">libgcrypt 1.8.5
+</span></span><span class="line"><span class="cl">Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2020</span> Free Software Foundation, Inc.
+</span></span><span class="line"><span class="cl">License GPLv3+: GNU GPL version <span class="m">3</span> or later &lt;https://gnu.org/licenses/gpl.html&gt;
+</span></span><span class="line"><span class="cl">This is free software: you are free to change and redistribute it.
+</span></span><span class="line"><span class="cl">There is NO WARRANTY, to the extent permitted by law.
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -219,23 +209,23 @@ Pass
 </h3>
 <div id="outline-text-headline-5" class="outline-text-3">
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  pass --version
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span><span class="o">============================================</span>
-<span class="o">=</span> pass: the standard unix password <span class="nv">manager</span> <span class="o">=</span>
-<span class="o">=</span>                                          <span class="o">=</span>
-<span class="o">=</span>                  v1.7.3                  <span class="o">=</span>
-<span class="o">=</span>                                          <span class="o">=</span>
-<span class="o">=</span>             Jason A. <span class="nv">Donenfeld</span>           <span class="o">=</span>
-<span class="o">=</span>               Jason@zx2c4.com            <span class="o">=</span>
-<span class="o">=</span>                                          <span class="o">=</span>
-<span class="o">=</span>      http://www.passwordstore.org/       <span class="o">=</span>
-<span class="o">============================================</span>
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  pass --version
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="o">============================================</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span> pass: the standard unix password <span class="nv">manager</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>                                          <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>                  v1.7.3                  <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>                                          <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>             Jason A. <span class="nv">Donenfeld</span>           <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>               Jason@zx2c4.com            <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>                                          <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>      http://www.passwordstore.org/       <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="o">============================================</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -245,19 +235,19 @@ Emacs
 </h3>
 <div id="outline-text-headline-6" class="outline-text-3">
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  emacs --version
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>GNU Emacs 26.3
-Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2019</span> Free Software Foundation, Inc.
-GNU Emacs comes with ABSOLUTELY NO WARRANTY.
-You may redistribute copies of GNU Emacs
-under the terms of the GNU General Public License.
-For more information about these matters, see the file named COPYING.
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  emacs --version
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>GNU Emacs 26.3
+</span></span><span class="line"><span class="cl">Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2019</span> Free Software Foundation, Inc.
+</span></span><span class="line"><span class="cl">GNU Emacs comes with ABSOLUTELY NO WARRANTY.
+</span></span><span class="line"><span class="cl">You may redistribute copies of GNU Emacs
+</span></span><span class="line"><span class="cl">under the terms of the GNU General Public License.
+</span></span><span class="line"><span class="cl">For more information about these matters, see the file named COPYING.
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -287,21 +277,11 @@ Intro
 <p>
    More details about GnuPG keys and sub keys can be found here:</p>
 <ul>
-<li>
-<p><a href="https://keyring.debian.org/creating-key.html">https://keyring.debian.org/creating-key.html</a></p>
-</li>
-<li>
-<p><a href="https://ekaia.org/blog/2009/05/10/creating-new-gpgkey/">https://ekaia.org/blog/2009/05/10/creating-new-gpgkey/</a></p>
-</li>
-<li>
-<p><a href="https://wiki.debian.org/Subkeys">https://wiki.debian.org/Subkeys</a></p>
-</li>
-<li>
-<p><a href="https://wiki.archlinux.org/index.php/GnuPG">https://wiki.archlinux.org/index.php/GnuPG</a></p>
-</li>
-<li>
-<p><a href="https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html">https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html</a></p>
-</li>
+<li><a href="https://keyring.debian.org/creating-key.html">https://keyring.debian.org/creating-key.html</a></li>
+<li><a href="https://ekaia.org/blog/2009/05/10/creating-new-gpgkey/">https://ekaia.org/blog/2009/05/10/creating-new-gpgkey/</a></li>
+<li><a href="https://wiki.debian.org/Subkeys">https://wiki.debian.org/Subkeys</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/GnuPG">https://wiki.archlinux.org/index.php/GnuPG</a></li>
+<li><a href="https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html">https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html</a></li>
 </ul>
 </div>
 </div>
@@ -313,7 +293,7 @@ Install
 <p>
    GnuPG on Arch. Together with gpg a collection of pinentry tools is installed.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pacman -S gnupg</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pacman -S gnupg</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -325,16 +305,16 @@ Config files
 <p>
    Before start generating keys, make sure that you have this config file in place.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  cat ~/.gnupg/gpg.conf
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>personal-digest-preferences SHA256
-cert-digest-algo SHA256
-default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  cat ~/.gnupg/gpg.conf
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>personal-digest-preferences SHA256
+</span></span><span class="line"><span class="cl">cert-digest-algo SHA256
+</span></span><span class="line"><span class="cl">default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -350,27 +330,27 @@ Create keys
    Start by creating a master key. This key should never expire and it&#39;s super important
    that you keep the master key safe. Bake sure to create a backup and store it offline.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --full-gen-key
-Select keys: RSA and RSA
-Select keys size: <span class="m">4096</span>
-Valid <span class="k">for</span>: <span class="k">do</span> not expire</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gpg --full-gen-key
+</span></span><span class="line"><span class="cl">Select keys: RSA and RSA
+</span></span><span class="line"><span class="cl">Select keys size: <span class="m">4096</span>
+</span></span><span class="line"><span class="cl">Valid <span class="k">for</span>: <span class="k">do</span> not expire</span></span></code></pre></div>
 </div>
 <p>
    Together with the master key, a sub key for encryption is also created. List the keys
    including sub key fingerprints.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --list-secret-keys --with-subkey-fingerprint</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gpg --list-secret-keys --with-subkey-fingerprint</span></span></code></pre></div>
 </div>
 <p>
    Change the expire time of the encryption sub key to 1 year. This means that you every
    year need to generate a new encryption subkey from the master key.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --edit-key &lt;MASTER KEY FINGERPRINT&gt;
-key &lt;EXISTING ENCRYPT SUB KEY FINGERPRINT&gt;
-expire
-1y
-...
-save</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gpg --edit-key &lt;MASTER KEY FINGERPRINT&gt;
+</span></span><span class="line"><span class="cl">key &lt;EXISTING ENCRYPT SUB KEY FINGERPRINT&gt;
+</span></span><span class="line"><span class="cl">expire
+</span></span><span class="line"><span class="cl">1y
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">save</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -383,13 +363,13 @@ Add sub key
    This sub key will only be used for signing. After one year it will expire and a new one
    needs to be created from the master key.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --edit-key &lt;MASTER KEY FINGERPRINT&gt;
-addkey
-Key:       RSA <span class="o">(</span>sign only<span class="o">)</span>
-Key size:  <span class="m">4096</span>
-Valid <span class="k">for</span>: 1y
-...
-save</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gpg --edit-key &lt;MASTER KEY FINGERPRINT&gt;
+</span></span><span class="line"><span class="cl">addkey
+</span></span><span class="line"><span class="cl">Key:       RSA <span class="o">(</span>sign only<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Key size:  <span class="m">4096</span>
+</span></span><span class="line"><span class="cl">Valid <span class="k">for</span>: 1y
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">save</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -401,7 +381,7 @@ Backup
 <p>
    Create backup and store some place safe!</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">umask</span> 077<span class="p">;</span> tar -cf <span class="nv">$HOME</span>/gnupg-backup.tar -C <span class="nv">$HOME</span> .gnupg</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">umask</span> 077<span class="p">;</span> tar -cf <span class="nv">$HOME</span>/gnupg-backup.tar -C <span class="nv">$HOME</span> .gnupg</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -418,17 +398,17 @@ Pinentry
 <p>
    This is the gpg-agent config that tells it to use Emacs for pinentry:</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  cat ~/.gnupg/gpg-agent.conf
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>default-cache-ttl <span class="m">3600</span>
-allow-loopback-pinentry
-pinentry-program /usr/bin/pinentry-emacs
-allow-emacs-pinentry
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  cat ~/.gnupg/gpg-agent.conf
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>default-cache-ttl <span class="m">3600</span>
+</span></span><span class="line"><span class="cl">allow-loopback-pinentry
+</span></span><span class="line"><span class="cl">pinentry-program /usr/bin/pinentry-emacs
+</span></span><span class="line"><span class="cl">allow-emacs-pinentry
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 <p>
    When gpg need you to provide a passphrase to access gpg resources, it will ask in
@@ -437,20 +417,20 @@ allow-emacs-pinentry
    Here is the list of pinentry applications provided by my current Arch GnuPG
    installation:</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  pacman -Ql pinentry <span class="p">|</span> awk <span class="s1">&#39;{ print $2}&#39;</span> <span class="p">|</span> grep bin/pin
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span>/usr/bin/pinentry
-/usr/bin/pinentry-curses
-/usr/bin/pinentry-emacs
-/usr/bin/pinentry-gnome3
-/usr/bin/pinentry-gtk-2
-/usr/bin/pinentry-qt
-/usr/bin/pinentry-tty
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  pacman -Ql pinentry <span class="p">|</span> awk <span class="s1">&#39;{ print $2}&#39;</span> <span class="p">|</span> grep bin/pin
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>/usr/bin/pinentry
+</span></span><span class="line"><span class="cl">/usr/bin/pinentry-curses
+</span></span><span class="line"><span class="cl">/usr/bin/pinentry-emacs
+</span></span><span class="line"><span class="cl">/usr/bin/pinentry-gnome3
+</span></span><span class="line"><span class="cl">/usr/bin/pinentry-gtk-2
+</span></span><span class="line"><span class="cl">/usr/bin/pinentry-qt
+</span></span><span class="line"><span class="cl">/usr/bin/pinentry-tty
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 <div id="outline-container-headline-15" class="outline-4">
 <h4 id="headline-15">
@@ -464,57 +444,57 @@ Emacs
     Here are the things related to run Emacs as server and to use the <code class="verbatim">pinentry</code> Emacs
     package.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  cat ~/.config/systemd/user/emacs.service
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span><span class="o">[</span>Unit<span class="o">]</span>
-<span class="nv">Description</span><span class="o">=</span>Emacs text editor
-<span class="nv">Documentation</span><span class="o">=</span>info:emacs man:emacs<span class="o">(</span>1<span class="o">)</span> https://gnu.org/software/emacs/
-
-<span class="o">[</span>Service<span class="o">]</span>
-<span class="nv">Type</span><span class="o">=</span>simple
-<span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/emacs --fg-daemon --debug-init
-<span class="nv">ExecStop</span><span class="o">=</span>/usr/bin/emacsclient --eval <span class="s2">&#34;(kill-emacs)&#34;</span>
-<span class="nv">Environment</span><span class="o">=</span><span class="nv">SSH_AUTH_SOCK</span><span class="o">=</span>%t/keyring/ssh
-<span class="nv">Restart</span><span class="o">=</span>on-failure
-
-<span class="o">[</span>Install<span class="o">]</span>
-<span class="nv">WantedBy</span><span class="o">=</span>default.target
-<span class="c">#+end_src</span>
-
-<span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  cat ~/.bin/start-emacs
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span><span class="cp">#!/bin/bash
-</span><span class="cp"></span>emacsclient -nc
-<span class="c">#+end_src</span>
-
-<span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  systemctl --user status emacs.service  <span class="c1"># Service status</span>
-  systemctl --user <span class="nb">enable</span> emacs.service  <span class="c1"># Start service on boot</span>
-  systemctl --user start emacs.service   <span class="c1"># Start service</span>
-  systemctl --user stop emacs.service    <span class="c1"># Stop service</span>
-  journalctl --user -u emacs.service     <span class="c1"># Service stdout</span>
-<span class="c">#+END_SRC</span>
-
-<span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  cat ~/.emacs.d/packages.el <span class="p">|</span> awk <span class="s1">&#39;NR==7,NR==11&#39;</span>
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span><span class="o">(</span>use-package pinentry
-  :pin melpa
-  :config
-  <span class="o">(</span>setf epa-pinentry-mode <span class="err">&#39;</span>loopback<span class="o">)</span>
-  <span class="o">(</span>pinentry-start<span class="o">))</span>
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  cat ~/.config/systemd/user/emacs.service
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="o">[</span>Unit<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Description</span><span class="o">=</span>Emacs text editor
+</span></span><span class="line"><span class="cl"><span class="nv">Documentation</span><span class="o">=</span>info:emacs man:emacs<span class="o">(</span>1<span class="o">)</span> https://gnu.org/software/emacs/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Type</span><span class="o">=</span>simple
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/emacs --fg-daemon --debug-init
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStop</span><span class="o">=</span>/usr/bin/emacsclient --eval <span class="s2">&#34;(kill-emacs)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="nv">SSH_AUTH_SOCK</span><span class="o">=</span>%t/keyring/ssh
+</span></span><span class="line"><span class="cl"><span class="nv">Restart</span><span class="o">=</span>on-failure
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Install<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">WantedBy</span><span class="o">=</span>default.target
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  cat ~/.bin/start-emacs
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>emacsclient -nc
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  systemctl --user status emacs.service  <span class="c1"># Service status</span>
+</span></span><span class="line"><span class="cl">  systemctl --user <span class="nb">enable</span> emacs.service  <span class="c1"># Start service on boot</span>
+</span></span><span class="line"><span class="cl">  systemctl --user start emacs.service   <span class="c1"># Start service</span>
+</span></span><span class="line"><span class="cl">  systemctl --user stop emacs.service    <span class="c1"># Stop service</span>
+</span></span><span class="line"><span class="cl">  journalctl --user -u emacs.service     <span class="c1"># Service stdout</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  cat ~/.emacs.d/packages.el <span class="p">|</span> awk <span class="s1">&#39;NR==7,NR==11&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="o">(</span>use-package pinentry
+</span></span><span class="line"><span class="cl">  :pin melpa
+</span></span><span class="line"><span class="cl">  :config
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>setf epa-pinentry-mode <span class="err">&#39;</span>loopback<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>pinentry-start<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -532,12 +512,12 @@ keys -&gt; qr code
 <p>
    The qr codes can also be printed and kept in a safe as a secure backup.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /tmp/keys-export <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nv">$_</span>
-gpg --export-secret-keys --armor &lt;SUB KEY FINGERPRINT&gt; &gt; sub.key
-split -C <span class="m">2500</span> sub.key splitkey-
-<span class="k">for</span> file in splitkey-??<span class="p">;</span> <span class="k">do</span> &lt;<span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span> qrencode -s <span class="m">3</span> -d <span class="m">150</span> -o <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span>.qr<span class="p">;</span> <span class="k">done</span>
-display -delay <span class="m">50</span> *.qr
-<span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> rm -rf keys-export</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir -p /tmp/keys-export <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nv">$_</span>
+</span></span><span class="line"><span class="cl">gpg --export-secret-keys --armor &lt;SUB KEY FINGERPRINT&gt; &gt; sub.key
+</span></span><span class="line"><span class="cl">split -C <span class="m">2500</span> sub.key splitkey-
+</span></span><span class="line"><span class="cl"><span class="k">for</span> file in splitkey-??<span class="p">;</span> <span class="k">do</span> &lt;<span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span> qrencode -s <span class="m">3</span> -d <span class="m">150</span> -o <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span>.qr<span class="p">;</span> <span class="k">done</span>
+</span></span><span class="line"><span class="cl">display -delay <span class="m">50</span> *.qr
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> rm -rf keys-export</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -553,37 +533,37 @@ Git
 <p>
   First, get the fingerprint of your signing key.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --list-secret-keys --with-subkey-fingerprint</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gpg --list-secret-keys --with-subkey-fingerprint</span></span></code></pre></div>
 </div>
 <p>
   Then tell git to gpg sign commits and what sub key fingerprint to use when doing so. It
   should be a &#39;!&#39; in the end of the fingerprint. It tells gpg that it&#39;s a sub key.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">git config --global commit.gpgSign <span class="nb">true</span>
-git config --global user.signingKey &lt;SIGN SUBKEY FINGERPRINT&gt;<span class="se">\!</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git config --global commit.gpgSign <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">git config --global user.signingKey &lt;SIGN SUBKEY FINGERPRINT&gt;<span class="se">\!</span></span></span></code></pre></div>
 </div>
 <p>
   Lets see how the git config looks like.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  cat ~/.gitconfig
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span><span class="o">[</span>user<span class="o">]</span>
-        <span class="nv">email</span> <span class="o">=</span> jherrlin@gmail.com
-        <span class="nv">name</span> <span class="o">=</span> John Herrlin
-        <span class="nv">signingKey</span> <span class="o">=</span> 6699DFA319365AAD1CE757040EE8540AE7F042B2!
-<span class="o">[</span>commit<span class="o">]</span>
-        <span class="nv">gpgSign</span> <span class="o">=</span> <span class="nb">true</span>
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  cat ~/.gitconfig
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="o">[</span>user<span class="o">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">email</span> <span class="o">=</span> jherrlin@gmail.com
+</span></span><span class="line"><span class="cl">        <span class="nv">name</span> <span class="o">=</span> John Herrlin
+</span></span><span class="line"><span class="cl">        <span class="nv">signingKey</span> <span class="o">=</span> 6699DFA319365AAD1CE757040EE8540AE7F042B2!
+</span></span><span class="line"><span class="cl"><span class="o">[</span>commit<span class="o">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">gpgSign</span> <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 <p>
   Export your public sign sub key to provide it to a git hosting platform like GitHub or
   Bitbucket. Or to your colleagues.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gpg --export --armor 6699DFA319365AAD1CE757040EE8540AE7F042B2 &gt; /tmp/public-sign.key</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gpg --export --armor 6699DFA319365AAD1CE757040EE8540AE7F042B2 &gt; /tmp/public-sign.key</span></span></code></pre></div>
 </div>
 <p>
   From now on all of your git commits are signed with your private sign sub key. Now
@@ -604,18 +584,10 @@ Pass
 <p>
   Here are a couple of resources for <code class="verbatim">pass</code>.</p>
 <ul>
-<li>
-<p><a href="https://www.passwordstore.org/">https://www.passwordstore.org/</a></p>
-</li>
-<li>
-<p><a href="https://github.com/browserpass/browserpass-native">https://github.com/browserpass/browserpass-native</a></p>
-</li>
-<li>
-<p><a href="https://github.com/browserpass/browserpass-extension">https://github.com/browserpass/browserpass-extension</a></p>
-</li>
-<li>
-<p><a href="https://lists.zx2c4.com/pipermail/password-store/2018-January/003178.html">https://lists.zx2c4.com/pipermail/password-store/2018-January/003178.html</a></p>
-</li>
+<li><a href="https://www.passwordstore.org/">https://www.passwordstore.org/</a></li>
+<li><a href="https://github.com/browserpass/browserpass-native">https://github.com/browserpass/browserpass-native</a></li>
+<li><a href="https://github.com/browserpass/browserpass-extension">https://github.com/browserpass/browserpass-extension</a></li>
+<li><a href="https://lists.zx2c4.com/pipermail/password-store/2018-January/003178.html">https://lists.zx2c4.com/pipermail/password-store/2018-January/003178.html</a></li>
 </ul>
 <div id="outline-container-headline-19" class="outline-3">
 <h3 id="headline-19">
@@ -625,10 +597,10 @@ Install pass and browser extensions
 <p>
    On Arch, all of the packages are in the repo.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pacman -S pass browserpass browserpass-chromium</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pacman -S pass browserpass browserpass-chromium</span></span></code></pre></div>
 </div>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"></code></pre></div>
 </div>
 </div>
 </div>
@@ -640,8 +612,8 @@ Init pass
 <p>
    Create a new store and provide your gpg id. Pass also have built in support for git.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pass init &lt;ENCRYPT SUB KEY FINGERPRINT&gt;!
-pass git init</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pass init &lt;ENCRYPT SUB KEY FINGERPRINT&gt;!
+</span></span><span class="line"><span class="cl">pass git init</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -653,7 +625,7 @@ Insert new pass
 <p>
    Add a password to the password store.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pass insert fsf.org</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pass insert fsf.org</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -665,7 +637,7 @@ Retrieve password
 <p>
    Get the password to stdout.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pass show fsf.org</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pass show fsf.org</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -677,7 +649,7 @@ More
 <p>
    <code class="verbatim">pass</code> have many more options, check them out.</p>
 <div class="src src-shell">
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pass --help</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pass --help</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -701,17 +673,17 @@ Emacs pass mode
   There is a good Emacs package calls <code class="verbatim">pass</code>. I use <code class="verbatim">use-package</code> to install it. To enter
   <code class="verbatim">pass</code> within Emacs use <code class="verbatim">M-x pass</code>.</p>
 <div class="src src-org">
-<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
-</span><span class="c"></span>  cat ~/.emacs.d/packages.el <span class="p">|</span> awk <span class="s1">&#39;NR==13,NR==16&#39;</span>
-<span class="c">#+END_SRC</span>
-
-<span class="cs">#+RESULTS</span><span class="c">:</span>
-<span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
-</span><span class="c"></span><span class="o">(</span>use-package pass
-  :pin melpa
-  :config
-  <span class="o">(</span>setf epa-pinentry-mode <span class="err">&#39;</span>loopback<span class="o">))</span>
-<span class="c">#+end_src</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">#+BEGIN_SRC </span><span class="cs">shell</span><span class="c"> :results output code
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  cat ~/.emacs.d/packages.el <span class="p">|</span> awk <span class="s1">&#39;NR==13,NR==16&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+END_SRC</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cs">#+RESULTS</span><span class="c">:</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+begin_src </span><span class="cs">shell</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="o">(</span>use-package pass
+</span></span><span class="line"><span class="cl">  :pin melpa
+</span></span><span class="line"><span class="cl">  :config
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>setf epa-pinentry-mode <span class="err">&#39;</span>loopback<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="c">#+end_src</span></span></span></code></pre></div>
 </div>
 </div>
 </div>
