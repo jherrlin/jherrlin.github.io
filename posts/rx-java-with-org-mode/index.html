@@ -270,7 +270,7 @@ range
    very basic usage of the <code class="verbatim">range</code> operator.</p>
 <div class="src src-org">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-org" data-lang="org"><span class="line"><span class="cl"><span class="c">  #+BEGIN_SRC </span><span class="cs">java</span><span class="c">
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="n">Observable</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="n">3</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    <span class="n">Observable</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  #+RESULTS:
@@ -389,12 +389,12 @@ zip
 </span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Tenant</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">            <span class="kd">public</span> <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="nf">getTenantId</span><span class="o">(){</span>
 </span></span><span class="line"><span class="cl">                                     <span class="c1">// Simulate network latency
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="n">456123L</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="mi">456123L</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">            <span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">            <span class="kd">public</span> <span class="kd">static</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getTenantName</span><span class="o">(){</span>
 </span></span><span class="line"><span class="cl">                                             <span class="c1">// Simulate network latency
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="s">&#34;myCamelCompany&#34;</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">return</span> <span class="n">just</span><span class="o">(</span><span class="s">&#34;myCamelCompany&#34;</span><span class="o">).</span><span class="na">delay</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">            <span class="o">}</span>
 </span></span><span class="line"><span class="cl">        <span class="o">}</span>
 </span></span><span class="line"><span class="cl">
@@ -407,7 +407,7 @@ zip
 </span></span><span class="line"><span class="cl">                <span class="o">}).</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Let&#39;s go!&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">3</span><span class="o">);</span> <span class="c1">// Dont quit just yet!
+</span></span><span class="line"><span class="cl">            <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span> <span class="c1">// Dont quit just yet!
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="c">  #+END_SRC</span>

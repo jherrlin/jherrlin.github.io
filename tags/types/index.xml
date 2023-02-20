@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>types on jherrlin</title>
+    <link>https://jherrlin.github.io/tags/types/</link>
+    <description>Recent content in types on jherrlin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Feb 2023 16:00:00 +0200</lastBuildDate><atom:link href="https://jherrlin.github.io/tags/types/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Error handling with Either</title>
+      <link>https://jherrlin.github.io/posts/error-handling-with-either/</link>
+      <pubDate>Mon, 20 Feb 2023 16:00:00 +0200</pubDate>
+      
+      <guid>https://jherrlin.github.io/posts/error-handling-with-either/</guid>
+      <description>TLDR Either is either Left or Right with values inside. Either is a union type. It&amp;#39;s a concept that is language agnostic. It&amp;#39;s right biased. Left is used to transport/represent errors. Right is used to transport/represent the successful data. =flatMap= and =map= are used to chain them together. bind is sugar over =flatMap= and =map= to make the code more sequential and easier to read. It short circuits if it gets a Left.</description>
+    </item>
+    
+  </channel>
+</rss>
